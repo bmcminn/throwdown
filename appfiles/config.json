@@ -1,0 +1,18 @@
+{
+
+  "blog_name": "My Test Blog"
+, "localhost": "blog.dev"
+, "remotesite": "http://giggleboxstudios.net/"
+
+
+, "twitter": {
+    "username": "brandtleymcminn"
+  , "password": ""
+  }
+
+, "facebook": {
+
+  }
+
+, "cache_contents": false
+}
