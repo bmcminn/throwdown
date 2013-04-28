@@ -1,4 +1,4 @@
-FlapJax (Alpha)
+Throwdown (Alpha)
 ===============
 
 Simple blogging for the tinkers out there.
@@ -12,7 +12,7 @@ Introduction:
 
 If you've made it this far, please read on in the voice of Cave Johnson, because it makes documentation SO much more fun to read :)
 
-I wrote FlapJax as a way to prove to myself how far I've come as a PHP developer since I started programming back in 2006.
+I wrote Throwdown as a way to prove to myself how far I've come as a PHP developer and software designer since I started programming back in 2006.
 
 It's based entirely on my biased opinions of how a proper blogging software should function. That being said, I would like to inform you that this software:
 
@@ -20,7 +20,6 @@ It's based entirely on my biased opinions of how a proper blogging software shou
 2. is not for everyone (again, it's [totally biased](http://www.fxnetworks.com/totallybiased)),
 3. is not a CMS... it's a CDA... there's a difference.
 
-CMS... it's a CDA...
 *[CMS]: Content Management System
 *[CDA]: Content Delivery Application
 
