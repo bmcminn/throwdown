@@ -6,6 +6,7 @@
   include_once('app/libs/eden/eden.php');
   include_once('app/libs/phpQuery/phpQuery.php');
 
+
   // INCLUDE HELPER LIBS
   require_once('app/_helpers.php');
   require_once('app/_articles.php');
@@ -16,22 +17,43 @@
   include_once('app/libs/markdown/markdown.php');
 
 
+  $APP_CONFIG = json_decode(readFileContents('config.json'));
+
+
+
+// ===================================
+//  RUN INSTALL IF WE HAVEN'T ALREADY
+// ===================================
+
+  $newstart           = __DIR__ . '/install.php';
+  $newstartDuplicate  = __DIR__ . '/app/install.php';
+
+  if (file_exists($newstart) && is_readable($newstart)) {
+    if (file_exists($newstartDuplicate)) {
+      unlink($newstart);
+
+    } else {
+      include_once($newstart);
+      exit; // cancel the party
+
+    } // if (file_exists() && is_readable()) { ... }
+  }
+
+
 // ===================================
 //  BEGIN BLOG APP
 // ===================================
 
 
 
-  $APP_CONFIG =  json_decode(readFileContents('config.json'));
+  // if ($_GET) {
+  //   print_r($_GET);
+  // }
 
-
-  print_r($_GET);
 
   if (isset($_GET['article'])) {
-    $articleName = $_GET['article'];
-
-    $fileData = getArticle($articleName);
-
+    $articleName  = $_GET['article'];
+    $fileData     = getArticle($articleName);
     $fileContents = readFileContents($fileData->location);
 
     echo Markdown($fileContents);

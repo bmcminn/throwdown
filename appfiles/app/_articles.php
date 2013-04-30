@@ -24,7 +24,6 @@
     $articleMeta = readFileContents(ARTICLES_CACHE_FILE);
     $article = json_decode($articleMeta);
 
-
     return $article->articles->$name;
   }
 

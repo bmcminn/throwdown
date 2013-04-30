@@ -3,6 +3,20 @@
   require_once('_config.php');
 
 
+  function checkYoConfig($option_name) {
+
+    echo  "<p class=\"td-notice\">"
+        . "Hey Partner!,<br>you need to set $option_name in your <code>config.json</code> file."
+        . "</p><!-- .td-notice -->"
+        ;
+
+    return false;
+
+    exit;
+  }
+
+
+
 
 // ========================================
 //   OBJECT HELPER FUNCTIONS
