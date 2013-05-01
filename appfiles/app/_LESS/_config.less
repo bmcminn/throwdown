@@ -1,0 +1,141 @@
+
+// Colors Definitions
+@white:         #fff;
+@light-gray:    #999;
+@gray:          #666;
+@black:         #333;
+
+@trans:         transparent;
+
+// Custom Colors Defintions
+
+
+/**
+ * Be nice and share your color swatches ;)
+ *
+ *   // Basic colors
+ *   white:           #fff;
+ *   light-gray:      #ccc;
+ *   gray:            #666;
+ *   black:           #333;
+ *
+ *   // Custom Colors Defintions
+ *   EXAMPLEgreen:    #8cc63f
+ */
+
+
+
+// MAX TEMPLATE WIDTH
+@max-width:       960px;
+
+
+
+// ========== IMAGE DIRECTORIES ========== //
+
+.app(@imgname)   { background-image: url('@{images}socialstore/@{imgname}'); }
+
+
+
+// ========== FONTS ========== //
+@fonts:           'fonts/';
+
+.fontface(@font-alias, @file-name, @fontweight: normal, @fontstyle: normal) {
+  @font-face {
+    font-family: '@{font-alias}';
+    src: url('@{fonts}@{font-alias}/@{file-name}.eot');
+    src: url('@{fonts}@{font-alias}/@{file-name}.eot?#iefix') format('embedded-opentype'),
+         url('@{fonts}@{font-alias}/@{file-name}.svg') format('svg'),
+         url('@{fonts}@{font-alias}/@{file-name}.ttf') format('truetype');
+    font-weight: @fontweight;
+    font-style: @fontstyle;
+  }
+}
+
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro:400,600);
+
+// ----- @FONT-FACE HERE ----- //
+// .fontface('fontalias', '-webfont', normal, normal);
+
+
+// ----- FONT ALIASES ----- //
+@sans:      'Source Sans Pro', sans-serif;
+@mono:      'Source Code Pro', monospace;
+
+@light:     300;
+@regular:   400;
+@bold:      600;
+
+
+// ========== Layout dimensions ========== //
+//
+// You may need to wrap each equation with floor()
+// if you're using raw pixel values.
+//
+// Use percentages for maximum flexibility
+//
+@full-size:      100%;
+
+@one-half:        @full-size   / 2;
+
+@one-third:       @full-size   / 3;
+@two-thirds:      @one-third    * 2;
+
+@one-fourth:      @full-size   / 4;
+@three-fourths:   @one-fourth   * 3;
+
+@one-fifth:       @full-size   / 5;
+@two-fifths:      @one-fifth    * 2;
+@three-fifths:    @one-fifth    * 3;
+@four-fifths:     @one-fifth    * 4;
+
+@one-sixth:       @full-size   / 6;
+@five-sixths:     @one-sixth    * 5;
+
+@one-seventh:     @full-size   / 7;
+@two-sevenths:    @one-seventh  * 2;
+@three-sevenths:  @one-seventh  * 3;
+@four-sevenths:   @one-seventh  * 4;
+@fifth-sevenths:  @one-seventh  * 5;
+@six-sevenths:    @one-seventh  * 6;
+
+@one-eighth:      @full-size   / 8;
+@three-eighths:   @one-eighth   * 3;
+@five-eighths:    @one-eighth   * 5;
+@seven-eighths:   @one-eighth   * 7;
+
+
+
+// ========== CUSTOM MIXINS ========== //
+.box-sizing(@size: border-box) {
+  -webkit-box-sizing: @size;
+  -moz-box-sizing: @size;
+  -ms-box-sizing: @size;
+  box-sizing: @size;
+}
+
+.box-shadow(@props) {
+  -webkit-box-shadow: @props;
+  box-shadow: @props;
+}
+
+.linear-gradient(@origin: top, @start: @white 0%, @end: #222 100%) {
+  background-image: -webkit-linear-gradient(@origin, @start, @end);
+  background-image: -moz-linear-gradient(@origin, @start, @end);
+  background-image: -ms-linear-gradient(@origin, @start, @end);
+  background-image: -o-linear-gradient(@origin, @start, @end);
+  background-image: linear-gradient(@origin, @start, @end);
+}
+
+.transition(@atts: all, @time: 0.3s, @easing: linear) {
+  -webkit-transition: @atts @time @easing;
+     -moz-transition: @atts @time @easing;
+      -ms-transition: @atts @time @easing;
+       -o-transition: @atts @time @easing;
+          transition: @atts @time @easing;
+}
+
+.font-smoothing(@smoothing: subpixel~'-'antialiased) {
+  -webkit-font-smoothing: @smoothing;
+  font-smoothing: @smoothing;
+}
+

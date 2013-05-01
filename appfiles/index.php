@@ -7,6 +7,7 @@
   include_once('app/libs/phpQuery/phpQuery.php');
 
 
+
   // INCLUDE HELPER LIBS
   require_once('app/_helpers.php');
   require_once('app/_articles.php');
@@ -25,19 +26,29 @@
 //  RUN INSTALL IF WE HAVEN'T ALREADY
 // ===================================
 
-  $newstart           = __DIR__ . '/install.php';
-  $newstartDuplicate  = __DIR__ . '/app/install.php';
+  $installScript        = __DIR__ . '/install.php';
+  $installScriptBackup  = __DIR__ . '/app/install.php';
 
-  if (file_exists($newstart) && is_readable($newstart)) {
-    if (file_exists($newstartDuplicate)) {
-      unlink($newstart);
+  if (file_exists($installScript) && is_readable($installScript)) {
 
+    // If the install script was backed up after install
+    //   remove the install.php script from __DIR__
+    if (file_exists($installScriptBackup)) {
+      unlink($installScript);
+
+    // Else if the install script was run and the
+    //   install flag is set move install.php to /app
+    } elseif (file_exists($installScript) && isset($APP_CONFIG->installed)) {
+      rename($installScript, $installScriptBackup);
+
+    // Else - run the install just like the first time
     } else {
-      include_once($newstart);
-      exit; // cancel the party
+      include_once($installScript);
+      exit; // cancel the rest of the party
 
     } // if (file_exists() && is_readable()) { ... }
   }
+
 
 
 // ===================================

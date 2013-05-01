@@ -1,0 +1,79 @@
+@import "_config";
+@import "_normalize";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  .font-smoothing;
+  background: @white;
+  font-size: 1em;
+  font-family: @sans;
+
+  &, * {
+    .box-sizing;
+  }
+}
+
+
+#message {
+  position: relative;
+  margin: 0 auto;
+  width: 600px;
+  font-size: 2.2rem;
+  text-align: justify;
+  color: @gray;
+
+  h1 {
+    color: @gray;
+    text-align: center;
+    font-weight: @light;
+    font-size: 5.9rem;
+  }
+
+  .config-form {
+
+    text-align: left;
+
+    label {
+      float: left;
+      width: 35%;
+      color: @light-gray;
+      padding: 0.6rem 1.5rem 0.6rem 0;
+      text-align: right;
+    }
+
+    label, input, textarea, select {
+      display: block;
+      margin: 1rem 0;
+      position: relative;
+
+    }
+
+
+    input, textarea, select {
+      float: right;
+      padding: 0.5rem;
+      width: 65%;
+      border: 1px solid @trans;
+      border-radius: 0.3rem;
+      .transition;
+
+      &:focus {
+        border: 1px solid @light-gray;
+        .transition;
+        outline: 0;
+      }
+    }
+
+    select {
+      border-radius: 0;
+    }
+
+    .submit-button {
+
+    }
+  }
+
+}

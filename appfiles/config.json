@@ -1,7 +1,7 @@
 {
 
   "blog_name": "My Test Blog"
-, "localhost": "blog.dev"
+, "localhost": "http://blog.dev"
 , "remotesite": "http://giggleboxstudios.net/"
 
 

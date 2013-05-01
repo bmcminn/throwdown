@@ -339,6 +339,10 @@ ServerSignature Off
   Deny from All
 </Files>
 
+<Files config.json>
+  Order Allow,Deny
+  Deny from All
+</Files>
 
 
 # ##############################################################################
