@@ -4,7 +4,7 @@ Throwdown (Alpha)
 Simple blogging for the tinkerers out there.
 
 _**Author:** [@brandtleymcminn](https://twitter.com/brandtleymcminn)_<br>
-_Last Updated: April 21, 2013_
+_Last Updated: May 1, 2013_
 
 
 Introduction:
@@ -135,6 +135,8 @@ CHANGELOG:
 
 ###MAY 2013
 - 05/01/2013
+    * Updated `install.php` to include some basic design and instructions.
+    * Added form markup to `install.php` -- implementing processing soon.
     * Updated README.md to reflect some updates in process and overall structure of the app.
 
 ###APRIL 2013
