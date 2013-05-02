@@ -148,7 +148,7 @@ CHANGELOG:
 
 ###MAY 2013
 - 05/02/2013
-    * Added a modified version of the [MIT](http://opensource.org/licenses/MIT and [Beerware](http://en.wikipedia.org/wiki/Beerware) licenses to the software. We're officially open-sourced :D
+    * Added a modified version of the [MIT](http://opensource.org/licenses/MIT) and [Beerware](http://en.wikipedia.org/wiki/Beerware) licenses to the software. We're officially open-sourced :D
 - 05/01/2013
     * Fixed `install.php` to properly setup `config.json` and remove install to the `/app` directory.
     * Updated `install.php` to include some basic design and instructions.
