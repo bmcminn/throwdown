@@ -123,6 +123,13 @@ Plugins are my way of giving you some kind of voice in this wacky system I built
 Will provide a mechanism to point your localhost instance at your remote server and "push" your local files to it. I think this would be simpler than issuing a deploy via git, but what do I know :P if you wanted to do that I'm sure you could figure it out.
 
 
+License
+-------
+
+See [LICENSE](https://github.com/GiggleboxStudios/Throwdown/blob/master/LICENSE)
+
+
+
 TODO:
 -----
 
@@ -140,7 +147,11 @@ CHANGELOG:
 ----------
 
 ###MAY 2013
+- 05/02/2013
+    * Added a modified version of the [MIT](http://opensource.org/licenses/MIT) and [Beerware](http://en.wikipedia.org/wiki/Beerware) licenses to the software. We're officially open-sourced :D
+
 - 05/01/2013
+    * Fixed `install.php` to properly setup `config.json` and remove install to the `/app` directory.
     * Updated `install.php` to include some basic design and instructions.
     * Added form markup to `install.php` -- implementing processing soon.
     * Updated README.md to reflect some updates in process and overall structure of the app.
