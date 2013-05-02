@@ -38,32 +38,32 @@ body {
 
     label {
       float: left;
+      padding: 0.6rem 1.5rem 0.6rem 0;
       width: 35%;
       color: @light-gray;
-      padding: 0.6rem 1.5rem 0.6rem 0;
       text-align: right;
     }
 
     label, input, textarea, select {
+      position: relative;
       display: block;
       margin: 1rem 0;
-      position: relative;
 
     }
 
 
     input, textarea, select {
+      .transition;
       float: right;
       padding: 0.5rem;
       width: 65%;
       border: 1px solid @trans;
-      border-radius: 0.3rem;
-      .transition;
+      border-radius: @border-radius;
 
       &:focus {
-        border: 1px solid @light-gray;
         .transition;
         outline: 0;
+        border: 1px solid @light-gray;
       }
     }
 
@@ -73,6 +73,32 @@ body {
 
     .submit-button {
 
+    }
+
+    .placeholder(lighten(@light-gray, 25%));
+
+    button {
+      border: 1px solid @blue;
+      background: @light-blue;
+      color: @white;
+      border-radius: @border-radius;
+      .transition;
+
+      &:hover {
+        .transition;
+        background: @blue;
+      }
+
+      &:active {
+        background: @dark-blue;
+      }
+    }
+
+    .submit-button {
+      width: 60%;
+      margin: 20px auto;
+      position: relative;
+      display: block;
     }
   }
 

@@ -31,6 +31,19 @@
 
   if (file_exists($installScript) && is_readable($installScript)) {
 
+
+    if (isset($_POST['hiddenInstallID']) && ($_POST['hiddenInstallID'] === 'installing')) {
+
+      foreach ($_POST as $key=>$value) {
+        $APP_CONFIG->$key = $value;
+      }
+
+      overwriteFile('config.json', json_encode($APP_CONFIG));
+      rename($installScript, $installScriptBackup);
+
+    }
+
+
     // If the install script was backed up after install
     //   remove the install.php script from __DIR__
     if (file_exists($installScriptBackup)) {

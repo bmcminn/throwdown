@@ -5,6 +5,11 @@
 @gray:          #666;
 @black:         #333;
 
+
+@blue:          #2e77b0;
+  @light-blue:  lighten(@blue, 20%);
+  @dark-blue:  darken(@blue, 20%);
+
 @trans:         transparent;
 
 // Custom Colors Defintions
@@ -26,9 +31,9 @@
 
 
 // MAX TEMPLATE WIDTH
-@max-width:       960px;
+@max-width:       96rem;
 
-
+@border-radius:   0.3rem;
 
 // ========== IMAGE DIRECTORIES ========== //
 
@@ -139,3 +144,9 @@
   font-smoothing: @smoothing;
 }
 
+.placeholder(@color: @light-gray, @font-style: normal, @font-weight: normal) {
+  ::-webkit-input-placeholder { color: @color; font-style: @font-style; font-weight: @font-weight; }
+  :-moz-placeholder           { color: @color; font-style: @font-style; font-weight: @font-weight; }
+  ::-moz-placeholder          { color: @color; font-style: @font-style; font-weight: @font-weight; }
+  :-ms-input-placeholder      { color: @color; font-style: @font-style; font-weight: @font-weight; }
+}

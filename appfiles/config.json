@@ -1,18 +1,1 @@
-{
-
-  "blog_name": "My Test Blog"
-, "localhost": "http://blog.dev"
-, "remotesite": "http://giggleboxstudios.net/"
-
-
-, "twitter": {
-    "username": "brandtleymcminn"
-  , "password": ""
-  }
-
-, "facebook": {
-
-  }
-
-, "cache_contents": false
-}
+{"hiddenInstallID":"installing","installed":"05\/02\/2013","blogName":"GiggleboxStudios","userName":"Brandtley McMinn","userEmail":"bmcminn@giggleboxstudios.net"}
