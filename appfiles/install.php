@@ -1,13 +1,6 @@
 <?php
 
-  require_once('app/libs/markdown/markdown.php');
-
-  print_r($_POST);
-
-
-  // print_r($APP_CONFIG);
-
-  $copy = <<<MDOWN
+$instructions = <<<MDOWN
 
 Welcome to Throwdown!
 =====================
@@ -23,7 +16,7 @@ For security reasons, viewing `config.json` directly within the browser has been
 MDOWN;
 
 
-  $instructions = Markdown($copy);
+  $instructions = Markdown($instructions);
 
   // Set date for today
   $installDate  = date('m/d/Y');
@@ -110,6 +103,10 @@ MDOWN;
 
       <label for="facebookKey">Facebook Key</label>
       <input type="text" name="facebookKey" id="facebookKey" value="">
+
+-->
+
+    <div class="clear clr"></div>
 
     <!-- SUBMIT -->
     <button type="submit" id="submit" class="submit-button">Submit</button>

@@ -5,7 +5,7 @@
   // INCLUDE LIBRARIES
   include_once('app/libs/eden/eden.php');
   include_once('app/libs/phpQuery/phpQuery.php');
-
+  require_once('app/libs/markdown/markdown.php');
 
 
   // INCLUDE HELPER LIBS
@@ -35,12 +35,13 @@
     if (isset($_POST['hiddenInstallID']) && ($_POST['hiddenInstallID'] === 'installing')) {
 
       foreach ($_POST as $key=>$value) {
-        $APP_CONFIG->$key = $value;
+        if (!preg_match('/hidden/', $key)) {
+          $APP_CONFIG->$key = $value;
+        }
       }
 
       overwriteFile('config.json', json_encode($APP_CONFIG));
-      rename($installScript, $installScriptBackup);
-
+      $_POST['hiddenInstallID'] = "nullified";
     }
 
 

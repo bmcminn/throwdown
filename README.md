@@ -42,6 +42,12 @@ If you find something that seems wierd, check the manual (README.md) but for mor
 So what can this puppy do?
 --------------------------
 
+###Stupid Simple&trade; Installation
+The install is so easy it makes WordPress look like a nub. All you do is fill in the information as requested and BAM! You're ready to start writing.
+
+This step is the only real automation you'll encounter when using this script, but it helps to jumpstart your `config.json` setup without me explaining how to do so.
+
+
 ###Raw file storage
 You may be asking yourself, "If I don't use a database, what DO I use?" Glad you asked. I lemonbombed the UI I had planned and instead used the physical directory system of the server to manage and store my files. Why? What better file management system than a file management system? You terminal buffs may rejoice at anytime.
 
