@@ -1,105 +1,48 @@
 @import "_config";
 @import "_normalize";
+@import "_ui";
+@import "_typography";
 
-html {
-  font-size: 62.5%;
-}
-
-body {
-  .font-smoothing;
-  background: @white;
-  font-size: 1em;
-  font-family: @sans;
-
-  &, * {
-    .box-sizing;
-  }
-}
 
 
 #message {
   position: relative;
   margin: 0 auto;
   width: 600px;
-  font-size: 2.2rem;
-  text-align: justify;
   color: @gray;
+  font-weight: @light;
+  text-align: justify;
+  font-size: 2.1rem;
 
   h1 {
     color: @gray;
     text-align: center;
-    font-weight: @light;
-    font-size: 5.9rem;
+    font-weight: inherit;
+    font-size: 5.7rem;
   }
 
   .config-form {
-
-    text-align: left;
-
-    label {
-      float: left;
-      padding: 0.6rem 1.5rem 0.6rem 0;
-      width: 35%;
-      color: @light-gray;
-      text-align: right;
-    }
-
-    label, input, textarea, select {
-      position: relative;
-      display: block;
-      margin: 1rem 0;
-
-    }
-
-
-    input, textarea, select {
-      .transition;
-      float: right;
-      padding: 0.5rem;
-      width: 65%;
-      border: 1px solid @trans;
-      border-radius: @border-radius;
-
-      &:focus {
-        .transition;
-        outline: 0;
-        border: 1px solid @light-gray;
-      }
-    }
-
-    select {
-      border-radius: 0;
-    }
-
-    .submit-button {
-
-    }
-
-    .placeholder(lighten(@light-gray, 25%));
-
-    button {
-      border: 1px solid @blue;
-      background: @light-blue;
-      color: @white;
-      border-radius: @border-radius;
-      .transition;
-
-      &:hover {
-        .transition;
-        background: @blue;
-      }
-
-      &:active {
-        background: @dark-blue;
-      }
-    }
-
-    .submit-button {
-      width: 60%;
-      margin: 20px auto;
-      position: relative;
-      display: block;
-    }
+    padding: 0;
+    margin: 0;
   }
 
+  label, input, textarea, select {
+    font-weight: inherit;
+    margin: 0.3rem 0;
+  }
+
+  label {
+    text-align: right;
+    width: 34%;
+  }
+
+  input, textarea, select {
+    width: 65%;
+  }
+
+  .submit-button {
+    display: block;
+    margin: 3rem auto;
+    width: 30%;
+  }
 }

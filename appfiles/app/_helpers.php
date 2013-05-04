@@ -1,6 +1,7 @@
 <?php
 
   require_once('_config.php');
+  require_once('data/languages.php');
 
 
   function checkYoConfig($option_name) {
@@ -15,6 +16,26 @@
     exit;
   }
 
+
+
+  function languagePref($pref) {
+    global $languages;
+
+    $longLang = $lang = '';
+
+    foreach ($languages as $language) {
+      $longLang = $language[0];
+      $lang     = $language[1];
+      $selected = '';
+
+      if ($pref === $lang) {
+        $selected = " selected";
+      }
+
+      echo "<option value=\"$lang\"$selected>$longLang</option>\r\n";
+    }
+
+  } // languagePref()
 
 
 

@@ -16,15 +16,9 @@ For security reasons, viewing `config.json` directly within the browser has been
 MDOWN;
 
 
-  $instructions = Markdown($instructions);
-
-  // Set date for today
-  $installDate  = date('m/d/Y');
-
-
   function random_name() {
     $first  = ['Boxing', 'Talking', 'Wrecking', 'Working', 'Tripping'];
-    $second = ['Squirrel', 'Babies', 'Waffles', 'Ding-Dongs'];
+    $second = ['Squirrel', 'Babies', 'Waffle', 'Ding-Dong'];
 
     return $first[array_rand($first, 1)] . ' ' . $second[array_rand($second, 1)];
   }
@@ -42,46 +36,40 @@ MDOWN;
 
   <div id="message" class="container">
 
-    <?php echo $instructions; ?>
+    <?php echo $instructions = Markdown($instructions); ?>
 
     <form class="config-form" data-persist="garlic" data-validate="parsley" method="POST" action="index.php">
       <input type="hidden" name="hiddenInstallID" value="installing">
-      <input type="hidden" name="installed" value="<?php echo $installDate; ?>">
+      <input type="hidden" name="installed" value="<?php echo date('m/d/Y'); ?>">
 
 
     <!-- GENERAL INFO -->
       <label for="blogName">Blog Name</label>
-      <input type="text" name="blogName" id="blogName" value="" placeholder="ex: <?php echo $random_name; ?> Blog" required>
+      <input type="text" name="blogName" id="blogName" value="" placeholder="ex: <?php echo $random_name; ?> Blog" data-trigger="focusin focusout" required>
 
+    <!-- USER INFO -->
       <label for="userName">User Name</label>
-      <input type="text" name="userName" id="userName" value="" placeholder="First and Last name" required>
+      <input type="text" name="userName" id="userName" value="" placeholder="First and Last name" data-trigger="focusin focusout" required>
 
       <label for="userEmail">User Email</label>
-      <input type="text" name="userEmail" id="userEmail" value="" placeholder="ex: email@something.com" required>
+      <input type="text" name="userEmail" id="userEmail" value="" placeholder="ex: email@something.com" data-trigger="focusin focusout" required>
 
-
+    <!-- SITE(S) INFO -->
       <label for="localhost">Localhost URL</label>
-      <input type="text" name="localhost" id="localhost" value="" placeholder="ex: http://blog.dev/" required>
+      <input type="text" name="localhost" id="localhost" value="" placeholder="ex: http://blog.dev/" data-trigger="focusin focusout" required>
 
       <label for="remoteHost">Remote Host URL</label>
-      <input type="text" name="remoteHost" id="remoteHost" value="" placeholder="ex: http://github.com/" required>
+      <input type="text" name="remoteHost" id="remoteHost" value="" placeholder="ex: http://github.com/" data-trigger="focusin focusout" required>
 
-<!--
-      <label for="preferredLang">Language</label>
-      <select type="text" name="preferredLang" id="preferredLang" value="" required>
-        <option>--- Preferred Language ---</option>
-        <option value="" selected>Enlish</option>
-        <option value="">Chinese</option>
-        <option value="">Italian</option>
-        <option value="">Japanese</option>
-        <option value="">Korean</option>
-        <option value="">Portuguese</option>
-        <option value="">Russian</option>
-        <option value="">Spanish</option>
-        <option value="">Vietnamese</option>
+    <!-- i18n INFO -->
+      <label for="preferredLanguage">Preferred Language</label>
+      <select type="text" name="preferredLanguage" id="preferredLanguage" autocomplete="off" required>
+
+        <optgroup label="Preferred Language">
+          <?php languagePref('en'); ?>
+        </optgroup>
 
       </select>
--->
 
 
     <!-- TWITTER -->

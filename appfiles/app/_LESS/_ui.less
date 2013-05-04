@@ -1,0 +1,82 @@
+//==============================
+// <button> Styles
+//==============================
+button {
+  .transition;
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  border-radius: @border-radius;
+  background: @light-blue;
+  color: @dark-blue;
+  font-family: inherit;
+
+  &:hover {
+    .transition;
+    background: @blue;
+    color: @white;
+  }
+
+  &:active {
+    background: @dark-blue;
+    color: @white;
+  }
+}
+
+button[disabled] {
+  background: @off-white;
+  color: @gray;
+}
+
+
+
+label, input, textarea, select {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+
+
+//==============================
+// FORM LABEL STYLES
+//==============================
+label {
+  position: relative;
+  padding: 0.6rem 1.5rem 0.6rem 0;
+  color: @gray;
+  text-align: right;
+  font-family: inherit;
+}
+
+
+//==============================
+// INPUT SPECIFIC FIELDS
+//==============================
+input, textarea, select {
+  .transition;
+  padding: 0.5rem 1rem;
+
+  border: 1px solid @trans;
+  border-radius: @border-radius;
+
+  &:focus {
+    .transition;
+    outline: 0;
+    border: 1px solid @off-white;
+  }
+
+  &:hover {
+    .transition;
+    border-color: @off-white;
+  }
+}
+
+select {
+  border-radius: 0;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+
+.placeholder(@gray);
+
