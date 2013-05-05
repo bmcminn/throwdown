@@ -1,0 +1,11 @@
+
+
+
+
+//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js
+//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js
+
+//cdnjs.cloudflare.com/ajax/libs/parsley.js/1.1.10/parsley.min.js
+//cdnjs.cloudflare.com/ajax/libs/garlic.js/1.2.0/garlic.min.js
+
+//cdnjs.cloudflare.com/ajax/libs/piecon/0.2/piecon.min.js

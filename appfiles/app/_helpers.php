@@ -39,6 +39,23 @@
 
 
 
+
+  function copyrightDate($startDate) {
+    $currentYear = date('Y');
+
+    // NO FUTURE DATES!!!
+    if ($startDate > $currentYear) {
+      $startDate = $currentYear;
+    }
+
+    if ($startDate === $currentYear) {
+      echo $startDate;
+    } else {
+      echo $startDate . '-' . $currentYear;
+    }
+  }
+
+
 // ========================================
 //   OBJECT HELPER FUNCTIONS
 // ========================================

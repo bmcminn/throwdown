@@ -23,7 +23,7 @@ That being said, I would like to inform you that this software:
 2. is not for everyone (again, it's [totally biased](http://www.fxnetworks.com/totallybiased) and may not fit your style or mindset),
 3. is not a CMS... it's a CDA... there's a difference.
 
-*[CMS]: Content Management System
+*[CMS]: Content Management System<br>
 *[CDA]: Content Delivery Application
 
 
@@ -55,7 +55,7 @@ Managing the files locally ensures I know where my files are and can read/write/
 
 
 ###Directory based categories
-Now stay with me on this, but since you use the file system as your storage and management, you can categorize content by placing your content in a sub directory. So those of you who like to categorize your articles in different directories may feel right at home with this idea. Here's a -crude- demo of what I'm talking about:
+Now stay with me on this, but since you use the file system as your storage and management, you can categorize content by placing your content in a sub directory. So those of you who like to categorize your articles in different directories may feel right at home with this idea. Here's a _"crude"_ demo of what I'm talking about:
 
 ```
   /articles
@@ -71,10 +71,15 @@ The possibilities are endless, and if you ever manage to find your content in a 
 
 
 ###Full-bore Markdown (MD)
-This software only uses MD. Why? Because I like MD. It's plain-text, easy to ready, perfect for writing content. I've utilized the [PHP Markdown Extra]() library to parse my beautifully written `.md` files into `HTML` with some nifty bonus features:
+
+![Markdown motherfucker, do you write it?! -- Samael L. Jackson](http://giggleboxstudios.net/_github/throwdown/readme-markdownmother-orig.jpg "Samuel L. Jackson suggests you start using Markdown.")
+
+This software only uses MD. Why? Because I like MD. It's plain-text, easy to ready, perfect for writing content. Throwdown utilizes the [PHP Markdown Extra]() library to parse my beautifully written `.md` files into `HTML` with some nifty bonus features:
 
 - **Syntax Highlighting:** [BeautyOfCode](http://startbigthinksmall.wordpress.com/2008/10/30/beautyofcode-jquery-plugin-for-syntax-highlighting/)
 - MORE TO COME SOON!
+
+*[MD]: Markdown
 
 
 ###Per-File Meta Data
@@ -134,9 +139,7 @@ TODO:
 -----
 
 - Pages: these will be static content pages different from articles in that they require no `meta` block.
-
 - Post Syndication: posting to Facebook and Twitter (other social networks) is in the pipe, but haven't figured out how that will work just yet.
-
 - Admin interface overlay; including:
     - Cache generation
     - Remote sync init

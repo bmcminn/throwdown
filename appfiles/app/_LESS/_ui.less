@@ -1,3 +1,50 @@
+
+// Link Default styles
+a {
+  color: @blue;
+  text-decoration: none;
+
+  &:visited {
+    border-color: @purple;
+    color: @purple;
+    text-decoration: none;
+  }
+
+  &:visited:hover {
+    color: @dark-purple;
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: @dark-blue;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: @dark-blue;
+    text-decoration: underline;
+  }
+
+
+  // SUBTLE LINKS
+  &.subtle-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &.subtle-link:visited {
+    color: @gray;
+  }
+
+  &.subtle-link:visited:hover,
+  &.subtle-link:hover {
+    color: @dark-gray;
+    text-decoration: underline;
+  }
+
+}
+
+
 //==============================
 // <button> Styles
 //==============================
@@ -8,7 +55,7 @@ button {
   padding: 0.5rem 1.5rem;
   border: 0;
   border-radius: @border-radius;
-  background: @light-blue;
+  background: lighten(@light-blue, 10%);
   color: @dark-blue;
   font-family: inherit;
 
@@ -56,27 +103,29 @@ label {
 input, textarea, select {
   .transition;
   padding: 0.5rem 1rem;
-
   border: 1px solid @trans;
   border-radius: @border-radius;
+  color: @blue;
+
+  &:hover {
+    .transition;
+    .box-shadow(0 0 5px @off-white);
+  }
 
   &:focus {
     .transition;
     outline: 0;
-    border: 1px solid @off-white;
-  }
-
-  &:hover {
-    .transition;
-    border-color: @off-white;
+    .box-shadow(0 0 5px @orange);
   }
 }
+
 
 select {
-  border-radius: 0;
   padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border: @trans;
+  border-radius: 0;
 }
 
 
-.placeholder(@gray);
+.placeholder(@gray, normal, @light);
 
