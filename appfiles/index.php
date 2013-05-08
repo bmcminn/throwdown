@@ -1,21 +1,28 @@
 <?php
 
+  require_once('vendor/autoload.php');
+  require_once('vendor/brainsware/php-markdown-extra-extended/markdown_extended.php');
+  require_once('vendor/modularr/yaml-front-matter/frontmatter.php');
+
   require_once('app/_config.php');
+
+
 
   // INCLUDE LIBRARIES
   include_once('app/libs/eden/eden.php');
-  include_once('app/libs/phpQuery/phpQuery.php');
-  require_once('app/libs/markdown/markdown.php');
-
 
   // INCLUDE HELPER LIBS
-  require_once('app/_helpers.php');
-  require_once('app/_articles.php');
+  require_once('app/helper.app.php');
+  require_once('app/helper.articles.php');
+  require_once('app/helper.template.php');
 
 
-  // include_once('app/articles.php');
-  include_once('app/template.php');
-  include_once('app/libs/markdown/markdown.php');
+// ===================================
+//  ESTABLISH APPLICATION GLOBALS
+// ===================================
+  // $mustache = new Mustache_Engine;
+  $mustache = new Mustache_Engine;
+
 
 
   $APP_CONFIG = json_decode(readFileContents('config.json'));
@@ -70,20 +77,17 @@
 // ===================================
 
 
+  the_template();
 
-  // if ($_GET) {
-  //   print_r($_GET);
+
+  // if (isset($_GET['article'])) {
+  //   $articleName  = $_GET['article'];
+  //   $fileData     = getArticle($articleName);
+  //   $fileContents = readFileContents($fileData->location);
+
+  //   echo Markdown($fileContents);
+  //   // print_r($fileData);
   // }
-
-
-  if (isset($_GET['article'])) {
-    $articleName  = $_GET['article'];
-    $fileData     = getArticle($articleName);
-    $fileContents = readFileContents($fileData->location);
-
-    echo Markdown($fileContents);
-    // print_r($fileData);
-  }
 
 
   // // read in the template contents

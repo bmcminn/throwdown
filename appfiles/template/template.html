@@ -1,8 +1,9 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="{{PREFERRED_LANGUAGE}}">
 <head>
   <meta charset="utf-8">
-  <title>TEMPLATE NAME</title>
+
+  <title>{{TEMPLATE_NAME}}</title>
 
   <meta name="description" content="{{PAGE_DESCRIPTION}}">
   <meta name="keywords"    content="{{PAGE_KEYWORDS}}">
@@ -11,31 +12,64 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="author" href="humans.txt">
+  <link rel="stylesheet" href="template/css/style.css">
 
-  <link rel="stylesheet" href="css/style.css">
+  <script src="js/libs/modernizr.min.js"></script>
 
 </head>
 
 
 <body role="main">
 
-  <section></section>
+  <header class="page-header">
+
+    <a class="logo">{{SITE_NAME}}</a>
+
+    {{#navigation_main}}
+    <nav class="main-nav" role="main">
+      <ul class="inline-list">
+        {{#nav_links}}
+        <li><a href="{{LINK_HREF}}" title="Go to {{LINK_NAME}}">{{LINK_NAME}}</a></li>
+        {{/nav_links}}
+      </ul>
+    </nav>
+    {{/navigation_main}}
+
+    <form action="/search/" class="search-container" method="post">
+      <input type="search">
+      <button type="submit">Search</button>
+    </form>
+
+  </header><!-- .page-header -->
+
+
+  <section class="content-container">
+
+    {{#article}}
+    <article id="{{ARTICLE_ID}}">
+
+
+    </article><!-- #{{ARTICLE_ID}} -->
+    {{/article}}
+
+  </section><!-- .content-container -->
+
+  <footer class="page-footer">
+    <div class="copyright">
+      &copy; {{COPYRIGHT_DATE}}. All rights reserved.
+        <a href="/humans.txt">humans.txt</a> |
+        a[href="/"]
+    </div>
+  </footer>
 
 
 
-  <!-- ===== INCLUDE JS LIBS ===== -->
-  <script src=""></script>
-  <script src="js/libs/modernizr.min.js"></script>
   <script src="js/libs/fitvids.min.js"></script>
-
-
-  <!-- ===== INCLUDE JS SCRIPTS ===== -->
   <script src="js/plugins.js"></script>
-
 
   <script>
     // Google Analytics
-    var _gaq=[['_setAccount','GOOGLEANALYTICS'],['_trackPageview']];
+    var _gaq=[['_setAccount','{{GOOGLEANALYTICS}}'],['_trackPageview']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));

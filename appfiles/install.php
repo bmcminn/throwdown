@@ -29,7 +29,7 @@ MDOWN;
   $random_name = random_name();
 
 ?><!doctype html>
-<html lang="en">
+<html lang="<?php meta_lang(); ?>">
 <head>
   <meta charset="UTF-8">
   <title>Throwdown Installation</title>

@@ -1,0 +1,13 @@
+Throwdown:
+ ☐ Figure out how to move the Composer "vendor" directory to inside the /app directory
+ ☐ Figure out if Eden.php is going to be used for anything more than it's awesome mail features and re-download a slimmed down lib for it
+ ☐ Build "Page" caching mechanism so we can add Pages to navigation
+ ☐ Figure out if we can do taxonomies in templates based on current "View"
+
+
+
+--- ✄ -----------------------
+
+Archive:
+ ✔ convert libs to @composer @done (13-05-05 13:42)
+ ✔ research markdown-extra https://packagist.org/packages/dotink/markdown-extra-extended @done (13-05-05 13:42)

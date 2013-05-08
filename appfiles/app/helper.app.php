@@ -18,42 +18,8 @@
 
 
 
-  function languagePref($pref) {
-    global $languages;
-
-    $longLang = $lang = '';
-
-    foreach ($languages as $language) {
-      $longLang = $language[0];
-      $lang     = $language[1];
-      $selected = '';
-
-      if ($pref === $lang) {
-        $selected = " selected";
-      }
-
-      echo "<option value=\"$lang\"$selected>$longLang</option>\r\n";
-    }
-
-  } // languagePref()
 
 
-
-
-  function copyrightDate($startDate) {
-    $currentYear = date('Y');
-
-    // NO FUTURE DATES!!!
-    if ($startDate > $currentYear) {
-      $startDate = $currentYear;
-    }
-
-    if ($startDate === $currentYear) {
-      echo $startDate;
-    } else {
-      echo $startDate . '-' . $currentYear;
-    }
-  }
 
 
 // ========================================
