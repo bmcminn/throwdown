@@ -1,0 +1,19 @@
+
+/** ======================== **/
+/**  BASE LAYOUT STYLES      **/
+/** ======================== **/
+
+.clear, .clr {
+  display: block;
+  width: auto;
+  clear: both;
+  float: none;
+
+  &:before{
+    clear: left;
+  }
+
+  &:after {
+    clear: right;
+  }
+}

@@ -1,17 +1,21 @@
 {
-    "name": "giggleboxstudios/throwdown",
-    "version": "dev-master",
-    "description": "Simple blogware for the tinkerers out there.",
-    "license": "MIT & Beerware",
-    "authors": [
-        {
-            "name": "Brandtley McMinn",
-            "email": "dev@giggleboxstudios.net"
-        }
-    ],
-    "require": {
-      "brainsware/php-markdown-extra-extended": "dev-master"
-    , "mustache/mustache": "dev-master"
-    , "modularr/yaml-front-matter": "dev-master"
-  }
+    "name":         "giggleboxstudios/throwdown"
+  , "version":      "dev-master"
+  , "description":  "Simple blogware for the tinkerers out there."
+  , "license":      "MIT & Beerware"
+
+  , "authors":      [
+                      {
+                        "name": "Brandtley McMinn"
+                      , "email": "dev@giggleboxstudios.net"
+                      }
+                    ]
+
+  , "require":      {
+                      "php": ">=5.2.4"
+                    , "brainsware/php-markdown-extra-extended": "dev-master"
+                    , "mustache/mustache": "dev-master"
+                    , "modularr/yaml-front-matter": "dev-master"
+                    , "mynetx/codebird-php": "dev-master"
+                    }
 }

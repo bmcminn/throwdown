@@ -9,7 +9,7 @@
 
 
   // INCLUDE LIBRARIES
-  include_once('app/libs/eden/eden.php');
+  // include_once('app/libs/eden/eden.php');
 
   // INCLUDE HELPER LIBS
   require_once('app/helper.app.php');
@@ -47,10 +47,10 @@
         }
       }
 
+
       overwriteFile('config.json', json_encode($APP_CONFIG));
       $_POST['hiddenInstallID'] = "nullified";
     }
-
 
     // If the install script was backed up after install
     //   remove the install.php script from __DIR__
@@ -75,6 +75,30 @@
 // ===================================
 //  BEGIN BLOG APP
 // ===================================
+
+  print_r($_GET);
+
+
+  // Is there a /search request being made?
+  if (isset($_GET['q']) && isset($_GET['query'])) {
+    echo "pants is 'q' and 'query'";
+
+    $search_data = search($_GET['query']);
+
+    echo $search_data;
+
+
+  // Is there another query being made?
+  } elseif (isset($_GET['q'])) {
+    echo "pants is 'q'";
+
+
+  // Show homepage
+  } else {
+
+    echo "homepage";
+
+  }
 
 
   the_template();

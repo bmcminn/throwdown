@@ -213,9 +213,7 @@ AddDefaultCharset utf-8
   RewriteCond %{SCRIPT_FILENAME} !-d
   RewriteCond %{SCRIPT_FILENAME} !-f
 
-  RewriteRule ^/articles/$ /index.php?url=article
-  RewriteRule ^/articles/(.*)$ /index.php?url=article&article=$1
-  RewriteRule ^/search/(.*)$ /index.php?url=search&query=$1
+  RewriteRule ^search/(.*)$ ./index.php?q=search&query=$1
 
 </IfModule>
 
@@ -269,7 +267,7 @@ AddDefaultCharset utf-8
 # ##############################################################################
 
 # Prevent our server from displaying what it's running
-ServerSignature Off
+# ServerSignature Off
 
 
 # ------------------------------------------------------------------------------
@@ -305,20 +303,20 @@ ServerSignature Off
 # to surf through every directory on your server (which may includes rather
 # private places like the CMS's directories).
 
-<IfModule mod_autoindex.c>
-  Options -Indexes
-</IfModule>
+# <IfModule mod_autoindex.c>
+#   Options -Indexes
+# </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Block access to hidden files and directories.
 # This includes directories used by version control systems such as Git and SVN.
 
-<IfModule mod_rewrite.c>
-  RewriteCond %{SCRIPT_FILENAME} -d [OR]
-  RewriteCond %{SCRIPT_FILENAME} -f
-  RewriteRule "(^|/)\." - [F]
-</IfModule>
+# <IfModule mod_rewrite.c>
+#   RewriteCond %{SCRIPT_FILENAME} -d [OR]
+#   RewriteCond %{SCRIPT_FILENAME} -f
+#   RewriteRule "(^|/)\." - [F]
+# </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

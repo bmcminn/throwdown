@@ -1,4 +1,4 @@
-Dual Licensed under MIT and Beerware License(s)
+Dual Licensed under MIT and Beerware
 
 Copyright (c) 2013 GiggleboxStudios
 
