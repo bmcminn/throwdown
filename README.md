@@ -6,6 +6,17 @@ _**Author:** [@brandtleymcminn](https://twitter.com/brandtleymcminn)_<br>
 _Last Updated: August 5, 2013_
 
 
+
+## TL;DR. Quickstart Guide:
+
+1. To get started, copy the directory into the root system directory of your Localhost.
+2. Open a terminal program and navigate to your projects directory
+3. Run `composer install` on the directory and wait for composer to finish installing system dependencies
+
+Have fun :)
+
+
+
 ## **Congratulations** \*Confetti and horn noises\*
 
 And welcome to Throwdown! A powerful and flexible flat file CMS developed using PHP and consumes nothing but good ole' wholesome JSON and Markdown!
