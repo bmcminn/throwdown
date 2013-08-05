@@ -1,0 +1,8 @@
+{
+  "require": {
+    "brainsware/php-markdown-extra-extended": "dev-master"
+  , "mustache/mustache": "dev-dev"
+  , "modularr/yaml-front-matter": "dev-master"
+  , "filp/whoops": "dev-master"
+  }
+}

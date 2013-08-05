@@ -1,0 +1,12 @@
+{
+  "default_template":       "default.php"
+, "default_homepage":       "home"
+, "current_theme":          "testing"
+
+
+, "site_name":              "Throwdown CMS"
+, "site_name_legal":        "Throwdown CMS"
+
+, "site_footer_copyright":  "Throwdown CMS"
+
+}

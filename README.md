@@ -1,165 +1,80 @@
-Throwdown (Alpha)
-=================
+# Throwdown (Alpha, 0.2)
 
-Simple blogging for the tinkerers out there.
+A simple and flexible flat file system for the tinkerers out there.
 
 _**Author:** [@brandtleymcminn](https://twitter.com/brandtleymcminn)_<br>
-_Last Updated: May 1, 2013_
+_Last Updated: August 5, 2013_
 
 
-Introduction:
--------------
+## **Congratulations** \*Confetti and horn noises\*
 
-If you've made it this far, then Congratulations *Confetti and horn noises* You've selected one of the premier products offered by GiggleboxStudios, namely Throwdown. Now I know what you're thinking, this just sounds like another PHP library with a voilent connotation, but it's more than that.
+And welcome to Throwdown! A powerful and flexible flat file CMS developed using PHP and consumes nothing but good ole' wholesome JSON and Markdown!
 
-I wrote Throwdown as a way to prove to myself how far I've come as a PHP developer and software designer since I started programming back in 2006 and
-it's based entirely on my biased opinions of how a proper blogging software should function.
+Now I know what you're thinking, this just sounds like another PHP library with a predisposition for voilence, but it really is more than that.
 
-I've worked with the best of them. WordPress, Drupal, Blogger... but they all have one thing in common. They try too hard, thus I try too hard to do what I want which is writing.
+I've worked with the best of them. WordPress, Drupal, Blogger... but they all have one thing in common. They try too hard, thus I'm working too hard to make these systems do what I want within a sandboxed context using someone else' API(s). I needed a system that worked as I expected it to, that was efficient to get started with and easy to update as needed. So I wrote Throwdown and tailored it to my exacting specifications, because my clients don't need today's "modern CMS", they need a website that's built on a future focused platform.
 
-That being said, I would like to inform you that this software:
-
-1. is in (Alpha), meaning it doesn't entirely work... (yet).
-2. is not for everyone (again, it's [totally biased](http://www.fxnetworks.com/totallybiased) and may not fit your style or mindset),
-3. is not a CMS... it's a CDA... there's a difference.
-
-*[CMS]: Content Management System<br>
-*[CDA]: Content Delivery Application
+But I won't get ahead of myself here...
 
 
-Whats inside?
--------------
+## It works alright, but there's still more to be done...
 
-To start, there is no database of any sort integrated. Took it out completely. I hate the overhead caused by databases since they make backups and migrations a chore. Plus they start to smell a little funky after a while...
-
-Instead I've opted for utilizing a single `cache.json` file to index the sites content. Works like a champ.
-
-More features are detailed below, but if you find yourself experience sudden excitement, shortness of breath, constant astonishment or a sudden wettness in your ears, that's not part of the test. But you should still try this thing out anyway. Keep testing.
-
-If you find something that seems wierd, check the manual (README.md) but for more serious inquiries or bug(s) reports, confirm it in the [Issues](https://github.com/GiggleboxStudios/Throwdown/issues) section and I'll be sure to check up on it.
-
-
-So what can this puppy do?
---------------------------
-
-###Stupid Simple&trade; Installation
-The install is so easy it makes WordPress look like a nub. All you do is fill in the information as requested and BAM! You're ready to start writing.
-
-This step is the only real automation you'll encounter when using this script, but it helps to jumpstart your `config.json` setup without me explaining how to do so.
-
-
-###Raw file storage
-You may be asking yourself, "If I don't use a database, what DO I use?" Glad you asked. I lemonbombed the UI I had planned and instead used the physical directory system of the server to manage and store my files. Why? What better file management system than a file management system? You terminal buffs may rejoice at anytime.
-
-Managing the files locally ensures I know where my files are and can read/write/edit them without having to use a browser or DB interface. Not to mention it's all plain-text data. Go plain-text.
-
-
-###Directory based categories
-Now stay with me on this, but since you use the file system as your storage and management, you can categorize content by placing your content in a sub directory. So those of you who like to categorize your articles in different directories may feel right at home with this idea. Here's a _"crude"_ demo of what I'm talking about:
-
-```
-  /articles
-    - article-title-here.md
-    /kittens
-      - article-about-kittens.md
-    /sriracha
-      - article-about-sriracha-being-delicious.md
-      - possibly-a-recipe-to-make-something-with-sriracha.md
-```
-
-The possibilities are endless, and if you ever manage to find your content in a dimension where Sriracha is King Condoment, your SEO is probably through the roof with this system. Your welcome.
-
-
-###Full-bore Markdown (MD)
-
-![Markdown motherfucker, do you write it?! -- Samael L. Jackson](http://giggleboxstudios.net/_github/throwdown/readme-markdownmother-orig.jpg "Samuel L. Jackson suggests you start using Markdown.")
-
-This software only uses MD. Why? Because I like MD. It's plain-text, easy to ready, perfect for writing content. Throwdown utilizes the [PHP Markdown Extra]() library to parse my beautifully written `.md` files into `HTML` with some nifty bonus features:
-
-- **Syntax Highlighting:** [BeautyOfCode](http://startbigthinksmall.wordpress.com/2008/10/30/beautyofcode-jquery-plugin-for-syntax-highlighting/)
-- MORE TO COME SOON!
-
-*[MD]: Markdown
-
-
-###Per-File Meta Data
-Using [YAML Front Matter](https://github.com/Blaxus/YAML-FrontMatter) you can manage your articles meta data on a per-file basis. You'll soon find this is WAY better than keybanging around in a UI.
-
-```markdown
----
-author: Brandtley McMinn
-published: March 21, 2013
-tags: cool, pants, tacos
-images: custom-images
----
-```
-
-1. **author:** can be used to denote who wrote the article, if other than yourself.
-2. **publish:** Set the publish date so people know when it was published. Optionally if you set a future date, the system will know to publish this article then.
-3. **tags:** your content like you want. Tags are comma separated and can be accessed via the `/tags/` directory.
-4. **images:** if you plan to include images in your article, use this directive to point to a specific image directory.
-5. Even add your own tags if you want, the system won't use them by default but you can make use of it in a [plugin](#plugins-maybe) if needed.
-
-You can set the publish date of your content which is used to determine chronology, as well as defer publishing to a later date if you so desire.
-
-
-###Pretty URLs
-This software uses pretty URLs by default because I like them and they're good for SEO. Don't bother changing it because the `.htaccess` file is edited manually and you don't want to anger the server gods.
-
-
-###Simple Theming Capability
-Took a page from the [Tumblr]() boys in that the theme template is nothing more than a one-page `.html` file. This provides ALL possible markup scenarios for various content types and is parsed using [PHPQuery]().
-
-
----
-
-_**NOTE: These Feature(s) are HIGHLY EXPERIMENTAL!!!**_
-
----
-
-###Simple Theme Extensions/Plugins
-These "Plugins" are installed by dropping the file(s) into the `/plugins` directory which "enables" them. Remove them by deleting the respective file or prefixing it with an underscore; ex: `_disabled-plugin-file.php`
-
-Plugins are my way of giving you some kind of voice in this wacky system I built. Albeit a tad "unstructured" you can basically dump any plugin file into the `/plugins` directory and let the system "have at it". **More on this later...**
+I'm not satisfied with everything about this system yet. I have a whole slew of AWESOME features in mind that I think will be absolutely killer when implemented properly, but for now I'll just glaze over some of the highlights so far:
 
 
 
-###Local2Remote Sync (maybe...)
-Will provide a mechanism to point your localhost instance at your remote server and "push" your local files to it. I think this would be simpler than issuing a deploy via git, but what do I know :P if you wanted to do that I'm sure you could figure it out.
+### Simple system configuration/installation
+
+- The system is configured via the `config.json` file located in the root directory.
+    ```json
+    {
+      "default_template":       "default.php"           // fallback template in the event a pages defined template does not exist
+    , "default_homepage":       "home"                  // specify a different homepage, other than the default.md page
+    , "current_theme":          "testing"               // enable a specific theme. there is no fallback for this yet
+
+    , "site_name":              "Throwdown CMS"         // specifies the sitename rendered on a given views' `<title>` tag
+    , "site_name_legal":        "Throwdown CMS"         // specifies a system constant you can use to change the legal name used in `/terms` and `/privacy` page files
+
+    , "site_footer_copyright":  "Throwdown CMS, LLC."   // specifies a system constant you can use when rendering the footer copyright section
 
 
-License
--------
+    //
+    // Define your own custom things here for later use if you like
+    //
 
-See [LICENSE](https://github.com/GiggleboxStudios/Throwdown/blob/master/LICENSE)
-
-
-
-TODO:
------
-
-- Pages: these will be static content pages different from articles in that they require no `meta` block.
-- Post Syndication: posting to Facebook and Twitter (other social networks) is in the pipe, but haven't figured out how that will work just yet.
-- Admin interface overlay; including:
-    - Cache generation
-    - Remote sync init
-    - "Active" plugins list
+    }
+    ```
 
 
-CHANGELOG:
-----------
+### Pretty URLs by default
+- Pages are created and accessed by the URL structure of your site
+- The system will parse hyphens or underscores out of the `page/article.md` file name as space delimiters automagically.
+    - Use whatever is comfortable for you and stick with it... consistency is key
+- `http://yoursitename.com/pagename` will request the `/pages/pagename.md` file which tells the system which template to load a specific template file, located inside the currently enabled theme.
+- `http://yoursitename.com/articles` will request the `/articles/index.php` script and subsequent directories in the URL request string will request a given article.md file
+- **NOTE:** if a given request URL references a Markdown file that does not exist in the `/pages` directory for any given context, the system will return a 404 error, which is also managed via a `404.md` file with a corresponding `404.php` template.
+- **NOTE:** if a given request URL does exist and the template defined for that file does not exist in the currently enabled theme, then the system will default to the `default.php` template
+    - _**The `default.php` template is required as per Theme development guidelines.**_
 
-###MAY 2013
-- 05/02/2013
-    * Added a modified version of the [MIT](http://opensource.org/licenses/MIT) and [Beerware](http://en.wikipedia.org/wiki/Beerware) licenses to the software. We're officially open-sourced :D
-- 05/01/2013
-    * Fixed `install.php` to properly setup `config.json` and remove install to the `/app` directory.
-    * Updated `install.php` to include some basic design and instructions.
-    * Added form markup to `install.php` -- implementing processing soon.
-    * Updated README.md to reflect some updates in process and overall structure of the app.
 
-###APRIL 2013
-- 04/28/2013
-    * Finalized functionality of `install.php` and have started coding it
-- 04/27/2013
-    * Started hashing out functionality of `install.php`
+### Simple theme construction
+- Themes are added to the `/templates`
+- You may enable a theme by copying its folder name exactly and using it as the argument within `config.json`
+
+
+
+As I set more things up, I'll probably re-cajigure a bunch of things here and there and better document the things that currently work. As it stands, I still need to document the template functions file and just about everything else located in the `/app` directory.
+
+More stuff coming soon :)
+
+
+
+## As always, Submit issues if you find any!
+
+I know there isn't a whole lot to go on right now, but please bear with me... I'll do my best to support any and all [issues submitted](https://github.com/GiggleboxStudios/Throwdown/issues) via Github.
+
+
+
+## LICENSE &ndash; [/LICENSE](https://github.com/GiggleboxStudios/Throwdown/blob/master/LICENSE)
+
+## TODO/Change Log &ndash; [/TODO](https://github.com/GiggleboxStudios/Throwdown/TODO)

@@ -1,11 +1,26 @@
 ### FILES ###
 .DS_Store
 *.DS_Store
+README---DRAFT.md
+app/README.md
 
 
 ### DIRECTORIES ###
-_design/
-_assets/
 
-appfiles/
-appfiles/_retire/*
+
+
+### TESTING SPECIFIC FILES/DIRECTORIES ###
+vendor/
+projects/
+_design/
+
+dragonspiritmedia/
+
+composer.lock
+
+works.md
+app/plugins/works/*
+
+testing-awesome.md
+
+*---DRAFT.md

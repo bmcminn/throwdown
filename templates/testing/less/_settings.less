@@ -1,0 +1,82 @@
+// ==============================================
+// ClearLess default settings
+// ----------------------------------------------
+// Override on a per-project basis as required.
+// ==============================================
+
+// General --------------------------------
+
+@using-ieclasses: true;		// whether or not the markup has html5-boilerplate style IE classes in it or not
+@using-modernizr: false; 	// whether or not modernizer feature-detection classes are being used
+@disable-filters: true; 	// whether or not to disable MS-specific 'filter' properties (can make IE slow!)
+
+// Typography --------------------------------
+
+@base-font-size: 16; 		// base pixel font size. Used as a default for px -> (r)em conversions
+
+// Sprites --------------------------------
+
+@sprite-image: '/example.png';
+@sprite-grid: 50px;
+
+// Grid --------------------------------
+
+// @total-columns: 12;
+// @column-width: 60px;
+// @gutter-width: 20px;
+
+
+// Grid --------------------------------
+
+@full-size:   100%;
+
+@one-half:    (@full-size / 2);
+@one-third:   (@full-size / 3);
+@one-fourth:  (@full-size / 4);
+@one-fifth:   (@full-size / 5);
+@one-sixth:   (@full-size / 6);
+@one-seventh: (@full-size / 7);
+@one-eighth:  (@full-size / 8);
+
+
+
+
+
+
+
+
+
+// Template color values --------------------------------
+@white: #fff;
+@black: #161616;
+
+
+  @dark-blue:   #051026;
+
+
+@trans: transparent;
+@trans-black: rgba(0,0,0,0.5);
+
+
+
+// Template color aliases --------------------------------
+@body-bg: @dark-blue;
+
+
+
+// Template default Z-Index values --------------------------------
+@level1: 1;
+@level2: 11;
+@level3: 111;
+@level4: 1111;
+
+
+
+// Template asset directory aliases --------------------------------
+
+@images: '../img/';
+
+.images(@filename, @rest...) {
+  background: url("@{images}@{filename}") @rest;
+}
+
