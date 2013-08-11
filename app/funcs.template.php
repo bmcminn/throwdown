@@ -207,10 +207,18 @@ GA_SNIPPET;
 
 
     // Default variables
-    $content = "";
+    $content = $template = "";
+
+
+    if ($page_data->fetch('template')) {
+      $template = $page_data->fetch('template');
+    } else {
+      $template = 'default';
+    }
+
     $default_classes = [
       'page-' .$requestURL[1]
-    , 'template-' . preg_replace('/\.php/', '', DEFAULT_HOMEPAGE)
+    , 'template-' . $template
     ];
 
 
@@ -373,7 +381,7 @@ GA_SNIPPET;
                    * [page_404 description]
                    * @return [type] [description]
                    */
-                  function page_404($justContent = true) {
+                  function page_404($justContent = false) {
 
                     if ($justContent) {
                       return load_template('404.php');
@@ -412,8 +420,8 @@ GA_SNIPPET;
            * @return [type]            [description]
            */
           function template_js($filename) {
-            $file = TEMPLATE_JS . $filename;
- return            load_asset($file);
+            $file = THEME_JS . $filename;
+            return load_asset($file);
           } // template_js()
 
 
@@ -424,7 +432,7 @@ GA_SNIPPET;
            * @return [type]            [description]
            */
           function template_css($filename) {
-            $file = TEMPLATE_CSS . $filename;
+            $file = THEME_CSS . $filename;
             return load_asset($file);
           } // template_css()
 
@@ -436,8 +444,8 @@ GA_SNIPPET;
            * @return [type]            [description]
            */
           function template_less($filename) {
-            $file = TEMPLATE_LESS . $filename;
- return            load_asset($file);
+            $file = THEME_LESS . $filename;
+            return load_asset($file);
           } // template_less()
 
 
@@ -448,8 +456,8 @@ GA_SNIPPET;
            * @return [type]            [description]
            */
           function template_img($filename) {
-            $file = TEMPLATE_IMG . $filename;
- return            load_asset($file);
+            $file = THEME_IMG . $filename;
+            return load_asset($file);
           } // template_js()
 
 
@@ -461,7 +469,105 @@ GA_SNIPPET;
            * @return [type]            [description]
            */
           function template_svg($filename) {
-            $file = __DIR__ . '/../' . TEMPLATE_IMG . $filename;
+            $file = __DIR__ . '/../' . THEME_IMG . $filename;
             $content = file_get_contents($file);
             return $content;
           }
+
+
+  /**
+   * [main_nav description]
+   * @param  [type] $settings [description]
+   * @return [type]           [description]
+   */
+  function main_nav($settings = []) {
+    global $page_data, $page, $requestURL;
+
+    // Determine the active page
+
+    // Define default settings
+    $default_settings = [
+        //   'sitename'  => SITE_NAME
+        // , 'page_name' => false
+        // , 'return'    => false
+    ];
+
+    // Merge our array with the updated values passed via $settings[]
+    $settings = array_merge($default_settings, $settings);
+
+
+    // Collect menu data
+    $data = file_get_contents(SYSTEM_CONFIG_JSON);
+    $data = json_decode($data);
+
+
+    // Generate our links
+    $content = $class = "";
+
+    foreach ($data->main_navigation as $link => $value) {
+
+      // Determine the active page link and give it an active class
+      if (preg_match("/$value/", $requestURL[1])) {
+        $class = "class=\"active\"";
+      } else {
+        $class = "";
+      }
+
+      $title_text = preg_replace('/[-_]/', ' ', $value);
+
+      $content .= "<li $class><a href=\"/$value\">$title_text</a></li>\r\n";
+    }
+
+
+    // Concatenate markup into main-nav block
+    $output =   "<nav class=\"main-nav\" role=\"navigation\">"
+            .     "<ul>"
+            .       $content
+            .     "</ul>"
+            .   "</nav>"
+            ;
+
+    echo $output;
+
+  } // main_nav()
+
+
+
+  /**
+   * Helper function that aliases the global $markdown object to transform the page
+   * content and echoes out to the view
+   * @param  boolean    $echo   Boolean that determines if the function should echo or return the transformed markdown data
+   * @return string             Conditionally returns the transformed markdown data
+   */
+  function page_content($echo = true) {
+    global $markdown, $page_data;
+
+    $content = $markdown->transform($page_data->fetch('content'));
+
+    if ($echo) {
+      echo $content;
+    } else {
+      return $content;
+    }
+
+  }
+
+
+  /**
+   * Helper function that aliases the global $markdown object to transform a string
+   * passed as an argument parameter
+   * @param  string     $string Markdown content string that should be converted
+   * @param  boolean    $echo   Boolean that determines if the function should echo or return the transformed markdown data
+   * @return string             Conditionally returns the transformed markdown data
+   */
+  function markdown($string, $echo = true) {
+    global $markdown;
+
+    $content = $markdown->transform($string);
+
+    if ($echo) {
+      echo $content;
+    } else {
+      return $content;
+    }
+  }

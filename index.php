@@ -1,32 +1,35 @@
 <?php
 
-  require_once  'app/config.php';
-
   require_once  'vendor/autoload.php';
-  require_once  'vendor/brainsware/php-markdown-extra-extended/markdown_extended.php';
   require_once  'vendor/modularr/yaml-front-matter/frontmatter.php';
+
+  require_once  'app/config.php';
 
 
 //================================================================================
 
+  // Initialize a new template helper object(s)
+  use \Michelf\MarkdownExtra;
 
-  // Initialize a new Mustache object
-  $mustache         = new Mustache_Engine;
+  $markdown             = new MarkdownExtra;
+  $mustache             = new Mustache_Engine;
+
 
   // Template fallback globals
-  $footer_scripts   = [];
-  $template_file    = '';
-
-  $page             = '';
-  $page_data        = [];
-  $page_title_override = false;
+  $footer_scripts       = [];      // an array of script file URLs that can be modified on any given template view
+  $template_file        = '';      // name of the template to be used if provided by a document file
+  $page                 = '';      // the given page that should be rendered
+  $page_data            = [];      // the given page meta data parsed from
+  $page_title_override  = false;   // conditional to determine if we should override the views <title> tag
 
 
   // Remove the directory path we don't want
-  $request          = $_SERVER['REQUEST_URI'];
-  $requestURL       = explode("/", $request);
+  $request              = $_SERVER['REQUEST_URI'];
+  $requestURL           = explode("/", $request);
 
-  // print_r($requestURL);
+
+
+
 
 
 //================================================================================
@@ -34,8 +37,8 @@
   // Get template file names and append them into an array
   // we can use to test template $sage_pages
 
-  $pages      = scandir(DIR_PAGES);
-  $safe_pages = [''];
+  $pages        = scandir(DIR_PAGES);
+  $safe_pages   = [''];
 
   // Parse through pages and return page filename
   foreach ($pages as $template => $value) {
@@ -45,6 +48,9 @@
       }
     }
   }
+
+
+
 
 
 //================================================================================
