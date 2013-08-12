@@ -147,16 +147,15 @@
         }
 
       } else {
-        echo $error_message;
+        throw new RuntimeException($error_message);
       }
 
     } else {
-      echo $error_message;
+      throw new RuntimeException($error_message);
     }
 
     return;
   } // page_fb_open_graph()
-
 
 
 
@@ -419,8 +418,14 @@ GA_SNIPPET;
            * @param  boolean $echo     [description]
            * @return [type]            [description]
            */
-          function template_js($filename) {
+          function template_js($filename, $minified=THEME_MINIFY_JS) {
+
             $file = THEME_JS . $filename;
+
+            if ($minified) {
+              $file = THEME_MINIFY_JS_PATH . preg_replace('/\.js/', THEME_MINIFY_JS_SUFFIX, $filename);
+            }
+
             return load_asset($file);
           } // template_js()
 

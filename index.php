@@ -6,13 +6,30 @@
   require_once  'app/config.php';
 
 
+
+
+
+
+
+
+
+
+
+
 //================================================================================
 
   // Initialize a new template helper object(s)
   use \Michelf\MarkdownExtra;
 
-  $markdown             = new MarkdownExtra;
-  $mustache             = new Mustache_Engine;
+  $markdown   = new MarkdownExtra;
+  $mustache   = new Mustache_Engine;
+
+  $whoops     = new Whoops\Run();
+  $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
+
+  // Set Whoops as the default error and exception handler used by PHP:
+  $whoops->register();
+
 
 
   // Template fallback globals
