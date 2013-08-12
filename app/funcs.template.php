@@ -1,14 +1,12 @@
 <?php
 
-
-
 // TEMPLATE <head/> LEVEL CONTENT GENERATION FUNCTIONS
 //===========================================================================
 
   /**
    * Generates a <title/> string to be dumped into the template that leverages SEO benefits.
-   * @param  array    $settings        OPTIONAL: Override array for $page_title_settings
-   * @return string                    returns the page title string based on the given formatting options
+   * @param  array    $settings         OPTIONAL: Override array for $page_title_settings
+   * @return string                     returns the page title string based on the given formatting options
    */
   function page_title($settings = []) {
     global $page_data, $page_title_override;
@@ -39,7 +37,6 @@
       // put the page name before the site name
       } else {
         $page_name  = "$settings[page_name] $settings[seperator] $settings[sitename]";
-
       }
 
     } else {
@@ -67,8 +64,8 @@
 
   /**
    * Generates favicon links for general .ico and apple/iOS specific favicon <link> tags.
-   * @param  str   $favicon            REQUIRED: this generates the favicon targeting the given file location string
-   * @param  str   $mobile             OPTIONAL: this generates an apple/iOS specific link to the respective favicon, provided it's been defined as an argument
+   * @param  string   $favicon          REQUIRED: this generates the favicon targeting the given file location string
+   * @param  string   $mobile           OPTIONAL: this generates an apple/iOS specific link to the respective favicon, provided it's been defined as an argument
    * @return null
    */
   function page_favicons($favicon, $mobile = false) {
@@ -94,10 +91,11 @@
 
   /**
    * Generates a <meta> tag for a given key value passed as an argument.
-   * @param  str      $data_key        REQUIRED: Determines if a FrontMatter key exists and echoes the correlating meta tag if it does.
+   * @param  string   $data_key         REQUIRED: Determines if a FrontMatter key exists and echoes the correlating meta tag if it does.
+   * @param  string   $attr_type        OPTIONAL: Defines what type of meta tag it should be defined as
    * @return null
    */
-  function page_meta($data_key, $type="name") {
+  function page_meta($data_key, $attr_type="name") {
     global $page_data;
 
     $content = '';
@@ -105,9 +103,8 @@
     // If it's a FrontMatter property
     if ($page_data->keyExists($data_key)) {
       $content = $page_data->fetch($data_key);
+      echo "<meta $attr_type=\"$data_key\" content=\"$content\">\r\n";
     }
-
-    echo "<meta $type=\"$data_key\" content=\"$content\">\r\n";
 
     return;
   } // page_meta()
@@ -121,13 +118,15 @@
 //===========================================================================
 
   /**
-   * Generates template level Open Graph data for Facebook.
+   * Generates template level Facebook Open Graph data.
+   * - Courtesy of http://davidwalsh.name/facebook-meta-tags
+   * @param  array    $meta_data        An array of meta data types that you may customize as needed.
    * @return null
    */
   function page_fb_open_graph($meta_data = []) {
     global $page_data;
 
-    $error_message =  PAGE_FBOG_ERROR_MESSAGE;
+    $error_message =  ERROR_FB_OPENGRAPH;
 
     $standard_data  = [
       'image'       => 'http://davidwalsh.name/wp-content/themes/klass/img/facebooklogo.png'
@@ -162,12 +161,12 @@
 
   /**
    * Generates an html5boilerplate compliant Google Analytics tracking script using only the tracking ID code.
-   * @param  str      $analytics_ID    REQUIRED: the tracking ID provided by Google Analytics
+   * @param  string   $analytics_ID     REQUIRED: the tracking ID provided by Google Analytics
    * @return null
    */
   function page_ga_tracking($analytics_ID = '') {
 
-    $error_message =  PAGE_GA_ERROR_MESSAGE;
+    $error_message =  ERROR_GOOGLE_ANALYTICS;
 
     if ($analytics_ID === '') {
       echo $error_message;
@@ -198,7 +197,7 @@ GA_SNIPPET;
 
   /**
    * Generates a concatenated string of space delimited classes for the <body/> tag.
-   * @param  array    $classes            OPTIONAL: a comma delimited array of strings which are added to collective output
+   * @param  array    $classes          OPTIONAL: a comma delimited array of strings which are added to collective output
    * @return string
    */
   function page_body_classes($classes = []) {
@@ -238,7 +237,7 @@ GA_SNIPPET;
 
   /**
    * Gererates a series of scripts to be loaded at a given point in a template.
-   * @param  array    $array              REQUIRED: comma delimited array of strings designating what scripts should be loaded on this view
+   * @param  array    $array            REQUIRED: comma delimited array of strings designating what scripts should be loaded on this view
    * @return null
    */
   function page_scripts($array) {
@@ -261,9 +260,11 @@ GA_SNIPPET;
            * @param  array    $array              REQUIRED: comma delimited array of strings designating what scripts should be loaded on this view
            * @return null
            */
-          function page_header_scripts($array) {
+          function page_header_scripts() {
 
-            page_scripts($array);
+            global $header_scripts;
+
+            page_scripts($header_scripts);
 
             return;
           } // footer_scripts()
@@ -275,7 +276,7 @@ GA_SNIPPET;
            * @param  array    $array              REQUIRED: comma delimited array of strings designating what scripts should be loaded on this view
            * @return null
            */
-          function page_footer_scripts($direct_override = []) {
+          function page_footer_scripts() {
 
             global $footer_scripts;
 
@@ -292,9 +293,9 @@ GA_SNIPPET;
    * Generates a copyright year that is output to the footer
    * ---
    * Based on whether you supply a yearEstablish value, it will generate a "$yearEstablished - $currentYear" string combination.
-   * @param  int      $yearEstablished    OPTIONAL: Provide a year value to be interpreted as a copyright duration
-   * @param  str      $sep                OPTIONAL: A separater string, defined as a pipe "|" character
-   * @return str                          Fully formatted output string
+   * @param  int      $yearEstablished      OPTIONAL: Provide a year value to be interpreted as a copyright duration
+   * @param  string      $sep               OPTIONAL: A separater string, defined as a pipe "|" character
+   * @return string                         Fully formatted output string
    */
   function copyright_year($yearEstablished = false, $sep = "&ndash;") {
 
@@ -321,15 +322,15 @@ GA_SNIPPET;
 
   /**
    * [load_resource description]
-   * @param  [type] $resource_location [description]
-   * @return string PAGE_TEMPLATE_ERROR_MESSAGE   system constant detailing an error message was returned
+   * @param  [type]   $resource_location [description]
+   * @return string   ERROR_TEMPLATE        System constant detailing an error message was returned
    */
   function load_resource($resource_location) {
 
     if (is_file($resource_location)) {
       include($resource_location);
     } else {
-      return PAGE_TEMPLATE_ERROR_MESSAGE;
+      return ERROR_TEMPLATE;
     }
 
   } // load_resource()
@@ -349,7 +350,7 @@ GA_SNIPPET;
 
           /**
            * Generates a template include based on the file name passed as an argument.
-           * @param  str      $template_name name of the template file to be included
+           * @param  string      $template_name name of the template file to be included
            * @return load_resource()
            */
           function load_template($asset_name) {
@@ -407,7 +408,7 @@ GA_SNIPPET;
     if ($location) {
       return $location;
     } else {
-      return PAGE_EMPTY_PARAM_MESSAGE;
+      return ERROR_FUNC_PARAM;
     }
   }
 
@@ -525,11 +526,11 @@ GA_SNIPPET;
 
 
     // Concatenate markup into main-nav block
-    $output =   "<nav class=\"main-nav\" role=\"navigation\">"
-            .     "<ul>"
+    $output =   "<nav class=\"main-nav\" role=\"navigation\">\r\n"
+            .     "<ul>\r\n"
             .       $content
-            .     "</ul>"
-            .   "</nav>"
+            .     "</ul>\r\n"
+            .   "</nav>\r\n"
             ;
 
     echo $output;

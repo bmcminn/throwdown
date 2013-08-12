@@ -71,10 +71,10 @@ These are the default system level constansts defined system wide. They cover nu
   $message_begin  = "[ERROR NOTICE:";
   $message_end    = "]";
 
-  define("PAGE_FBOG_ERROR_MESSAGE",     "$message_begin You need to configure your Facebook open graph ID (FB_OPEN_GRAPH_ID) in config.php $message_end");
-  define("PAGE_GA_ERROR_MESSAGE",       "$message_begin You need to pass a Google Analytics tracking code to this function call. $message_end");
-  define("PAGE_TEMPLATE_ERROR_MESSAGE", "$message_begin The template you requested is not avialable. $message_end");
-  define("PAGE_EMPTY_PARAM_MESSAGE",    "$message_begin This function requires at least 1 argument. $message_end");
+  define("ERROR_FB_OPENGRAPH",     "$message_begin You need to configure your Facebook open graph ID (FB_OPEN_GRAPH_ID) in config.php $message_end");
+  define("ERROR_GOOGLE_ANALYTICS",       "$message_begin You need to pass a Google Analytics tracking code to this function call. $message_end");
+  define("ERROR_TEMPLATE", "$message_begin The template you requested is not avialable. $message_end");
+  define("ERROR_FUNC_PARAM",    "$message_begin This function requires at least 1 argument. $message_end");
 
 
   // Social integration options

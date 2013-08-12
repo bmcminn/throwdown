@@ -19,6 +19,14 @@
 
 
 
+  // Site name defaults
+  //===========================================================================
+  define("SITE_NAME",               $settings->site_name);
+  define("SITE_NAME_LEGAL",         $settings->site_name_legal);
+  define("SITE_FOOTER_COPYRIGHT",   $settings->site_footer_copyright);
+
+
+
   // Template constants
   //===========================================================================
 
@@ -46,7 +54,6 @@
   define("DEFAULT_HOMEPAGE",        $settings->default_homepage);
   define("TEMPLATE_HEADER",         $settings->template_header);
   define("TEMPLATE_FOOTER",         $settings->template_footer);
-
 
 
   // SET: Current theme is enabled ALWAYS
@@ -83,23 +90,6 @@
 
 
 
-  // System Directory defaults
-  //===========================================================================
-  define("DIR_TEMPLATES",           ROOT_DIR . "/themes/" . CURRENT_THEME . "/");
-  define("DIR_PAGES",               ROOT_DIR . "/pages/");
-  define("DIR_ARTICLES",            ROOT_DIR . "/articles/");
-  define("DIR_PLUGINS",             ROOT_DIR . "/app/plugins/");
-
-
-
-  // Site name defaults
-  //===========================================================================
-  define("SITE_NAME",               $settings->site_name);
-  define("SITE_NAME_LEGAL",         $settings->site_name_legal);
-  define("SITE_FOOTER_COPYRIGHT",   $settings->site_footer_copyright);
-
-
-
   // Site URL structure
   //===========================================================================
   $url_protocol = 'http';
@@ -111,9 +101,24 @@
   $site_url     = $url_protocol.'://'.$_SERVER["SERVER_NAME"];
   $current_url  = $site_url.$_SERVER["REQUEST_URI"];
 
-  define("SITE_URL",                    $site_url);
-  define("CURRENT_URL",                 $current_url);
-  define("URL_HOME",                    SITE_URL);
+  // SET: Default articles directory
+  if (!isset($settings->articles_url)) {
+    $settings->articles_url = '/articles';
+  }
+
+  define("SITE_URL",                $site_url);
+  define("CURRENT_URL",             $current_url);
+  define("URL_HOME",                SITE_URL);
+  define("URL_ARTICLES",            $settings->articles_url);
+
+
+
+  // System Directory defaults
+  //===========================================================================
+  define("DIR_ARTICLES",            ROOT_DIR . URL_ARTICLES . "/");
+  define("DIR_TEMPLATES",           ROOT_DIR . "/themes/" . CURRENT_THEME . "/");
+  define("DIR_PAGES",               ROOT_DIR . "/pages/");
+  define("DIR_PLUGINS",             ROOT_DIR . "/app/plugins/");
 
 
 
@@ -122,11 +127,10 @@
   $message_begin  = "[ERROR NOTICE:";
   $message_end    = "]\r\n";
 
-  define("PAGE_EMPTY_PARAM_MESSAGE",    "$message_begin This function requires at least 1 argument. $message_end");
-  define("PAGE_TEMPLATE_ERROR_MESSAGE", "$message_begin The template you requested is not avialable. $message_end");
-
-  define("PAGE_GA_ERROR_MESSAGE",       "$message_begin You need to pass a Google Analytics tracking code to this function call. $message_end");
-  define("PAGE_FBOG_ERROR_MESSAGE",     "$message_begin You need to configure your Facebook open graph ID (FB_OPEN_GRAPH_ID) in config.php $message_end");
+  define("ERROR_TEMPLATE",          "$message_begin The template you requested is not avialable. $message_end");
+  define("ERROR_FUNC_PARAM",        "$message_begin This function requires at least 1 argument. $message_end");
+  define("ERROR_GOOGLE_ANALYTICS",  "$message_begin You need to pass a Google Analytics tracking code to this function call. $message_end");
+  define("ERROR_FB_OPENGRAPH",      "$message_begin You need to configure your Facebook open graph ID (FB_OPEN_GRAPH_ID) in config.php $message_end");
 
 
 

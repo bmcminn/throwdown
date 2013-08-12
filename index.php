@@ -1,15 +1,11 @@
 <?php
 
+//================================================================================
+
   require_once  'vendor/autoload.php';
   require_once  'vendor/modularr/yaml-front-matter/frontmatter.php';
 
   require_once  'app/config.php';
-
-
-
-
-
-
 
 
 
@@ -23,21 +19,22 @@
 
   $markdown   = new MarkdownExtra;
   $mustache   = new Mustache_Engine;
-
   $whoops     = new Whoops\Run();
+
+
   $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
 
   // Set Whoops as the default error and exception handler used by PHP:
   $whoops->register();
 
 
-
   // Template fallback globals
-  $footer_scripts       = [];      // an array of script file URLs that can be modified on any given template view
-  $template_file        = '';      // name of the template to be used if provided by a document file
-  $page                 = '';      // the given page that should be rendered
-  $page_data            = [];      // the given page meta data parsed from
-  $page_title_override  = false;   // conditional to determine if we should override the views <title> tag
+  $header_scripts       = [];     // an array of script file URLs that should be loaded in the <head> of a document
+  $footer_scripts       = [];     // an array of script file URLs that should be loaded toward the bottom of a document
+  $template_file        = '';     // name of the template to be used if provided by a document file
+  $page                 = '';     // the given page that should be rendered
+  $page_data            = [];     // the given page meta data parsed from
+  $page_title_override  = false;  // conditional to determine if we should override the views <title> tag
 
 
   // Remove the directory path we don't want
@@ -72,7 +69,7 @@
 
 //================================================================================
 
-  // keeps users from requesting any file they want
+  // IF: keeps users from requesting any file they want
   if(in_array($requestURL[1], $safe_pages)) {
 
     // if the urlrequest is empty, we're on the homepage
@@ -88,8 +85,10 @@
     // Determine what template we should load if any
     if ($page_data->keyExists('template')) {
       $template_file  = $page_data->fetch('template') . '.php';
+
     } else {
       $template_file  = DEFAULT_TEMPLATE;
+
     }
 
 
@@ -110,8 +109,13 @@
         break;
     }
 
+  // ELSEIF: are we on an /articles view?
+  } elseif ($requestURL[1] === URL_FRAGMENT_ARTICLES) {
 
-  // ELSE generate the 404 page
+    echo "AN ARTICLE PAGE FINALLY!!!";
+
+
+  // ELSE: generate the 404 page
   } else {
     $page = DIR_TEMPLATES . "404.php";
     $page_data = new FrontMatter(DIR_PAGES . '404.md');
