@@ -24,7 +24,7 @@ testing-awesome.md
 *---DRAFT.md
 *.TODO
 
-pages/images
-app/plugins/about
-app/plugins/works
+content/images/about/
+app/plugins/about/
+app/plugins/works/
 works.md
