@@ -1,13 +1,12 @@
 {
-  "current_theme":          "dragonspiritmedia"
+  "current_theme":          "testing"
+, "default_homepage":       "home"
 , "default_template":       "default.php"
-, "default_homepage":       "works"
 
 
-, "site_name":              "Dragon Spirit Media"
-, "site_name_legal":        "Dragon Spirit Media"
-, "site_footer_copyright":  "Dragon Spirit Media LLC"
-
+, "site_name":              "Throwdown CMS"
+, "site_name_legal":        "Throwdown CMS"
+, "site_footer_copyright":  "Throwdown CMS"
 
 , "main_navigation": [
     "works"

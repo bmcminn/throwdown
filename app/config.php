@@ -6,10 +6,7 @@
   define("SYSTEM_CONFIG_JSON",      ROOT_DIR . '/config.json');
 
 
-  $config   = file_get_contents(SYSTEM_CONFIG_JSON);
-  $config   = json_minify($config);
-  $settings = json_decode($config);
-
+  $settings = get_config();
 
 
   // Template meta data defuaults
@@ -115,9 +112,9 @@
 
   // System Directory defaults
   //===========================================================================
-  define("DIR_ARTICLES",            ROOT_DIR . URL_ARTICLES . "/");
   define("DIR_TEMPLATES",           ROOT_DIR . "/themes/" . CURRENT_THEME . "/");
-  define("DIR_PAGES",               ROOT_DIR . "/pages/");
+  define("DIR_PAGES",               ROOT_DIR . "/content/pages/");
+  define("DIR_ARTICLES",            ROOT_DIR . "/content/articles/");
   define("DIR_PLUGINS",             ROOT_DIR . "/app/plugins/");
 
 

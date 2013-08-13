@@ -2,9 +2,12 @@
 
 //================================================================================
 
+  // Require system level helper libs
   require_once  'vendor/autoload.php';
   require_once  'vendor/modularr/yaml-front-matter/frontmatter.php';
 
+  // Require system level helper functions and configuration files
+  require_once  'app/funcs.template.php';
   require_once  'app/config.php';
 
 
@@ -33,7 +36,7 @@
   $footer_scripts       = [];     // an array of script file URLs that should be loaded toward the bottom of a document
   $template_file        = '';     // name of the template to be used if provided by a document file
   $page                 = '';     // the given page that should be rendered
-  $page_data            = [];     // the given page meta data parsed from
+  $page_data            = null;     // the given page meta data parsed from
   $page_title_override  = false;  // conditional to determine if we should override the views <title> tag
 
 
@@ -110,9 +113,9 @@
     }
 
   // ELSEIF: are we on an /articles view?
-  } elseif ($requestURL[1] === URL_FRAGMENT_ARTICLES) {
+  } elseif ($requestURL[1] === preg_replace("/\//", '', URL_ARTICLES)) {
 
-    echo "AN ARTICLE PAGE FINALLY!!!";
+    $page = DIR_TEMPLATES . "articles.php";
 
 
   // ELSE: generate the 404 page
@@ -124,9 +127,6 @@
 
 //================================================================================
 
-
-  // Pull in our template helper functions
-  require_once  'app/funcs.template.php';
 
   // Include our defined template
   include($page);

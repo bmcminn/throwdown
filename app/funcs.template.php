@@ -4,6 +4,17 @@
 //===========================================================================
 
   /**
+   * Collects the contents of the config.json file and parses it into a PHP array object
+   * @return object                     A PHP object array of the processed JSON data.
+   */
+  function get_config() {
+    $data = file_get_contents(SYSTEM_CONFIG_JSON);
+    $data = json_minify($data);
+    return json_decode($data);
+  }
+
+
+  /**
    * Generates a <title/> string to be dumped into the template that leverages SEO benefits.
    * @param  array    $settings         OPTIONAL: Override array for $page_title_settings
    * @return string                     returns the page title string based on the given formatting options
@@ -25,22 +36,27 @@
     // Establish default variables
     $page_name = '';
 
-    // if the Markdown file provides a 'title' attribute
-    if ($page_data->keyExists('title')) {
-      $settings['page_name'] = $page_data->fetch('title');
 
-      // if we're inverting the page title format
-      // put the site name before the page name
-      if ($settings['invert']) {
-        $page_name  = "$settings[sitename] $settings[seperator] $settings[page_name]";
+    if ($page_data) {
 
-      // put the page name before the site name
+      // if the Markdown file provides a 'title' attribute
+      if ($page_data->keyExists('title')) {
+        $settings['page_name'] = $page_data->fetch('title');
+
+        // if we're inverting the page title format
+        // put the site name before the page name
+        if ($settings['invert']) {
+          $page_name  = "$settings[sitename] $settings[seperator] $settings[page_name]";
+
+        // put the page name before the site name
+        } else {
+          $page_name  = "$settings[page_name] $settings[seperator] $settings[sitename]";
+        }
+
       } else {
-        $page_name  = "$settings[page_name] $settings[seperator] $settings[sitename]";
+        $page_name = $settings['sitename'];
       }
 
-    } else {
-      $page_name = $settings['sitename'];
     }
 
     return $page_name;
@@ -100,10 +116,14 @@
 
     $content = '';
 
-    // If it's a FrontMatter property
-    if ($page_data->keyExists($data_key)) {
-      $content = $page_data->fetch($data_key);
-      echo "<meta $attr_type=\"$data_key\" content=\"$content\">\r\n";
+    if ($page_data) {
+
+      // If it's a FrontMatter property
+      if ($page_data->keyExists($data_key)) {
+        $content = $page_data->fetch($data_key);
+        echo "<meta $attr_type=\"$data_key\" content=\"$content\">\r\n";
+      }
+
     }
 
     return;
@@ -203,16 +223,24 @@ GA_SNIPPET;
   function page_body_classes($classes = []) {
     global $page, $page_data, $requestURL;
 
+    print_r($page);
 
     // Default variables
     $content = $template = "";
 
 
-    if ($page_data->fetch('template')) {
+    if ($page_data && $page_data->fetch('template')) {
       $template = $page_data->fetch('template');
+
+    } elseif ($page === preg_replace("/\//", '', URL_ARTICLES)) {
+
+      $template = preg_replace("/\//", '', URL_ARTICLES);
+
     } else {
       $template = 'default';
     }
+
+
 
     $default_classes = [
       'page-' .$requestURL[1]
@@ -503,8 +531,7 @@ GA_SNIPPET;
 
 
     // Collect menu data
-    $data = file_get_contents(SYSTEM_CONFIG_JSON);
-    $data = json_decode($data);
+    $data = get_config();
 
 
     // Generate our links
