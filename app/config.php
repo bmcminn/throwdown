@@ -59,10 +59,10 @@
   }
 
   define("CURRENT_THEME",           $settings->current_theme);
-  define("THEME_JS",                '/themes/' . CURRENT_THEME . '/js/');
-  define("THEME_CSS",               '/themes/' . CURRENT_THEME . '/css/');
-  define("THEME_LESS",              '/themes/' . CURRENT_THEME . '/less/');
-  define("THEME_IMG",               '/themes/' . CURRENT_THEME . '/img/');
+  define("THEME_JS",                '/content/themes/' . CURRENT_THEME . '/js/');
+  define("THEME_CSS",               '/content/themes/' . CURRENT_THEME . '/css/');
+  define("THEME_LESS",              '/content/themes/' . CURRENT_THEME . '/less/');
+  define("THEME_IMG",               '/content/themes/' . CURRENT_THEME . '/img/');
 
 
 
@@ -112,10 +112,11 @@
 
   // System Directory defaults
   //===========================================================================
-  define("DIR_TEMPLATES",           ROOT_DIR . "/themes/" . CURRENT_THEME . "/");
-  define("DIR_PAGES",               ROOT_DIR . "/content/pages/");
-  define("DIR_ARTICLES",            ROOT_DIR . "/content/articles/");
-  define("DIR_PLUGINS",             ROOT_DIR . "/app/plugins/");
+  define("DIR_CONTENT",             ROOT_DIR . "/content");
+  define("DIR_TEMPLATES",           DIR_CONTENT . "/themes/" . CURRENT_THEME . "/");
+  define("DIR_PAGES",               DIR_CONTENT . "/pages/");
+  define("DIR_ARTICLES",            DIR_CONTENT . "/articles/");
+  define("DIR_PLUGINS",             DIR_CONTENT . "/plugins/");
 
 
 

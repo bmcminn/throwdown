@@ -1,15 +1,9 @@
-<?php
-
-  $site_language = SITE_LANG;
-
-  echo <<<DOCTYPE
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="$site_language; class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="$site_language; class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="$site_language; class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="$site_language; class="no-js"> <!--<![endif]-->
-DOCTYPE;
-?>
+<!--[if lt IE 7]>      <html lang="<?php echo SITE_LANG; ?>" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="<?php echo SITE_LANG; ?>" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="<?php echo SITE_LANG; ?>" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="<?php echo SITE_LANG; ?>" class="no-js"> <!--<![endif]-->
+
 <head>
   <meta charset="<?php echo SITE_CHARSET; ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

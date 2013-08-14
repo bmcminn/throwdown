@@ -240,12 +240,10 @@ AddDefaultCharset utf-8
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
-</IfModule>
 
-<IfModule mod_rewrite.c>
+
     RewriteCond %{SCRIPT_FILENAME} !-d
     RewriteCond %{SCRIPT_FILENAME} !-f
-
     RewriteRule ^(.*)$ ./index.php?content=$1 [L,QSA]
 </IfModule>
 
@@ -326,6 +324,56 @@ AddDefaultCharset utf-8
     Satisfy All
 </FilesMatch>
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Block access to system level config files.
+# These files may be left by some text editors and can pose a great security
+# danger when anyone has access to them.
+
+# m0n.co/9
+RewriteCond %{QUERY_STRING} \=PHP[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} [NC]
+RewriteRule .* - [F]
+
+
+# secure htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+<Files ~ "^\.htaccess">
+  Order allow,deny
+  Deny from all
+</Files>
+
+<Files ~ "^config.json">
+  Order allow,deny
+  Deny from all
+</Files>
+
+
+<FilesMatch "(^#.*#|(config.php|config.json)|~)$">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</FilesMatch>
+
+# block evil incarnate query strings
+# <ifmodule mod_rewrite.c>
+#     RewriteCond %{QUERY_STRING} \.\.\/    [NC,OR]
+#     RewriteRule .* -                      [F,L]
+# </ifmodule>
+# # block evil incarnate user agents
+# SetEnvIfNoCase User-Agent "shell_exec"  keep_out
+# SetEnvIfNoCase User-Agent "passthru"    keep_out
+# SetEnvIfNoCase User-Agent "function"    keep_out
+# <Limit GET POST>
+#     order allow,deny
+#     allow from all
+#     deny from env=keep_out
+# </Limit>
+
+
 # ------------------------------------------------------------------------------
 # | Secure Sockets Layer (SSL)                                                 |
 # ------------------------------------------------------------------------------
@@ -363,7 +411,9 @@ AddDefaultCharset utf-8
 
 # ADD THIS DIRECTIVE IN THE `httpd.conf` AS IT WILL NOT WORK IN THE `.htaccess`!
 
-# ServerTokens Prod
+# ServerTokens    Prod
+# ServerSignature Off
+
 
 
 # ##############################################################################
