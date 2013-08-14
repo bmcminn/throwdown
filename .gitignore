@@ -29,6 +29,6 @@ content/images/*/*.jpg
 content/images/*/*.png
 content/images/*/*.gif
 content/images/*/*.jpeg
-app/plugins/about/
-app/plugins/works/
+content/plugins/aboutd/
+content/plugins/worksd/
 works.md
