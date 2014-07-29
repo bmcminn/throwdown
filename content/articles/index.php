@@ -1,3 +1,0 @@
-<?php
-
-  // I see nussing!!

@@ -1,34 +1,15 @@
-### FILES ###
-.DS_Store
-*.DS_Store
-README---DRAFT.md
-app/README.md
+
+# Directories
+/node_modules
+/bower_components
+/vendor
+/logs
 
 
-### DIRECTORIES ###
-
-
-
-### TESTING SPECIFIC FILES/DIRECTORIES ###
-vendor/
-projects/
-_design/
-
-dragonspiritmedia/
-
-composer.lock
-
-
-testing-awesome.md
-
-*---DRAFT.md
-*.TODO
-
-content/images/*
-content/images/*/*.jpg
-content/images/*/*.png
-content/images/*/*.gif
-content/images/*/*.jpeg
-content/plugins/aboutd/
-content/plugins/worksd/
-works.md
+# Individual Files
+npm-debug.log
+public/less/vendor/*
+public/fonts/*
+public/templates/cache/disk/*
+public/js/vendor/*
+public/images/*

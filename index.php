@@ -1,134 +1,132 @@
 <?php
 
-//================================================================================
+  ini_set('error_reporting', E_ALL);
 
-  // Require system level helper libs
-  require_once  'vendor/autoload.php';
-  require_once  'vendor/modularr/yaml-front-matter/frontmatter.php';
-
-  // Require system level helper functions and configuration files
-  require_once  'app/funcs.template.php';
-  require_once  'app/config.php';
-
-
-
-
+  define("ROOT_DIR",      __DIR__);
+  define("APP_DIR",       __DIR__.'/app');
+  define("ERROR_DIR",     __DIR__.'/error_logs');
+  define("PUBLIC_DIR",    __DIR__.'/public');
+  define("MODELS_DIR",    __DIR__.'/public/models');
+  define("IMAGES_DIR",    __DIR__.'/public/images');
+  define("LANG_DIR",      __DIR__.'/public/i18n');
+  define("LOCALE_DIR",    __DIR__.'/public/l20n');
+  define("TEMPLATES_DIR", __DIR__.'/public/templates');
 
 
-//================================================================================
-
-  // Initialize a new template helper object(s)
-  use \Michelf\MarkdownExtra;
-
-  $markdown   = new MarkdownExtra;
-  $mustache   = new Mustache_Engine;
-  $whoops     = new Whoops\Run();
+  require "vendor/autoload.php";
 
 
-  $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
+  //
+  // COMPILE MODEL
+  //
 
-  // Set Whoops as the default error and exception handler used by PHP:
-  $whoops->register();
+  use Throwdown\Throwdown as Throwdown;
 
+  $throwdown = new Throwdown();
 
-  // Template fallback globals
-  $header_scripts       = [];     // an array of script file URLs that should be loaded in the <head> of a document
-  $footer_scripts       = [];     // an array of script file URLs that should be loaded toward the bottom of a document
-  $template_file        = '';     // name of the template to be used if provided by a document file
-  $page                 = '';     // the given page that should be rendered
-  $page_data            = null;     // the given page meta data parsed from
-  $page_title_override  = false;  // conditional to determine if we should override the views <title> tag
+  $throwdown->init_model(MODELS_DIR);
+  $throwdown->get_lang(LANG_DIR, $throwdown->model['config']['siteLang']);
 
-
-  // Remove the directory path we don't want
-  $request              = $_SERVER['REQUEST_URI'];
-  $requestURL           = explode("/", $request);
+  $model = $throwdown->get_model();
 
 
 
+  //
+  // CONFIGURE DISPATCH
+  //
+
+  config([
+    'dispatch.url'                => $model['config']['siteURL']
+  , 'dispatch.imageUrl'           => IMAGES_DIR
+  , 'dispatch.extras.debug_log'   => ERROR_DIR . '/dispatch_debug.txt'
+  ]);
 
 
 
-//================================================================================
+  //
+  // CONFIGURE THROWDOWN
+  //
 
-  // Get template file names and append them into an array
-  // we can use to test template $sage_pages
+  config([
+    'throwdown.timezone'          => $throwdown->model['config']['timezone']
+  ]);
 
-  $pages        = scandir(DIR_PAGES);
-  $safe_pages   = [''];
 
-  // Parse through pages and return page filename
-  foreach ($pages as $template => $value) {
-    if (!is_dir(DIR_PAGES . $value)) {
-      if (!preg_match('/^_/', $value)) {
-        $safe_pages[] .= preg_replace('/(.*).md$/', '$1', $value);
-      }
-    }
+
+  //
+  // CONFIGURE HANDLEBARS
+  //
+
+  config([
+    'handlebars.views'            => TEMPLATES_DIR
+  , 'handlebars.layout'           => 'layout'
+  , 'handlebars.partial_prefix'   => '_'
+  , 'handlebars.cache'            => new Handlebars\Cache\Disk(TEMPLATES_DIR . '/cache/disk')
+  , 'handlebars.minify'           => $model['config']['compress']
+  ]);
+
+
+
+  //
+  // EXTEND HANDLEBARS
+  //
+
+  config([
+    'handlebars.helpers' => [
+      'image'   => 'handlebars_image'
+    , 'public'  => 'handlebars_public'
+    , 'lang'    => 'handlebars_lang'
+    ]
+  ]);
+
+
+  function handlebars_image($template, $context, $args, $source) {
+    return config('dispatch.url').'/public/images/'.$context->get($args);
+  }
+
+  function handlebars_public($template, $context, $args, $source) {
+    return config('dispatch.url')."/public/".$args;
+  }
+
+  function handlebars_lang($template, $context, $args, $source) {
+    global $model;
+    return $context->get($args)[$model['config']['siteLang']];
   }
 
 
 
+  //
+  // GET HANDLEBARS TEMPLATES
+  //
 
-
-//================================================================================
-
-  // IF: keeps users from requesting any file they want
-  if(in_array($requestURL[1], $safe_pages)) {
-
-    // if the urlrequest is empty, we're on the homepage
-    if ($requestURL[1] === '') {
-      $requestURL[1] = DEFAULT_HOMEPAGE;
-    }
-
-    // get the front-matter meta data
-    $request_file   = DIR_PAGES . $requestURL[1] . '.md';
-    $page_data      = new FrontMatter($request_file);
-
-
-    // Determine what template we should load if any
-    if ($page_data->keyExists('template')) {
-      $template_file  = $page_data->fetch('template') . '.php';
-
-    } else {
-      $template_file  = DEFAULT_TEMPLATE;
-
-    }
-
-
-    // Determine what template we should load based on the URL context
-    // and the YAML FrontMatter 'template' key
-    switch($requestURL[1]) {
-
-      case '':
-        $page = DIR_TEMPLATES . DEFAULT_HOMEPAGE;
-        break;
-
-      case $requestURL[1]:
-        $page = DIR_TEMPLATES . $template_file;
-        break;
-
-      default:
-        $page = DIR_TEMPLATES . DEFAULT_HOMEPAGE;
-        break;
-    }
-
-  // ELSEIF: are we on an /articles view?
-  } elseif ($requestURL[1] === preg_replace("/\//", '', URL_ARTICLES)) {
-
-    $page = DIR_TEMPLATES . "articles.php";
-
-
-  // ELSE: generate the 404 page
-  } else {
-    $page = DIR_TEMPLATES . "404.php";
-    $page_data = new FrontMatter(DIR_PAGES . '404.md');
-
+  if ($model['config']['compress']) {
+    $model['templates'] = handlebars_templates();
   }
 
-//================================================================================
 
 
-  // Include our defined template
-  include($page);
+  //
+  // ROUTES
+  //
+
+  // index page
+  on('GET', '/', function () {
+      global $model, $throwdown;
+
+      $pageName = 'homepage';
+
+      handlebars($pageName, $model);
+      $throwdown->dumpJSON($model, $pageName);
+    });
+
+
+
+
+  // $throwdown->dumpJSON($model);
+
+
+
+
+  dispatch();
 
 

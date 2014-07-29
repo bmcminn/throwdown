@@ -1,29 +1,26 @@
 {
+  "config": {
+    "isRemote":   false
+  , "compress":   false
 
-  // THESE ARE REQUIRED!!!
-  //---------------------------------------------------------------------------
-  "current_theme":          "dragonspiritmedia"           // enable a specific theme. there is no fallback for this yet
-, "default_template":       "default.php"                 // fallback template in the event a pages defined template does not exist
-, "default_homepage":       "works"                       // specify a different homepage, other than the default.md page
+  , "siteURL":    "http://127.0.0.1/site-name-new/"
+  , "siteLang":   "en-us"
+  , "timezone":   "America/Chicago"
+  },
 
+  // TODO: figure out what we might do about configuring remote details...
+  "configRemote": {
+    "isRemote":   true
+  , "compress":   true
 
-  // These not so much :P
-  //---------------------------------------------------------------------------
-, "site_name":              "Dragon Spirit Media"         // specifies the sitename rendered on a given views' `<title>` tag
-, "site_name_legal":        "Dragon Spirit Media"         // specifies a system constant you can use to change the legal name used in `/terms` and `/privacy` page files
-, "site_footer_copyright":  "Dragon Spirit Media LLC"     // specifies a system constant you can use when rendering the footer copyright section
+  , "siteURL":    "http://site-name.com/"
+  },
 
-
-
-  // Define your own custom things here for later use if you like
-  //---------------------------------------------------------------------------
-
-  // This is an example navigation menu you can
-  // configure to be used later via a plugin
-, "main_navigation": [
-    "works"
-  , "about"
-  ]
+  "grunt-ftp": {
+    "host": "",
+    "user": "",
+    "pass": ""
+  }
 
 }
 

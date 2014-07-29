@@ -1,0 +1,296 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "9a769f376c933b7f4103a3fd5cdeace1",
+    "packages": [
+        {
+            "name": "dispatch/dispatch",
+            "version": "2.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noodlehaus/dispatch.git",
+                "reference": "5c4565627bc4b46c15aa5b8a55381a23eb52aaef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/noodlehaus/dispatch/zipball/5c4565627bc4b46c15aa5b8a55381a23eb52aaef",
+                "reference": "5c4565627bc4b46c15aa5b8a55381a23eb52aaef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/dispatch.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jesus A. Domingo",
+                    "homepage": "http://noodlehaus.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "a microframework/front-controller",
+            "homepage": "http://noodlehaus.github.io/dispatch/",
+            "keywords": [
+                "framework",
+                "micro",
+                "microframework",
+                "microphp",
+                "router"
+            ],
+            "time": "2013-12-11 09:28:37"
+        },
+        {
+            "name": "dispatch/dispatch-extras",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noodlehaus/dispatch-extras.git",
+                "reference": "58f2705738e6d435a5f998affeb31dd492260524"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/noodlehaus/dispatch-extras/zipball/58f2705738e6d435a5f998affeb31dd492260524",
+                "reference": "58f2705738e6d435a5f998affeb31dd492260524",
+                "shasum": ""
+            },
+            "require": {
+                "dispatch/dispatch": "2.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/dispatch-extras.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jesus A. Domingo",
+                    "email": "jesus.domingo@gmail.com"
+                }
+            ],
+            "description": "Additional utilities for Dispatch Micro-framework",
+            "time": "2013-09-22 15:24:56"
+        },
+        {
+            "name": "giggleboxstudios/dispatch-handlebars",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GiggleboxStudios/dispatch-handlebars.git",
+                "reference": "145caa049a65b5cdf682531f337e9ef89d550833"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GiggleboxStudios/dispatch-handlebars/zipball/145caa049a65b5cdf682531f337e9ef89d550833",
+                "reference": "145caa049a65b5cdf682531f337e9ef89d550833",
+                "shasum": ""
+            },
+            "require": {
+                "dispatch/dispatch": ">= 2.6.2",
+                "php": ">= 5.4.0",
+                "xamin/handlebars.php": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/dispatch-handlebars.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brandtley McMinn",
+                    "email": "contact@giggleboxstudios.net",
+                    "homepage": "http://giggleboxstudios.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "handlebars support for dispatch micro framework",
+            "homepage": "https://github.com/GiggleboxStudios/dispatch-handlebars",
+            "keywords": [
+                "dispatch",
+                "handlebars",
+                "template"
+            ],
+            "time": "2014-05-27 06:35:39"
+        },
+        {
+            "name": "michelf/php-markdown",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
+                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-lib": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Michelf": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "http://michelf.ca/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "http://daringfireball.net/"
+                }
+            ],
+            "description": "PHP Markdown",
+            "homepage": "http://michelf.ca/projects/php-markdown/",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2014-05-05 02:43:50"
+        },
+        {
+            "name": "modularr/yaml-front-matter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Blaxus/YAML-FrontMatter.git",
+                "reference": "30a67a28b13874321b069d38c859813ed465cd96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Blaxus/YAML-FrontMatter/zipball/30a67a28b13874321b069d38c859813ed465cd96",
+                "reference": "30a67a28b13874321b069d38c859813ed465cd96",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "UNLICENSE"
+            ],
+            "authors": [
+                {
+                    "name": "David D'hont",
+                    "email": "admin@daviddhont.com"
+                }
+            ],
+            "description": "YAML-FrontMatter is a simple to use PHP only FrontMatter type parser Library.",
+            "homepage": "http://modularr.com",
+            "keywords": [
+                "frontmatter",
+                "metadata",
+                "parser",
+                "parsing",
+                "php"
+            ],
+            "time": "2014-06-25 14:50:11"
+        },
+        {
+            "name": "xamin/handlebars.php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/XaminProject/handlebars.php.git",
+                "reference": "84c6e3006c0c7b443290368ff1c7f92edd82e20e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/XaminProject/handlebars.php/zipball/84c6e3006c0c7b443290368ff1c7f92edd82e20e",
+                "reference": "84c6e3006c0c7b443290368ff1c7f92edd82e20e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Handlebars": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "fzerorubigd",
+                    "email": "fzerorubigd@gmail.com"
+                },
+                {
+                    "name": "Behrooz Shabani (everplays)",
+                    "email": "everplays@gmail.com"
+                }
+            ],
+            "description": "Handlebars processor for php",
+            "homepage": "https://github.com/XaminProject/handlebars.php",
+            "time": "2014-07-11 16:35:26"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "dispatch/dispatch-extras": 20,
+        "giggleboxstudios/dispatch-handlebars": 20,
+        "xamin/handlebars.php": 20,
+        "modularr/yaml-front-matter": 20
+    },
+    "prefer-stable": false,
+    "platform": {
+        "php": ">= 5.4.0"
+    },
+    "platform-dev": [
+
+    ]
+}
