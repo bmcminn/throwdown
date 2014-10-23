@@ -10,8 +10,8 @@ vendor/
 
 _design/
 _models/
-_public/templates/cache
-_public/libs
+_public/templates/cache/
+_public/libs/
 
 _app/TODO.md
 _plugins/
