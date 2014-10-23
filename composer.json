@@ -4,8 +4,7 @@
   "require": {
     "php": ">= 5.4.0",
     "filp/whoops": "dev-master",
-    "dispatch/dispatch": ">= 2.6.2",
-    "dispatch/dispatch-extras": "dev-master",
+    "dispatch/dispatch": "5.*@dev",
     "gigglebox/dispatch-handlebars": "dev-master",
     "xamin/handlebars.php": "dev-master",
     "modularr/yaml-front-matter": "dev-master",
