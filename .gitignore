@@ -1,0 +1,23 @@
+##########
+## APP
+##########
+
+node_modules/
+bower_components/
+vendor/
+*.log
+*.lock
+
+_design/
+_models/
+_public/templates/cache
+
+_app/TODO.md
+_plugins/
+!_plugins/helpers.plugins.
+
+*.sublime-project
+*.sublime-workspace
+*.psd
+*.zip
+*.ai

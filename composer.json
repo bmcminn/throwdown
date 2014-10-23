@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+
+  "require": {
+    "php": ">= 5.4.0",
+    "filp/whoops": "dev-master",
+    "dispatch/dispatch": ">= 2.6.2",
+    "dispatch/dispatch-extras": "dev-master",
+    "gigglebox/dispatch-handlebars": "dev-master",
+    "xamin/handlebars.php": "dev-master",
+    "modularr/yaml-front-matter": "dev-master",
+    "michelf/php-markdown": ">=1.4.1",
+    "ilya/belt": "dev-master",
+    "ilya/fuzzy": "dev-master",
+    "mibe/feedwriter": "dev-master",
+    "simplepie/simplepie": "dev-master"
+  },
+
+  "autoload": {
+    "files": [
+      "_app/functions.php"
+    ],
+
+    "psr-4": {
+      "Throwdown\\Plugins\\": "./_plugins",
+      "Throwdown\\Routes\\": "./_plugins",
+      "Throwdown\\": "./_app/throwdown"
+    }
+  },
+
+  "testing": {
+    "hello": "world :D"
+  }
+}
