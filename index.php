@@ -53,11 +53,8 @@
   settings('@' . DIR_ENV . DS . 'config.' . get_environment() . '.php');
 
 
-  if (settings('server.env') === 'dev') {
-    echo "I'm a sassy princess!!!";
-  }
+  // print_r(settings('user.language'));
 
-  echo date_default_timezone_get();
 
 
   require DIR_APP . DS . "routes.php";

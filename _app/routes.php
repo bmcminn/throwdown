@@ -6,17 +6,18 @@
   });
 
 
-  map('/blog', function() {
-    echo "blog index";
-  });
-
-
-  map('/blog/{post}', function($args) {
-    echo "blog post $args[post]";
-
-  });
-
 
   map('/{page}', function($args) {
-    echo $args['page'];
+    echo 'page ' . $args['page'];
   });
+
+
+
+  // Load all Plugin routes
+
+  $pluginRoutes = glob_recursive(DIR_PLUGINS . DS . '*_routes.php');
+
+  foreach ($pluginRoutes as $plugin => $file) {
+    require_once($file);
+  }
+

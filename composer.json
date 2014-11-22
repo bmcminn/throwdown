@@ -17,13 +17,12 @@
 
   "autoload": {
     "files": [
-      "_app/functions.php"
+      "_app/functions.php",
+      "_app/routes.php"
     ],
 
     "psr-4": {
-      "Throwdown\\Plugins\\": "./_plugins",
-      "Throwdown\\Routes\\": "./_plugins",
-      "Throwdown\\": "./_app/throwdown"
+
     }
   },
 
