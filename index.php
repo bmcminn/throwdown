@@ -1,6 +1,5 @@
 <?php
 
-
   /**
    * WELCOME TO THROWDOWN :D
    *
@@ -10,7 +9,7 @@
    * if PHP is setup on your local system PATH, type the following into
    * a terminal of your choice:
    *
-   *    > php -S localhost:1234 index.php`
+   *  > php -S localhost:1234 index.php
    *
    * @sauce: http://php.net/manual/en/features.commandline.webserver.php
    *
@@ -49,16 +48,17 @@
   $whoops->register();
 
 
-  // Settings configuration
+  // Load our settings
   settings('@' . DIR_ENV . DS . 'config.' . get_environment() . '.php');
 
 
-  // print_r(settings('user.language'));
+  // Define our apps timezone
+  date_default_timezone_set(settings('server.timezone'));
 
 
-
+  // Load our default routes
   require DIR_APP . DS . "routes.php";
 
 
-
+  // Dispatch Throwdown!
   dispatch();

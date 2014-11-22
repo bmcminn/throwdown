@@ -13,9 +13,7 @@ _models/
 _public/templates/cache/
 _public/libs/
 
-_app/TODO.md
 _plugins/
-!_plugins/helpers.plugins.
 
 *.sublime-project
 *.sublime-workspace
