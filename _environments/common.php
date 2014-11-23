@@ -1,9 +1,9 @@
 <?php
-/**
- * This file is setup for your common configuration parameters shared across
- * environments. Usually these will be parameters involving language prefs,
- */
 
+  /**
+   * This file is setup for your common configuration parameters shared across
+   * environments. Usually these will be parameters involving language prefs,
+   */
 
   $temp = "";
 
