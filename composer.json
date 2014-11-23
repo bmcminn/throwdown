@@ -12,7 +12,8 @@
     "ilya/belt": "dev-master",
     "ilya/fuzzy": "dev-master",
     "mibe/feedwriter": "dev-master",
-    "simplepie/simplepie": "dev-master"
+    "simplepie/simplepie": "dev-master",
+    "atoum/atoum": "dev-master"
   },
 
   "autoload": {
