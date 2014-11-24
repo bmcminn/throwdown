@@ -8,6 +8,7 @@ vendor/
 *.log
 *.lock
 
+__design/
 _design/
 _models/
 _public/templates/cache/
