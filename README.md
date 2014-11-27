@@ -7,7 +7,7 @@ Version: <VERSION_NUMBER>
 
 ## About Throwdown
 
-Throwdown is designed to be a simple barebones flat-file CMS engine that allows you to get to work. Plain and simple.
+Throwdown is designed to be a simple bare bones flat-file CMS engine that allows you to get to work. Plain and simple.
 
 
 ## Getting started:
@@ -18,5 +18,5 @@ You should be familiar with the following to better utilize this framework:
 - [Node.js](http://nodejs.org/) and [NPM](http://npmjs.org/)
 - [Dispatch PHP](https://github.com/noodlehaus/dispatch)
 
-Then add whatever you like! Template how you want, setup a MySQL or a SQLite db, hook up a mongo instance, setup a build process.
+Then add whatever you like! Template how you want, setup a MySQL or a SQLite db, hook up a Mongo instance, setup a build process.
 

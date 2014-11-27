@@ -103,3 +103,20 @@
 
     return $stack;
   }
+
+
+  /**
+   * Generates a collection of URLs based on the global routes defined by Dispatch
+   * @return [type] [description]
+   */
+  function get_url_paths() {
+    $pages = $GLOBALS['noodlehaus\dispatch']['routes']['any'];
+
+    $pages = array_unique(
+      _each($pages, function($value, $index) {
+        return $value[0];
+      })
+    );
+
+    return $pages;
+  }
