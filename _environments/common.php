@@ -21,8 +21,10 @@
   // User-Agent language stack
   //
 
-  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-    $temp = explode(',', filter_var($_SERVER['HTTP_ACCEPT_LANGUAGE'], FILTER_SANITIZE_STRING));
+  $lang = filter_var($_SERVER['HTTP_ACCEPT_LANGUAGE'], FILTER_SANITIZE_STRING);
+
+  if (isset($lang)) {
+    $temp = explode(',', $lang);
   }
 
   $lang = _each($temp, function($val, $index) {
