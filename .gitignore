@@ -8,6 +8,13 @@ vendor/
 *.log
 *.lock
 
+.bowerrc
+bower.json
+gruntfile.js
+package.json
+
+NOTES.md
+
 __design/
 _design/
 _models/
@@ -18,5 +25,5 @@ _public/libs/
 *.sublime-project
 *.sublime-workspace
 *.psd
-*.zip
 *.ai
+*.zip
