@@ -10,6 +10,8 @@
   // Load all Plugin routes
   $pluginRoutes = glob_recursive(DIR_PLUGINS . DS . '*_routes.php');
 
+  dev($pluginRoutes);
+
   foreach ($pluginRoutes as $plugin => $file) {
     require_once($file);
   }
