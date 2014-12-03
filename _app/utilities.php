@@ -42,12 +42,12 @@
     if (!$callback)         { throw new InvalidArgumentException($errs['secondArg']); }
 
     // Field defs
-    $i = 0;
-    $c = count($stack)-1;
+    $iterator     = 0;
+    $stackLength  = count($stack)-1;
 
     // Operations
-    for($i;$i<=$c;$i++) {
-      $stack[$i] = $callback($stack[$i], $i);
+    for($iterator;$iterator<=$stackLength;$iterator++) {
+      $stack[$iterator] = $callback($stack[$iterator], $iterator);
     }
 
     return $stack;
@@ -63,8 +63,6 @@
   function dev($message=null) {
 
     $messages = stash('messages') ? stash('messages') : stash('messages', []);
-
-    // var_dump($messages);
 
     if (settings('server.env') === 'dev') {
       if (is_string($message)) {
