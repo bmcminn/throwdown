@@ -7,7 +7,7 @@
    */
   function get_environment() {
 
-    $host   = $_SERVER['HTTP_HOST'];
+    $host   = filter_input(INPUT_SERVER, 'HTTP_HOST');
     $env    = DIR_ENV . DS . 'environments.php';
 
     if (!file_exists($env)) {
@@ -34,7 +34,9 @@
    * @return array           array of language prefs in priority order
    */
   function get_language($default) {
-    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    $httpAcceptLang   = filter_input(INPUT_SERVER, 'HTTP_ACCEPT_LANGUAGE', FILTER_SANITIZE_STRING);
+
+    if (isset($httpAcceptLang)) {
       $temp = explode(',', filter_var($_SERVER['HTTP_ACCEPT_LANGUAGE'], FILTER_SANITIZE_STRING));
     } else {
       return [$default];
@@ -59,7 +61,8 @@
    * @return [type] [description]
    */
   function get_url_paths() {
-    $pages = $GLOBALS['noodlehaus\dispatch']['routes']['any'];
+    $pages = filter_input_array();
+    // $GLOBALS['noodlehaus\dispatch']['routes']['any'];
 
     $pages = array_unique(
       _each($pages, function($value, $index) {

@@ -64,7 +64,7 @@
 
     $messages = stash('messages') ? stash('messages') : stash('messages', []);
 
-    var_dump($messages);
+    // var_dump($messages);
 
     if (settings('server.env') === 'dev') {
       if (is_string($message)) {

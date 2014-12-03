@@ -12,8 +12,8 @@
 
   dev($pluginRoutes);
 
-  foreach ($pluginRoutes as $plugin => $file) {
-    require_once($file);
+  foreach ($pluginRoutes as $plugin => $pluginPath) {
+    require_once($pluginPath);
   }
 
 
