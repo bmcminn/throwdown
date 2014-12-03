@@ -1,2 +1,0 @@
-- Blog widget should alert feed admin when shownotes files are not present for episodes that have been released.
-- Blog widget should create barebones shownotes.md files when none are found for any given episode(s).
