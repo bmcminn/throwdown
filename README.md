@@ -2,7 +2,7 @@
 
 Version: <VERSION_NUMBER>
 
-![](https://d3s6mut3hikguw.cloudfront.net/github/gigglebox/Throwdown/badges/gpa.svg)
+![CodeClimate Badge](https://d3s6mut3hikguw.cloudfront.net/github/gigglebox/Throwdown/badges/gpa.svg)
 
 > Putting your content into submission
 
