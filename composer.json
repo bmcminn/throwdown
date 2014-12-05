@@ -17,6 +17,8 @@
     "jsanc623/phpbenchtime": "dev-master"
   },
 
+  "require-dev": { "codeclimate/php-test-reporter": "dev-master" },
+
   "autoload": {
     "files": [
       "_app/functions.php",
@@ -31,15 +33,6 @@
 
 
   "scripts": {
-    "post-install-cmd": [
-      "wget https://phar.phpunit.de/phpunit.phar",
-      "chmod +x phpunit.phar",
-      "phpunit --version"
-    ],
-    "movePhpUnit": [
-      "sudo mv phpunit.phar /usr/local/bin/phpunit",
-      "phpunit --version"
-    ],
     "test": [
       "php phpunit.phar"
     ]

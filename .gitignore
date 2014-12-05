@@ -7,8 +7,9 @@ bower_components/
 vendor/
 
 _tests/runner/
-*.phar
 
+*.phar
+*.phar.*
 *.log
 *.lock
 
