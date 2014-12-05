@@ -12,7 +12,6 @@
     private static $_props = [];
 
 
-
     public static function set($prop=null, $value=null) {
       $argv = func_get_args();
       $argc = func_num_args();
@@ -45,7 +44,6 @@
           throw new \InvalidArgumentException('set(): requires at least one argument');
           break;
       }
-
     }
 
     public static function get($prop=null) {
@@ -58,7 +56,5 @@
 
       }
     }
-
-
 
   }
