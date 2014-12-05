@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  bootstrap="_tests/test.php"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  processIsolation="false"
+  stopOnFailure="false"
+  syntaxCheck="true"
+>
+    <testsuites>
+        <testsuite name="Throwdown Core Test Suite">
+            <file>_tests/app.php</file>
+        </testsuite>
+        <testsuite name="Plugin: Blog Test Suite">
+            <file>_tests/blog.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

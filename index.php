@@ -24,19 +24,7 @@
 
 
   // Define directory constants
-  define("DS",            DIRECTORY_SEPARATOR);
-  define("EOL",           PHP_EOL);
-
-  define("DIR_ROOT",      __DIR__);
-  define("DIR_APP",       __DIR__ . DS . '_app');
-  define("DIR_ERROR",     __DIR__ . DS . '_app' . DS . 'error_logs');
-  define("DIR_MODELS",    __DIR__ . DS . '_data');
-  define("DIR_ENV",       __DIR__ . DS . '_environments');
-  define("DIR_PLUGINS",   __DIR__ . DS . '_plugins');
-  define("DIR_PUBLIC",    __DIR__ . DS . '_public');
-  define("DIR_DIST",      __DIR__ . DS . '_public' . DS . '_dist');
-  define("DIR_VENDOR",    __DIR__ . DS . 'vendor');
-
+  require_once __DIR__ . "/_app/config.php";
 
   // Autoload all the things
   require_once DIR_VENDOR . DS . 'autoload.php';

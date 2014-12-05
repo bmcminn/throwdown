@@ -2,6 +2,7 @@
 
 Version: <VERSION_NUMBER>
 
+[![Build Status](https://travis-ci.org/gigglebox/Throwdown.svg)](https://travis-ci.org/gigglebox/Throwdown)
 ![Code Climate](https://d3s6mut3hikguw.cloudfront.net/github/gigglebox/Throwdown/badges/gpa.svg)
 [![Test Coverage](https://codeclimate.com/github/gigglebox/Throwdown/badges/coverage.svg)](https://codeclimate.com/github/gigglebox/Throwdown)
 
