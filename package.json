@@ -12,18 +12,16 @@
             "url": "https://raw.github.com/gigglebox/Throwdown/master/LICENSE"
         }
     ],
-    "engines": {
-        "node": "0.8.x",
-        "npm": "1.1.x"
-    },
-    "dependencies": {
-        "express": "3.0.5",
-        "grunt": "^0.4.5"
-    },
+    "dependencies": {},
     "main": "serve.js",
     "repository": "https://github.com/bmcminn/throwdown",
     "license": "MIT",
     "devDependencies": {
+        "bluebird": "^3.5.1",
+        "express": "3.0.5",
+        "grunt": "^0.4.5",
+        "polka": "^0.2.3",
+        "sqlite": "^2.9.1",
         "prettier": "^1.10.2"
     },
     "scripts": {
