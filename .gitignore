@@ -6,14 +6,10 @@ node_modules/
 bower_components/
 vendor/
 *.log
-*.lock
 
 __design/
 _design/
-_models/
-_public/templates/cache/
-_public/libs/
-
+cache/
 
 *.sublime-project
 *.sublime-workspace
