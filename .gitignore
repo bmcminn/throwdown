@@ -11,6 +11,8 @@ __design/
 _design/
 cache/
 
+public/*/
+
 *.sublime-project
 *.sublime-workspace
 *.psd

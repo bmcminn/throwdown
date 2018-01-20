@@ -1,6 +1,7 @@
-import * as Path from 'path';
-import chokidar from 'chokidar';
-import * as Config from './.bin/config.js';
+const Path = require('path');
+const chokidar = require('chokidar');
+const Config = require('./.bin/config.js');
+
 // import * from './log';
 
 // const path = require('path');
@@ -19,9 +20,9 @@ chokidar
         }
     });
 
-let SERVER_PORT = Config.FILE_SERVER_PATH || 8080;
-let SERVER_PATH = Config.FILE_SERVER_PATH || './';
+process.env.FILE_SERVER_PATH = Config.SERVER_PORT;
+process.env.FILE_SERVER_PORT = Config.SERVER_PATH;
 
-Log.info(`Starting node fileserver at http://localhost:${SERVER_PORT}`);
+console.log(`Starting node fileserver at http://localhost:${SERVER_PORT}`);
 
 require('node-file-server');

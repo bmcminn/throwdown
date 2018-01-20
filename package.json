@@ -12,20 +12,28 @@
             "url": "https://raw.github.com/gigglebox/Throwdown/master/LICENSE"
         }
     ],
-    "dependencies": {},
+    "dependencies": {
+        "consolidate": "^0.15.0",
+        "highlightjs": "^9.10.0",
+        "markdown-it": "^8.4.0",
+        "nunjucks": "^3.0.1"
+    },
     "main": "serve.js",
     "repository": "https://github.com/bmcminn/throwdown",
     "license": "MIT",
     "devDependencies": {
         "bluebird": "^3.5.1",
+        "chokidar": "^2.0.0",
         "express": "3.0.5",
         "grunt": "^0.4.5",
+        "node-file-server": "^1.0.1",
         "polka": "^0.2.3",
-        "sqlite": "^2.9.1",
-        "prettier": "^1.10.2"
+        "prettier": "^1.10.2",
+        "sqlite": "^2.9.1"
     },
     "scripts": {
         "serve": "node serve.js",
-        "prettier": "node_modules/.bin/prettier ./.bin/**/*.js --write"
+        "prettier": "node_modules/.bin/prettier ./.bin/**/*.js --write",
+        "index": "node .bin/tasks/index-file-system.js"
     }
 }
