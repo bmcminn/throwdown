@@ -13,10 +13,13 @@
         }
     ],
     "dependencies": {
+        "chalk": "^2.3.0",
         "consolidate": "^0.15.0",
         "highlightjs": "^9.10.0",
+        "jvent": "^1.0.2",
         "markdown-it": "^8.4.0",
-        "nunjucks": "^3.0.1"
+        "nunjucks": "^3.0.1",
+        "shortbus": "^1.2.7"
     },
     "main": "serve.js",
     "repository": "https://github.com/bmcminn/throwdown",
