@@ -3,29 +3,19 @@
 ##########
 
 node_modules/
-bower_components/
 vendor/
 
-_tests/runner/
-
-*.phar
-*.phar.*
 *.log
-*.lock
 
-.bowerrc
-bower.json
-gruntfile.js
 package.json
 
 NOTES.md
 
 __design/
 _design/
-_models/
-_public/templates/cache/
-_public/libs/
+cache/
 
+public/*/
 
 *.sublime-project
 *.sublime-workspace
