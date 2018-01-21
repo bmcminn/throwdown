@@ -4,6 +4,7 @@ const chokidar = require('chokidar');
 const Config = require('./.bin/config.js');
 const bus = require('./.bin/bus.js');
 const Log = require('./.bin/log.js');
+const app = require('./.bin/build.js');
 // import * from './log';
 
 // const path = require('path');
@@ -12,34 +13,38 @@ const Log = require('./.bin/log.js');
 // const _ = require('lodash');
 // const chalk = require('chalk');
 // const Log = reuqire('./.bin/log');
-Log.debug([123456, true]);
 
-console.log(Config.watchFiles);
+let watchFiles = FS.expand({ filter: 'isFile' }, Config.watchFiles);
 
 chokidar
-    .watch(Config.watchFiles, { ignored: /(^|[\/\\])\../ })
-    .on('change', (filepath, filemeta) => {
+    .watch(watchFiles, { ignored: /(^|[\/\\])\../ })
+    .on('any', function(i, e) {
+        console.log(i, e);
+    })
+    .on('change', function(filepath, filemeta) {
         console.log('file', filepath, filemeta);
 
         Log.debug(JSON.stringify([filepath, filemeta]));
 
         if (filepath.match(/\.(sass|scss|styl|css)$/)) {
-            bus.emit('style update', filepath);
-            // compileStyles(filepath);
+            let event = 'css-update';
+            bus.emit(event, filepath);
         }
 
         if (filepath.match(/\.(js|ts)$/)) {
-            bus.emit('js update', filepath);
-            // compileStyles(filepath);
+            let event = 'js-update';
+            bus.emit(event, filepath);
         }
 
         if (filepath.match(/\.(markdown|mdown|mkdn|mkd|md|text|mdwn)$/)) {
-            bus.emit('content update', filepath);
-            // compileStyles(filepath);
+            let event = 'content-update';
+            bus.emit(event, filepath);
         }
     });
 
-process.env.FILE_SERVER_PATH = Config.SERVER_PORT;
-process.env.FILE_SERVER_PORT = Config.SERVER_PATH;
+// =============================================
+
+process.env.FILE_SERVER_PATH = Config.SERVER_PATH || '/public';
+process.env.FILE_SERVER_PORT = Config.SERVER_PORT || 8080;
 
 require('node-file-server');

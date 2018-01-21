@@ -36,13 +36,13 @@ Log.__log = function(type, msg) {
             color = 'red';
             break;
         case 'debug':
-            color = 'cyan';
+            color = 'magenta';
             break;
         case 'success':
             color = 'green';
             break;
         default:
-            color = 'white';
+            color = 'blue';
             break;
     }
 
