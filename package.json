@@ -12,7 +12,9 @@
             "url": "https://raw.github.com/gigglebox/Throwdown/master/LICENSE"
         }
     ],
-    "dependencies": {},
+    "dependencies": {
+        "stylus": "^0.54.5"
+    },
     "main": "serve.js",
     "repository": "https://github.com/bmcminn/throwdown",
     "license": "MIT",
@@ -21,6 +23,7 @@
         "chalk": "^2.3.0",
         "chokidar": "^2.0.0",
         "consolidate": "^0.15.0",
+        "csso": "^3.5.0",
         "express": "3.0.5",
         "grunt": "^0.4.5",
         "highlightjs": "^9.10.0",

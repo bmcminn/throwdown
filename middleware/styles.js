@@ -3,6 +3,8 @@ const _ = require('lodash');
 const fs = require('../app/fs.js');
 const Log = require('../app/log.js');
 const Config = require('../config.js');
+const Stylus = require('stylus');
+const CSSO = require('csso');
 
 const compileStyles = function(filepath) {
     Log.info(filepath);
@@ -19,7 +21,7 @@ const compileStyles = function(filepath) {
             .toLowerCase();
 
         let newStyle = path.join(
-            Config.DIST_DIR,
+            Config.CSS_DIST,
             filename.replace(/\.[\w\d]+/, '.css')
         );
 
@@ -32,7 +34,7 @@ const compileStyles = function(filepath) {
             // .set('compress',    process.env.NODE_ENV ? true : false)
             .render(function(err, css) {
                 if (err) {
-                    console.error(chalk.red(err));
+                    Log.error(err);
                     return;
                 }
 
@@ -54,7 +56,7 @@ const compileStyles = function(filepath) {
                 // console.log(css);
                 fs.write(`${newStyle}.min.css`, css);
 
-                console.log(chalk.green(`> Compiled ${style}`));
+                Log.success(`Compiled ${style}`);
             });
     });
 };

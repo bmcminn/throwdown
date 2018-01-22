@@ -12,11 +12,26 @@ const Log = require('./app/log.js');
 
 const compileStyles = require('./middleware/styles.js');
 
-bus.on('update-css', compileStyles);
+const events = {
+    cssUpdate: 'update-css',
+    jsUpdate: 'update-js',
+    contentUpdate: 'update-content',
+};
+
+bus.on(events.cssUpdate, compileStyles);
 
 // =============================================
 //  SETUP FILE WATCH INSTANCE
 // =============================================
+
+function processFiles(name, exts, filepath) {
+    let extRegex = new RegExp('.' + exts.join('|') + '$');
+    if (filepath.match(extRegex)) {
+        bus.emit('pre-' + name, filepath);
+        bus.emit(name, filepath);
+        bus.emit('post-' + name, filepath);
+    }
+}
 
 let watchFiles = FS.expand({ filter: 'isFile' }, Config.watchFiles);
 
@@ -30,26 +45,22 @@ chokidar
 
         Log.debug(JSON.stringify([filepath, filemeta]));
 
-        if (filepath.match(/\.(sass|scss|styl|css)$/)) {
-            let event = 'css-update';
-            bus.emit('pre-' + event, filepath);
-            bus.emit(event, filepath);
-            bus.emit('post-' + event, filepath);
-        }
+        // process style files
+        processFiles(
+            events.cssUpdate,
+            ['sass', 'scss', 'styl', 'css'],
+            filepath
+        );
 
-        if (filepath.match(/\.(js|ts)$/)) {
-            let event = 'js-update';
-            bus.emit('pre-' + event, filepath);
-            bus.emit(event, filepath);
-            bus.emit('post-' + event, filepath);
-        }
+        // process js files
+        processFiles(events.jsUpdate, ['js', 'ts'], filepath);
 
-        if (filepath.match(/\.(markdown|mdown|mkdn|mkd|md|text|mdwn)$/)) {
-            let event = 'content-update';
-            bus.emit('pre-' + event, filepath);
-            bus.emit(event, filepath);
-            bus.emit('post-' + event, filepath);
-        }
+        // process content files
+        processFiles(
+            events.contentUpdate,
+            ['markdown', 'mdown', 'mkdn', 'mkd', 'md', 'text', 'txt', 'mdwn'],
+            filepath
+        );
     });
 
 // =============================================
