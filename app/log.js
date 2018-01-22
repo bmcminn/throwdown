@@ -1,7 +1,7 @@
 const chalk = require('chalk');
-const FS = require('./fs.js');
 const Path = require('path');
-const Config = require('./config.js');
+const FS = require('./fs.js');
+const Config = require('../config.js');
 
 let today = [
     new Date().getFullYear(),

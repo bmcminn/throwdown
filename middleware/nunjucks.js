@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('grunt').file;
+const fs = require('../app/fs.js');
 const nunjucks = require('nunjucks');
 const chokidar = require('chokidar');
 

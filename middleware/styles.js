@@ -1,12 +1,15 @@
-import path from 'path';
-import { file as fs } from 'grunt';
-import { each } from 'lodash';
-import Log from './log';
+const path = require('path');
+const _ = require('lodash');
+const fs = require('../app/fs.js');
+const Log = require('../app/log.js');
+const Config = require('../config.js');
 
-module.exports.compileStyles = function(filepath) {
+const compileStyles = function(filepath) {
+    Log.info(filepath);
+
     let styles = fs.expand({ filter: 'isFile' }, [
-        path.join(STYL_DIR, '**/*'),
-        '!' + path.join(STYL_DIR, '**/_*'),
+        path.join(Config.CSS_DIR, '**/*'),
+        '!' + path.join(Config.CSS_DIR, '**/_*'),
     ]);
 
     _.each(styles, function(style) {
@@ -15,13 +18,16 @@ module.exports.compileStyles = function(filepath) {
             .replace(/\s+/, '-')
             .toLowerCase();
 
-        let newStyle = path.join(DIST_DIR, filename.replace(/\.[\w\d]+/, ''));
+        let newStyle = path.join(
+            Config.DIST_DIR,
+            filename.replace(/\.[\w\d]+/, '.css')
+        );
 
         let content = fs.read(style);
 
         Stylus(content)
             .set('filename', style)
-            .set('paths', [STYL_DIR])
+            .set('paths', [Config.CSS_DIR])
             // .set('linenos',     process.env.NODE_ENV ? false : true)
             // .set('compress',    process.env.NODE_ENV ? true : false)
             .render(function(err, css) {
@@ -36,7 +42,7 @@ module.exports.compileStyles = function(filepath) {
                     .replace(/PP__/gi, '--');
 
                 // Write unminified styles to disk
-                fs.write(`${newStyle}.css`, css);
+                fs.write(newStyle, css);
 
                 let csso_opts = {
                     debug: process.env.NODE_ENV ? false : true,
@@ -52,3 +58,5 @@ module.exports.compileStyles = function(filepath) {
             });
     });
 };
+
+module.exports = compileStyles;
