@@ -4,20 +4,18 @@
     "description": "A modern flat-file CMS system build with Node.js",
     "version": "2.0.0",
     "author": "Brandtley McMinn <labs@giggleboxstudios.net>",
-    "homepage": "https://gigglebox.github.io/throwdown",
-    "bugs": "https://github.com/gigglebox/Throwdown/issues",
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://raw.github.com/gigglebox/Throwdown/master/LICENSE"
-        }
-    ],
-    "dependencies": {
-        "stylus": "^0.54.5"
-    },
+    "homepage": "https://bmcminn.github.io/throwdown",
+    "bugs": "https://github.com/bmcminn/throwdown/issues",
     "main": "serve.js",
     "repository": "https://github.com/bmcminn/throwdown",
     "license": "MIT",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/bmcminn/throwdown/master/LICENSE"
+        }
+    ],
+    "dependencies": {},
     "devDependencies": {
         "bluebird": "^3.5.1",
         "chalk": "^2.3.0",
@@ -29,16 +27,16 @@
         "highlightjs": "^9.10.0",
         "jvent": "^1.0.2",
         "markdown-it": "^8.4.0",
+        "stylus": "^0.54.5",
         "node-file-server": "^1.0.1",
         "nunjucks": "^3.0.1",
         "prettier": "^1.10.2",
-        "shortbus": "^1.2.7",
         "sqlite": "^2.9.1",
         "walk": "^2.3.9"
     },
     "scripts": {
-        "serve": "node serve.js",
+        "serve": "node app/serve.js",
         "prettier": "node_module./app/prettier ./app/**/*.js --write",
-        "index": "node .bin/tasks/index-file-system.js"
+        "index": "node ./app/tasks/index-file-system.js"
     }
 }

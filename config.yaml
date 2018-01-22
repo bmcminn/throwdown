@@ -1,0 +1,32 @@
+---
+# `site` is the default site meta content field
+site:
+    title: My Website
+    description: Default description used in <head> when description is not provided
+
+
+# `author` is a colleciton of author profiles you can use
+#   to store author meta data to be shown on your website
+author:
+    buffalo:
+        name: Buffalo Custardbath
+        twitter: bcustardbath
+        website: http://bcustardbath.com/
+        bio: >
+            This user is a test author for demonstration puproses only and should probably be retired
+
+
+# `base` defines the base level configs for most modules around your site
+base:
+    # `styles` defines the base style sheets that should be loaded on every page
+    styles:
+        - /css/main.css
+
+    # `scripts` defines the base style sheets that should be loaded on every page
+    scripts:
+        - https://code.jquery.com/jquery-3.3.0.slim.min.js
+
+
+# `whatever` you can use this file to keep configs for whatever
+#   middleware you create or wish to have in the view model.
+#   Go nuts!
