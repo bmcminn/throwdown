@@ -7,6 +7,14 @@ const Log = require('./app/log.js');
 // const app = require('./app/build.js');
 
 // =============================================
+//  LOAD APP MIDDLEWARE
+// =============================================
+
+const compileStyles = require('./middleware/styles.js');
+
+bus.on('update-css', compileStyles);
+
+// =============================================
 //  SETUP FILE WATCH INSTANCE
 // =============================================
 
@@ -59,9 +67,3 @@ require('./app/server.js');
 // ]);
 
 // Log.debug(middleware);
-
-// =============================================
-//  LOAD APP MIDDLEWARE
-// =============================================
-
-bus.on('update-css', require('./middleware/styles.js'));
