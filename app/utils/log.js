@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const Path = require('path');
+
 const FS = require('./fs.js');
 const Config = require('../config.js');
 
@@ -9,7 +10,7 @@ let today = [
     new Date().getDate(),
 ];
 
-const LOG_FILE = Path.join(Config.LOGS_DIR, `${today.join('-')}.log`);
+const LOG_FILE = Path.join(Config.APP_DIR, 'logs', `${today.join('-')}.log`);
 
 if (!FS.exists(LOG_FILE)) {
     FS.write(LOG_FILE, '');

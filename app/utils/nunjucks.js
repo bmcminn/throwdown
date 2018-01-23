@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('../app/fs.js');
+const fs = require('../utils/fs.js');
 const nunjucks = require('nunjucks');
 const chokidar = require('chokidar');
 

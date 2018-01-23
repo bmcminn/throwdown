@@ -1,27 +1,30 @@
-const path = require('path');
+const Path = require('path');
 const _ = require('lodash');
-const fs = require('../app/fs.js');
-const Log = require('../app/log.js');
-const Config = require('../config.js');
 const Stylus = require('stylus');
 const CSSO = require('csso');
+
+const fs = require('../utils/fs.js');
+const Log = require('../utils/log.js');
+const Config = require('../config.js');
+
+const CSS_DIR = Path.join(Config.ASSETS_DIR, 'css');
+const CSS_DIST = Path.join(Config.DIST_DIR, 'css');
 
 const compileStyles = function(filepath) {
     Log.info(filepath);
 
     let styles = fs.expand({ filter: 'isFile' }, [
-        path.join(Config.CSS_DIR, '**/*'),
-        '!' + path.join(Config.CSS_DIR, '**/_*'),
+        Path.join(CSS_DIR, '**/*'),
+        '!' + Path.join(CSS_DIR, '**/_*'),
     ]);
 
     _.each(styles, function(style) {
-        let filename = path
-            .basename(style)
+        let filename = Path.basename(style)
             .replace(/\s+/, '-')
             .toLowerCase();
 
-        let newStyle = path.join(
-            Config.CSS_DIST,
+        let newStyle = Path.join(
+            CSS_DIST,
             filename.replace(/\.[\w\d]+/, '.css')
         );
 
@@ -29,7 +32,7 @@ const compileStyles = function(filepath) {
 
         Stylus(content)
             .set('filename', style)
-            .set('paths', [Config.CSS_DIR])
+            .set('paths', [CSS_DIR])
             // .set('linenos',     process.env.NODE_ENV ? false : true)
             // .set('compress',    process.env.NODE_ENV ? true : false)
             .render(function(err, css) {

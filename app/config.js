@@ -4,15 +4,12 @@ let Config = {};
 
 Config.ROOT_DIR = process.cwd();
 
-Config.ASSETS_DIR = Path.join(Config.ROOT_DIR, 'assets');
-Config.CACHE_DIR = Path.join(Config.ROOT_DIR, 'cache');
+Config.APP_DIR = Path.join(Config.ROOT_DIR, 'app');
+Config.ASSETS_DIR = Path.join(Config.APP_DIR, 'assets');
+Config.CACHE_DIR = Path.join(Config.APP_DIR, 'cache');
+
 Config.CONTENT_DIR = Path.join(Config.ROOT_DIR, 'content');
 Config.DIST_DIR = Path.join(Config.ROOT_DIR, 'public');
-
-Config.CSS_DIR = Path.join(Config.ASSETS_DIR, 'css');
-Config.CSS_DIST = Path.join(Config.DIST_DIR, 'css');
-
-Config.LOGS_DIR = Path.join(Config.CACHE_DIR, 'logs');
 
 Config.SERVER_PORT = 8080;
 Config.SERVER_PATH = Path.join(process.cwd(), 'public');
