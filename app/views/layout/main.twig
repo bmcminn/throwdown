@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ user.lang|default(site.lang) }}">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if page.title %}
+            {{ page.title }} |
+        {% endif %}
+        {{ site.title }}
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    {% block styles %}
+        {% for style in styles %}
+            <script src="{{ style }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+    {% block pageStyles %}
+    {% for style in pageStyles %}
+            <script src="{{ style }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+</head>
+<body>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+
+    {% block scripts %}
+        {% for script in scripts %}
+            <script src="{{ script }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+    {% block pageScripts %}
+    {% for script in pageScripts %}
+            <script src="{{ script }}"></script>
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>

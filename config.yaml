@@ -27,6 +27,10 @@ base:
         - https://code.jquery.com/jquery-3.3.0.slim.min.js
 
 
+taxonomies:
+    - categories
+    - tags
+
 # `whatever` you can use this file to keep configs for whatever
 #   middleware you create or wish to have in the view model.
 #   Go nuts!
