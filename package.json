@@ -23,9 +23,11 @@
         "consolidate": "^0.15.0",
         "csso": "^3.5.0",
         "express": "3.0.5",
+        "gray-matter": "^3.1.1",
         "grunt": "^0.4.5",
         "highlightjs": "^9.10.0",
         "jvent": "^1.0.2",
+        "lowdb": "^1.0.0",
         "markdown-it": "^8.4.0",
         "node-file-server": "^1.0.1",
         "nodemon": "^1.14.11",
@@ -38,6 +40,6 @@
     "scripts": {
         "serve": "nodemon app/serve.js",
         "prettier": "node_module./app/prettier ./app/**/*.js --write",
-        "index": "node ./app/tasks/index-file-system.js"
+        "index-content": "node ./app/tasks/index-file-system.js"
     }
 }

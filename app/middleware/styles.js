@@ -8,7 +8,7 @@ const Log = require('../utils/log.js');
 const Config = require('../config.js');
 
 const CSS_DIR = Path.join(Config.ASSETS_DIR, 'css');
-const CSS_DIST = Path.join(Config.DIST_DIR, 'css');
+const CSS_DIST = Path.join(Config.PUBLIC_DIR, 'css');
 
 const compileStyles = function(filepath) {
     Log.info(filepath);
