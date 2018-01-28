@@ -1,0 +1,12 @@
+{
+    "ignore": [".git", "node_modules/**/node_modules"],
+    "watch": [
+        "./app/utils/",
+        "./app/middleware/",
+        "./app/config.js",
+        "./app/serve.js",
+        "config.yaml",
+        "package.json"
+    ],
+    "ext": "js json yaml"
+}

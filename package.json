@@ -27,15 +27,16 @@
         "highlightjs": "^9.10.0",
         "jvent": "^1.0.2",
         "markdown-it": "^8.4.0",
-        "stylus": "^0.54.5",
         "node-file-server": "^1.0.1",
+        "nodemon": "^1.14.11",
         "nunjucks": "^3.0.1",
         "prettier": "^1.10.2",
         "sqlite": "^2.9.1",
+        "stylus": "^0.54.5",
         "walk": "^2.3.9"
     },
     "scripts": {
-        "serve": "node app/serve.js",
+        "serve": "nodemon app/serve.js",
         "prettier": "node_module./app/prettier ./app/**/*.js --write",
         "index": "node ./app/tasks/index-file-system.js"
     }
