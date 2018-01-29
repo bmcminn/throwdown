@@ -6,6 +6,7 @@ const Config = require('./config.js');
 const FS = require('./utils/fs.js');
 const bus = require('./utils/bus.js');
 const Log = require('./utils/log.js');
+const migrateMediaFiles = require('./utils/migrate-media-files.js');
 
 // =============================================
 //  LOAD APP MIDDLEWARE
@@ -17,11 +18,9 @@ const events = {
     contentUpdate: 'update-content',
 };
 
-const compileStyles = require('./middleware/styles.js');
-const renderPage = require('./middleware/renders.js');
-
-bus.on(events.cssUpdate, compileStyles);
-bus.on(events.contentUpdate, renderPage);
+bus.on(events.cssUpdate, require('./middleware/styles.js'));
+bus.on(events.jsUpdate, require('./middleware/scripts.js'));
+bus.on(events.contentUpdate, require('./middleware/renders.js'));
 
 // =============================================
 //  SETUP FILE WATCH INSTANCE
@@ -42,25 +41,6 @@ function processFiles(name, exts, filepath) {
     }
 }
 
-/**
- * [migrateMediaFiles description]
- * @param  {[type]} filepath [description]
- * @return {[type]}          [description]
- */
-function migrateMediaFiles(filepath) {
-    let exts = defaults.mediaFiles;
-
-    let extTest = new RegExp('.' + exts.join('|') + '$');
-
-    if (!extTest.test(filepath)) {
-        return;
-    }
-
-    console.log('migrating', filepath);
-
-    // let targetPath = filepath.substr(Config.contentDir);
-}
-
 let watchFiles = FS.expand({ filter: 'isFile' }, Config.watchFiles);
 
 chokidar
@@ -71,28 +51,13 @@ chokidar
     })
     .on('change', function(filepath, filemeta) {
         // process style files
-        processFiles(
-            events.cssUpdate,
-            defaults.styleExts,
-            // ['sass', 'scss', 'styl', 'css'],
-            filepath
-        );
+        processFiles(events.cssUpdate, defaults.styleExts, filepath);
 
         // process js files
-        processFiles(
-            events.jsUpdate,
-            defaults.scriptExts,
-            // ['js', 'ts'],
-            filepath
-        );
+        processFiles(events.jsUpdate, defaults.scriptExts, filepath);
 
         // process content files
-        processFiles(
-            events.contentUpdate,
-            defaults.markdownExts,
-            // ['markdown', 'mdown', 'mkdn', 'mkd', 'md', 'text', 'txt', 'mdwn'],
-            filepath
-        );
+        processFiles(events.contentUpdate, defaults.markdownExts, filepath);
     });
 
 // =============================================

@@ -15,10 +15,6 @@ author:
         bio: >
             This user is a test author for demonstration puproses only, and should probably be retired once you start making your own content!
 
-taxonomies:
-    - categories
-    - tags
-
 include: []
 exclude: []
 timezone: America/Chicago
