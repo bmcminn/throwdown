@@ -1,7 +1,8 @@
 const chalk = require('chalk');
+chalk.stripAnsi = require('strip-ansi');
 const path = require('path');
 
-const FS = require('./fs.js');
+const fs = require('./fs.js');
 const Config = require('../config.js');
 
 let today = [
@@ -12,8 +13,8 @@ let today = [
 
 const LOG_FILE = path.join(process.cwd(), 'app/logs', `${today.join('-')}.log`);
 
-if (!FS.exists(LOG_FILE)) {
-    FS.write(LOG_FILE, '');
+if (!fs.exists(LOG_FILE)) {
+    fs.write(LOG_FILE, '');
 }
 
 const Log = {};
@@ -30,7 +31,7 @@ Log.__log = function(type, msg) {
     }
 
     switch (type) {
-        case 'warn':
+        case 'warning':
             color = 'yellow';
             break;
         case 'error':
@@ -47,21 +48,20 @@ Log.__log = function(type, msg) {
             break;
     }
 
-    console.log(
-        chalk[color](`[${new Date().toISOString()}] [${type.toUpperCase()}]`) +
-            ` :: ${msg}`
-    );
+    let dateTime = new Date().toISOString();
+    let typeStr = type.toUpperCase();
 
-    FS.append(
-        LOG_FILE,
-        `[${new Date().toISOString()}] [${type.toUpperCase()}] :: ${msg}`
-    );
+    msg = [chalk[color](`[${dateTime}] [${typeStr}]`), `:: ${msg}`].join(' ');
+
+    console.log(msg);
+
+    fs.append(LOG_FILE, chalk.stripAnsi(msg));
 };
 
 // Export a singleton with only the methods we wish to expose
 module.exports = {
     info: (msg) => Log.__log('info', msg),
-    warn: (msg) => Log.__log('warn', msg),
+    warn: (msg) => Log.__log('warning', msg),
     error: (msg) => Log.__log('error', msg),
     debug: (msg) => Log.__log('debug', msg),
     success: (msg) => Log.__log('success', msg),
