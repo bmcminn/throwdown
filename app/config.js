@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const path = require('path');
+const chalk = require('chalk');
+
 const fs = require('./utils/fs.js');
 const regex = require('./utils/regex.js');
+const Log = require('./utils/log.js');
 
 // defaults to be applied for missing parameters in user config.yaml(s)
 const defaults = {
@@ -46,7 +49,7 @@ const defaults = {
 };
 
 // user config filepath
-let configYAML = path.join(process.cwd(), './theme/config.yaml');
+let configYAML = path.join(process.cwd(), './config.yaml');
 
 // get user config overrides
 let overrides = fs.readYAML(configYAML);
@@ -94,5 +97,14 @@ Config.collections.defaults = {
     limit_posts: Config.limit_posts,
     layout: Config.layout,
 };
+
+// ensure our theme directory exists
+if (!fs.isDir(Config.theme)) {
+    Log.error(`Theme folder "${chalk.bold(Config.theme)}" could not be found.`);
+    Log.warn(
+        'Ensure that the folder exists and is correctly configured in config.yaml'
+    );
+    process.exit(1);
+}
 
 module.exports = Config;

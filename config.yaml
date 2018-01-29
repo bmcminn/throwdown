@@ -15,6 +15,10 @@ author:
         bio: >
             This user is a test author for demonstration puproses only, and should probably be retired once you start making your own content!
 
+# `theme` the theme we should be using to render the site
+theme: './theme'
+
+# `include` | `exclude`:
 include: []
 exclude: []
 timezone: America/Chicago
