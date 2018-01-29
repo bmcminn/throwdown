@@ -9,6 +9,7 @@ const Log = require('./utils/log.js');
 // defaults to be applied for missing parameters in user config.yaml(s)
 const defaults = {
     // include/exclude glob paths for system watch process
+    // TODO: validate that inlude files exist
     include: ['./content/**/*', './theme/**/*'],
     exclude: [],
 
@@ -54,8 +55,13 @@ let configYAML = path.join(process.cwd(), './config.yaml');
 // get user config overrides
 let overrides = fs.readYAML(configYAML);
 
+console.log('config.yaml', overrides);
+
 // define Config export using defaults and overrides
+// TODO: fix defaultsDeep not actually overwriting defaults
 let Config = _.defaultsDeep(defaults, overrides);
+
+console.log('config::post defaults', Config);
 
 // define watchFiles for serve.js watch process
 Config.watchFiles = [].concat(
@@ -98,11 +104,15 @@ Config.collections.defaults = {
     layout: Config.layout,
 };
 
+console.log(Config.theme);
+
 // ensure our theme directory exists
 if (!fs.isDir(Config.theme)) {
     Log.error(`Theme folder "${chalk.bold(Config.theme)}" could not be found.`);
     Log.warn(
-        'Ensure that the folder exists and is correctly configured in config.yaml'
+        `Ensure that the folder exists and is correctly configured in ${chalk.bold(
+            'config.yaml'
+        )}`
     );
     process.exit(1);
 }
