@@ -27,6 +27,7 @@
         "grunt": "^0.4.5",
         "highlightjs": "^9.10.0",
         "jvent": "^1.0.2",
+        "lodash": "^4.17.4",
         "lowdb": "^1.0.0",
         "markdown-it": "^8.4.0",
         "node-file-server": "^1.0.1",

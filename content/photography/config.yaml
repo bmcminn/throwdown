@@ -1,0 +1,4 @@
+layout: photo-portfolio
+taxonomies:
+    - format
+    - tools

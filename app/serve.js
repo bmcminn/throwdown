@@ -27,6 +27,12 @@ bus.on(events.contentUpdate, renderPage);
 //  SETUP FILE WATCH INSTANCE
 // =============================================
 
+/**
+ * [processFiles description]
+ * @param  {[type]} name     [description]
+ * @param  {[type]} exts     [description]
+ * @param  {[type]} filepath [description]
+ */
 function processFiles(name, exts, filepath) {
     let extRegex = new RegExp('.' + exts.join('|') + '$');
     if (filepath.match(extRegex)) {
@@ -36,28 +42,55 @@ function processFiles(name, exts, filepath) {
     }
 }
 
+/**
+ * [migrateMediaFiles description]
+ * @param  {[type]} filepath [description]
+ * @return {[type]}          [description]
+ */
+function migrateMediaFiles(filepath) {
+    let exts = defaults.mediaFiles;
+
+    let extTest = new RegExp('.' + exts.join('|') + '$');
+
+    if (!extTest.test(filepath)) {
+        return;
+    }
+
+    console.log('migrating', filepath);
+
+    // let targetPath = filepath.substr(Config.contentDir);
+}
+
 let watchFiles = FS.expand({ filter: 'isFile' }, Config.watchFiles);
 
 chokidar
     .watch(watchFiles, { ignored: /(^|[\/\\])\../ })
-    // .on('any', function(i, e) {
-    //     console.log(i, e);
-    // })
+    .on('any', function(i, e) {
+        migrateMediaFiles();
+        console.log(i, e);
+    })
     .on('change', function(filepath, filemeta) {
         // process style files
         processFiles(
             events.cssUpdate,
-            ['sass', 'scss', 'styl', 'css'],
+            defaults.styleExts,
+            // ['sass', 'scss', 'styl', 'css'],
             filepath
         );
 
         // process js files
-        processFiles(events.jsUpdate, ['js', 'ts'], filepath);
+        processFiles(
+            events.jsUpdate,
+            defaults.scriptExts,
+            // ['js', 'ts'],
+            filepath
+        );
 
         // process content files
         processFiles(
             events.contentUpdate,
-            ['markdown', 'mdown', 'mkdn', 'mkd', 'md', 'text', 'txt', 'mdwn'],
+            defaults.markdownExts,
+            // ['markdown', 'mdown', 'mkdn', 'mkd', 'md', 'text', 'txt', 'mdwn'],
             filepath
         );
     });

@@ -10,7 +10,7 @@ var express = require('express');
 
 var Log = require('./log');
 
-var folder = process.env['FILE_SERVER_PATH'] || '/static';
+var folder = process.env['FILE_SERVER_PATH'] || './public';
 var http_port = parseInt(process.env['FILE_SERVER_PORT']) || 8080;
 
 function start() {

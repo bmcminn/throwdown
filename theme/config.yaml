@@ -1,0 +1,64 @@
+---
+# `site` is the default site meta content field
+site:
+    title: My Website
+    description: Default description used in <head> when description is not provided
+
+
+# `author` is a colleciton of author profiles you can use
+#   to store author meta data to be shown on your website
+author:
+    buffalo:
+        name: Buffalo Custardbath
+        twitter: bcustardbath
+        website: http://bcustardbath.com/
+        bio: >
+            This user is a test author for demonstration puproses only, and should probably be retired once you start making your own content!
+
+taxonomies:
+    - categories
+    - tags
+
+include: []
+exclude: []
+timezone: America/Chicago
+
+# source: ./content
+# destination: ./public
+
+# show_drafts: false
+# future: false
+# unpublished: false
+# limit_posts: 0
+
+# port: 8080
+# host: localhost
+
+# highlight_theme: Monokai Sublime
+
+# # // TODO: integrate collections?
+# collections:
+#     posts:
+#         limit_posts: 10 # // override for default limit_posts
+#     projects:
+
+mediaExts: [ pants ]
+# styleExts: [ sass, scss, styl, css ]
+# scriptExts: [ js, ts ]
+# markdownExts: [ markdown, mdown, mkdn, mkd, md, txt, mdwn ]
+
+
+# `styles` defines the base style sheets that should be loaded on every page
+baseStyles:
+    - /css/main.css
+
+# `scripts` defines the base style sheets that should be loaded on every page
+baseScripts:
+    - https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js
+    - https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js
+    - https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js
+
+
+# `whatever` you can use this file to keep configs for whatever
+#   middleware you create or wish to have in the view model.
+#   Go nuts!

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{ user.lang|default(site.lang) }}">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>
+        {% if page.title %}
+            {{ page.title }} |
+        {% endif %}
+        {{ site.title }}
+    </title>
+
+    <meta name="description" content="{{ page.description|default(site.description) }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+    {% block baseStyles %}
+        {% for style in baseStyles %}
+            <script src="{{ style }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+    {% block styles %}
+        {% for style in styles %}
+            <script src="{{ style }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+</head>
+<body>
+
+    {% block baseScripts %}
+        {% for script in baseScripts %}
+            <script src="{{ script }}"></script>
+        {% endfor %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% for script in scripts %}
+            <script src="{{ script }}" async defer></script>
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>

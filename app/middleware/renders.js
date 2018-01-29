@@ -7,20 +7,15 @@ const Log = require('../utils/log.js');
 const Config = require('../config.js');
 const nunjucks = require('../utils/nunjucks.js');
 
-
 /**
  * get post type based on the directory we're storing the file in
  * @param  {string} filepath target filepath
  * @return {string}          name of post type
  */
 function getPostType(filepath) {
-
     let postType = 'page';
 
-    let stringParts = filepath
-        .substr(Config.CONTENT_DIR.length + 1)
-        .split('/')
-        ;
+    let stringParts = filepath.substr(Config.CONTENT_DIR.length + 1).split('/');
 
     if (stringParts.length > 1) {
         postType = stringParts[0];
@@ -29,14 +24,13 @@ function getPostType(filepath) {
     return postType;
 }
 
-
-function getPublished(content) {
-
-    console.log('getPublished!');
-
+/**
+ * [getPublishedDate description]
+ * @param  {[type]} content [description]
+ * @return {[type]}         [description]
+ */
+function getPublishedDate(content) {
     if (content.hasOwnProperty('draft')) {
-        console.log('draft === true');
-
         return false;
     }
 
@@ -54,13 +48,15 @@ function getPublished(content) {
     return pubDate;
 }
 
-
+/**
+ * [getRenderPath description]
+ * @param  {[type]} filepath [description]
+ * @return {[type]}          [description]
+ */
 function getRenderPath(filepath) {
-
     let target = filepath
         .substr(Config.CONTENT_DIR.length + 1)
-        .replace(/\.[\w\d]{2,}$/, '')
-        ;
+        .replace(/\.[\w\d]{2,}$/, '');
 
     if (target === 'index') {
         target = path.join(Config.PUBLIC_DIR, 'index.html');
@@ -69,25 +65,23 @@ function getRenderPath(filepath) {
     return path.join(Config.PUBLIC_DIR, target, 'index.html');
 }
 
-
 /**
  * Defines the data model for a given post
  * @param  {[type]} filepath [description]
  * @return {[type]}          [description]
  */
 function getContent(filepath) {
-
     let content = fs.read(filepath);
 
     data = frontmatter(content);
 
     data = Object.assign(data, content.data);
 
-    delete(data.data);
+    delete data.data;
 
     // make published date a standard date string
     // TODO: fix published string
-    data.published = getPublished(data);
+    data.published = getPublishedDate(data);
 
     console.log(data.published);
 
@@ -109,12 +103,15 @@ function getContent(filepath) {
     // TODO: expunge empty data fields
 
     return data;
-
 }
 
-
+/**
+ * [renderPage description]
+ * @param  {[type]} filepath [description]
+ * @param  {[type]} norender [description]
+ * @return {[type]}          [description]
+ */
 const renderPage = function(filepath, norender) {
-
     norender = norender || false;
 
     let content = getContent(filepath);

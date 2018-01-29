@@ -1,0 +1,4 @@
+layout: blog
+taxonomies:
+    - categories
+    - tags

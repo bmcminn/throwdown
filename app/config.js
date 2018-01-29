@@ -1,29 +1,56 @@
 const path = require('path');
-const fs    = require('./utils/fs.js');
+const fs = require('./utils/fs.js');
+const _ = require('lodash');
 
-let Config = {};
+const defaults = {
+    cache: './app/cache',
+    destination: './public',
+    exclude: [],
+    future: false,
+    highlight_theme: 'Monokai Sublime',
+    host: 'localhost',
+    include: ['./content/**/*', './theme/**/*'],
+    lang: 'en',
+    limit_posts: 0,
+    port: 8080,
+    layout: 'pages',
+    show_drafts: false,
+    source: './content',
+    theme: './theme',
+    timezone: null,
+    unpublished: false,
+    mediaExts: ['gif', 'jpg', 'jpeg', 'png', 'tiff', 'mov', 'mp3', 'mp4'],
+    styleExts: ['sass', 'scss', 'styl', 'css'],
+    scriptExts: ['js', 'ts'],
+    markdownExts: ['markdown', 'mdown', 'mkdn', 'mkd', 'md', 'txt', 'mdwn'],
+    collections: {},
+};
 
-Config.ROOT_DIR = process.cwd();
+let configYAML = path.join(process.cwd(), './theme/config.yaml');
 
-Config.APP_DIR = path.join(Config.ROOT_DIR, 'app');
-Config.ASSETS_DIR = path.join(Config.APP_DIR, 'assets');
-Config.CACHE_DIR = path.join(Config.APP_DIR, 'cache');
+let overrides = fs.readYAML(configYAML);
 
-Config.CONTENT_DIR = path.join(Config.ROOT_DIR, 'content');
-Config.PUBLIC_DIR = path.join(Config.ROOT_DIR, 'public');
+let Config = _.defaultsDeep(defaults, overrides);
 
-Config.SERVER_PORT = 8080;
-Config.SERVER_PATH = path.join(process.cwd(), 'public');
+Config.watchFiles = [].concat(
+    Config.include.map((filepath) => path.join(process.cwd(), filepath)),
+    Config.exclude.map((filepath) => '!' + path.join(process.cwd(), filepath))
+);
 
-Config.DB_PATH = path.join(Config.CACHE_DIR, 'db.sqlite');
+// gather all custom config.yaml configs
+let collectionConfigs = fs.expand(
+    { filter: 'isFile' },
+    Config.watchFiles.map((filepath) => filepath + '/config.yaml')
+);
 
-if (!fs.exists(Config.DB_PATH)) {
-    fs.write(Config.DB_PATH, '');
-}
+_.each(collectionConfigs, (filepath) => {
+    //
+    let filepathParts = filepath.split('/');
 
-Config.watchFiles = [
-    path.join(Config.ASSETS_DIR, '**/*'),
-    path.join(Config.CONTENT_DIR, '**/*'),
-];
+    // get the second-to-last index (collection)
+    let collection = filepathParts[filepathParts.length - 2];
+
+    Config.collections[collection] = fs.readYAML(filepath);
+});
 
 module.exports = Config;
