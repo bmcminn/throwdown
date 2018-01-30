@@ -3,6 +3,7 @@ const frontmatter = require('gray-matter');
 
 const path = require('../utils/path.js');
 const fs = require('../utils/fs.js');
+const db = require('../utils/db.js');
 const Log = require('../utils/log.js');
 const Config = require('../config.js');
 const nunjucks = require('../utils/nunjucks.js');
@@ -15,7 +16,7 @@ const nunjucks = require('../utils/nunjucks.js');
 function getPostType(filepath) {
     let postType = 'page';
 
-    let stringParts = filepath.substr(Config.CONTENT_DIR.length + 1).split('/');
+    let stringParts = filepath.substr(Config.source.length + 1).split('/');
 
     if (stringParts.length > 1) {
         postType = stringParts[0];
@@ -37,7 +38,7 @@ function getPublishedDate(content) {
     console.log(content.published);
 
     let now = Date.now();
-    let pubDate = Date.parse(content.published);
+    let pubDate = Date(content.published);
 
     console.log(now, pubDate);
 
@@ -55,14 +56,14 @@ function getPublishedDate(content) {
  */
 function getRenderPath(filepath) {
     let target = filepath
-        .substr(Config.CONTENT_DIR.length + 1)
+        .substr(Config.source.length + 1)
         .replace(/\.[\w\d]{2,}$/, '');
 
-    if (target === 'index') {
-        target = path.join(Config.PUBLIC_DIR, 'index.html');
+    if (target.match(/index/)) {
+        target = path.join(Config.destination, 'index.html');
     }
 
-    return path.join(Config.PUBLIC_DIR, target, 'index.html');
+    return path.join(Config.destination, target, 'index.html');
 }
 
 /**
@@ -119,7 +120,6 @@ const renderPage = function(filepath, norender) {
     if (norender) {
         return content;
     }
-
     return content;
 };
 
