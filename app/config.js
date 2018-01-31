@@ -55,13 +55,13 @@ let configYAML = path.join(process.cwd(), './config.yaml');
 // get user config overrides
 let overrides = fs.readYAML(configYAML);
 
-console.log('config.yaml', overrides);
+// Log.debug('config.yaml', overrides);
 
 // define Config export using defaults and overrides
 // TODO: fix defaultsDeep not actually overwriting defaults
 let Config = _.defaultsDeep(defaults, overrides);
 
-console.log('config::post defaults', Config);
+// Log.debug('config::post defaults', Config);
 
 // define watchFiles for serve.js watch process
 Config.watchFiles = [].concat(
@@ -104,7 +104,7 @@ Config.collections.defaults = {
     layout: Config.layout,
 };
 
-console.log(Config.theme);
+// Log.debug(Config.theme);
 
 // ensure our theme directory exists
 if (!fs.isDir(Config.theme)) {

@@ -35,12 +35,12 @@ function getPublishedDate(content) {
         return false;
     }
 
-    console.log(content.published);
+    // Log.debug(content.published);
 
     let now = Date.now();
     let pubDate = Date(content.published);
 
-    console.log(now, pubDate);
+    // Log.debug(now, pubDate);
 
     if (now < pubDate) {
         return false;
@@ -84,7 +84,7 @@ function getContent(filepath) {
     // TODO: fix published string
     data.published = getPublishedDate(data);
 
-    console.log(data.published);
+    // Log.debug(data.published);
 
     // // map author as array if string
     // if (data.author)
