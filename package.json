@@ -40,7 +40,7 @@
         "walk": "^2.3.9"
     },
     "scripts": {
-        "serve": "nodemon app/serve.js",
+        "serve": "nodemon app/main.js",
         "prettier": "node_module./app/prettier ./app/**/*.js --write",
         "index-content": "node ./app/tasks/index-file-system.js"
     }

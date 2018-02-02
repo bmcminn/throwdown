@@ -8,6 +8,11 @@ const Log = require('../utils/log.js');
 const Config = require('../config.js');
 const nunjucks = require('../utils/nunjucks.js');
 
+
+// TODO: register shortcode plugins and call the necessary shortcode with these parameters
+const shortcodeHandlers = {};
+
+
 /**
  * get post type based on the directory we're storing the file in
  * @param  {string} filepath target filepath
@@ -112,7 +117,7 @@ function getContent(filepath) {
  * @param  {[type]} norender [description]
  * @return {[type]}          [description]
  */
-const renderPage = function(filepath, norender) {
+function renderPage(filepath, norender) {
     norender = norender || false;
 
     let content = getContent(filepath);
@@ -120,7 +125,54 @@ const renderPage = function(filepath, norender) {
     if (norender) {
         return content;
     }
+
+    // process short codes
+    let markup = content.content.replace(/\[\[([\s\S]+?)\]\]/gi, processShortcodes);
+
+    console.log(markup);
+    // console.log(markup);
+
+    // process markdown?
+
+    // process nunjucks?
+
     return content;
 };
+
+
+/**
+ * [processShortcodes description]
+ * @param  {[type]} match           [description]
+ * @param  {[type]} shortCodeConfig [description]
+ * @return {[type]}                 [description]
+ */
+function processShortcodes(match, shortCodeConfig) {
+
+    let parts = shortCodeConfig
+        .trim()
+        .replace(/\s+/g, ' ')
+        .split(' ')
+        ;
+
+    let shortcode = parts[0];
+
+    let opts = {};
+
+    parts
+        .slice(1)
+        .map((prop) => {
+            prop = prop.split('=');
+            opts[prop[0]] = prop[1];
+        });
+
+    console.log(shortcode, opts);
+
+    // if shortcude goes unprocessed, replace with html comment
+    if (!shortcodeHandlers[shortcode]) {
+        return `<!-- couldn't process shortcode '${shortcode}' -->`;
+    }
+
+}
+
 
 module.exports = renderPage;

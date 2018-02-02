@@ -35,6 +35,15 @@
 </head>
 <body>
 
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <footer>
+        &copy; <?php echo date('Y'); ?> -- {{ site.title }}
+    </footer>
+
     {% block baseScripts %}
         {% for script in baseScripts %}
             <script src="{{ script }}"></script>

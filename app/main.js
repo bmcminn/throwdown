@@ -6,15 +6,15 @@ const Config = require('./config.js');
 const FS = require('./utils/fs.js');
 const bus = require('./utils/bus.js');
 const Log = require('./utils/log.js');
-const migrateMediaFiles = require('./utils/migrate-media-files.js');
+// const migrateMediaFiles = require('./middleware/migrate-media-files.js');
 
 // =============================================
 //  LOAD APP MIDDLEWARE
 // =============================================
 
 const events = {
-    cssUpdate: 'update-css',
-    jsUpdate: 'update-js',
+    cssUpdate:     'update-css',
+    jsUpdate:      'update-js',
     contentUpdate: 'update-content',
 };
 
@@ -32,7 +32,7 @@ bus.on(events.contentUpdate, require('./middleware/renders.js'));
  * @param  {[type]} exts     [description]
  * @param  {[type]} filepath [description]
  */
-function processFiles(name, exts, filepath) {
+function registerEventHooks(name, exts, filepath) {
     let extRegex = new RegExp('.' + exts.join('|') + '$');
     if (filepath.match(extRegex)) {
         bus.emit('pre-' + name, filepath);
@@ -51,13 +51,13 @@ chokidar
     })
     .on('change', function(filepath, filemeta) {
         // process style files
-        processFiles(events.cssUpdate, defaults.styleExts, filepath);
+        registerEventHooks(events.cssUpdate, Config.styleExts, filepath);
 
         // process js files
-        processFiles(events.jsUpdate, defaults.scriptExts, filepath);
+        registerEventHooks(events.jsUpdate, Config.scriptExts, filepath);
 
         // process content files
-        processFiles(events.contentUpdate, defaults.markdownExts, filepath);
+        registerEventHooks(events.contentUpdate, Config.markdownExts, filepath);
     });
 
 // =============================================
