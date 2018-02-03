@@ -12,6 +12,19 @@ const nunjucks = require('../utils/nunjucks.js');
 // TODO: register shortcode plugins and call the necessary shortcode with these parameters
 const shortcodeHandlers = {};
 
+fs
+    .expand(fs.filter.isFile, [
+        path.join(process.cwd(), 'app/plugins/**/shortcode.*.js')
+    ])
+    .map((filepath) => {
+        let plugin = require(filepath);
+
+        shortcodeHandlers[plugin.label] = plugin.processor;
+    })
+    ;
+
+
+
 
 /**
  * get post type based on the directory we're storing the file in
@@ -150,11 +163,11 @@ function processShortcodes(match, shortCodeConfig) {
 
     let parts = shortCodeConfig
         .trim()
-        .replace(/\s+/g, ' ')
-        .split(' ')
+        // .replace(/\s+/g, ' ')
+        .split('||')
         ;
 
-    let shortcode = parts[0];
+    let shortcode = parts[0].trim();
 
     let opts = {};
 
@@ -162,17 +175,37 @@ function processShortcodes(match, shortCodeConfig) {
         .slice(1)
         .map((prop) => {
             prop = prop.split('=');
-            opts[prop[0]] = prop[1];
-        });
 
-    console.log(shortcode, opts);
+            let key = prop[0].trim().toLowerCase();
+            let val = prop[1].trim();
+            let value;
+
+            value = val;
+
+            val.toLowerCase() === 'true'
+                ? value = true
+                : null
+                ;
+
+            val.toLowerCase() === 'false'
+                ? value = false
+                : null
+                ;
+
+            val.match(/^[\d.,]+$/)
+                ? value = parseFloat(val, 10)
+                : null
+                ;
+
+            opts[key] = value;
+        });
 
     // if shortcude goes unprocessed, replace with html comment
     if (!shortcodeHandlers[shortcode]) {
         return `<!-- couldn't process shortcode '${shortcode}' -->`;
     }
 
+    return shortcodeHandlers[shortcode](opts);
 }
-
 
 module.exports = renderPage;

@@ -24,4 +24,11 @@ FS.append = (filepath, data, opts) => {
     return content;
 };
 
+
+FS.filter = {
+    isFile: { filter: 'isFile' },
+    isDir: { filter: 'isDir' }
+};
+
+
 module.exports = FS;
