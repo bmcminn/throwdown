@@ -12,7 +12,7 @@ const md = require('../utils/markdownit.js');
 let viewsPath = path.join(Config.theme, 'views');
 
 let njopts = {
-
+    autoescape: false
 };
 
 const nunjucks = require('../utils/nunjucks.js')([viewsPath], njopts);
@@ -221,7 +221,7 @@ function renderPage(filepath, norender) {
     }
 
     let model = Object.assign(Config, {
-        post: pageData,
+        page: pageData,
     });
 
     // process short codes
@@ -230,13 +230,17 @@ function renderPage(filepath, norender) {
         processShortcodes
     );
 
-    content = md.render(content);
-    // console.log(markup);
+    Log.debug(content);
+
+    // model.content = md.render(content);
+    model.content = content;
+
+    delete(model.page.content);
 
     // process markdown?
-    markup = nunjucks.render(pageData.template, model);
 
     // process nunjucks?
+    markup = nunjucks.render(pageData.template, model);
 
     console.log(markup);
 

@@ -3,14 +3,16 @@
  * @sauce: https://perishablepress.com/best-method-for-email-obfuscation/
  */
 
-const md    = require('markdown-it')();
-const prism = require('markdown-it-prism');
+const md = require('../markdownit.js');
 
-let opts = {
+// const md    = require('markdown-it')();
+// const prism = require('markdown-it-prism');
 
-} ;
+// let opts = {
 
-md.use(prism, opts);
+// } ;
+
+// md.use(prism, opts);
 
 
 var mdFilter = function mdFilter(nunjucks) {

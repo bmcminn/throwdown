@@ -79,13 +79,13 @@ Reloader.prototype.getFiles = function() {
 Reloader.prototype.getFileName = function(filepath) {
     let self = this;
 
-    Log.debug(filepath);
+    // Log.debug(filepath);
 
     let filename = filepath
         .substr(self.viewsDir.length + 1) // remove the base directory path
         .replace(regex.ext, '');
 
-    Log.debug(filename);
+    // Log.debug(filename);
 
     return filename;
 };
