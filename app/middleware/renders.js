@@ -83,9 +83,11 @@ function getRenderPath(filepath) {
 
     if (target.match(/index/)) {
         target = path.join(Config.destination, 'index.html');
+    } else {
+        target = path.join(Config.destination, target, 'index.html');
     }
 
-    return path.join(Config.destination, target, 'index.html');
+    return target;
 }
 
 
@@ -242,7 +244,7 @@ function renderPage(filepath, norender) {
     // process nunjucks?
     markup = nunjucks.render(pageData.template, model);
 
-    console.log(markup);
+    fs.write(pageData.renderPath, markup);
 
     return pageData;
 }

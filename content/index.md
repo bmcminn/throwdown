@@ -5,8 +5,6 @@ pants: true
 template: homepage
 ---
 
-This is the homepage! sdfsdf
-
 Patns esfjsekl sdfsdfsfdfs
 
 [[ label
@@ -22,3 +20,4 @@ Patns esfjsekl sdfsdfsfdfs
 [[ video
 || url = https://player.vimeo.com/video/252056935
 ]]
+
