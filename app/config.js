@@ -39,6 +39,9 @@ const defaults = {
     source: './content',
     theme: './theme',
 
+    // define view template extension default
+    view_ext: 'twig',
+
     // file extensions to be watched for changes
     mediaExts: ['gif', 'jpg', 'jpeg', 'png', 'tiff', 'mov', 'mp3', 'mp4'],
     styleExts: ['sass', 'scss', 'styl', 'css'],

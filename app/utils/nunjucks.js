@@ -7,7 +7,13 @@ const regex = {
     ext: /\.[\w\d]{2,}$/i,
 };
 
-let reloader = new nunjucks.Loader.extend({
+let reloader = nunjucks.Loader.extend({
+    /**
+     * Constructor for the nunjucks loader instance
+     * @param  {array}  viewspath list of views paths
+     * @param  {obj}    opts      configuration for this loader instance
+     * @return {nunjucks}
+     */
     init: function(viewspath, opts) {
         this.opts = opts || {};
         this.templates = {};
@@ -17,15 +23,15 @@ let reloader = new nunjucks.Loader.extend({
 
         this.getFiles();
 
+        console.log(this.templates);
+
         let self = this;
 
-        if (this.opts.watch) {
-            chokidar.watch(self.viewsDir).on('change', (filepath) => {
-                console.log('updated view:', filepath);
-                this.getFile(filepath);
-                this.emit('update', this.getFileName(filepath));
-            });
-        }
+        chokidar.watch(self.viewsDir).on('change', (filepath) => {
+            console.log('updated view:', filepath);
+            this.getFile(filepath);
+            this.emit('update', this.getFileName(filepath));
+        });
     },
 
     getFile: function(filepath) {
@@ -42,6 +48,8 @@ let reloader = new nunjucks.Loader.extend({
             { filter: 'isFile' },
             path.join(self.viewsDir, '**/*' + self.opts.extension)
         );
+
+        console.log(viewFiles);
 
         viewFiles.map(this.getFile, this);
     },
@@ -142,6 +150,18 @@ let filters = {
     },
 };
 
-const env = new nunjucks.Environment(reloader);
 
-module.exports = nunjucks;
+module.exports = function(viewspath, opts) {
+
+    nunjucks.configure(viewspath, opts);
+
+    const env = new nunjucks.Environment(reloader);
+
+    for (filter in filters) {
+        if (filters.hasOwnProperty(filter)) {
+            env.addFilter(filter, filters[filter]);
+        }
+    }
+
+    return env;
+};

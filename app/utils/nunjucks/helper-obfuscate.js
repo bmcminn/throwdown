@@ -14,7 +14,7 @@ module.exports = function(content) {
         temp.push(content[i]);
 
         if (i % 5 === 0) {
-            temp.push('<span>null</span>');
+            temp.push('<span aria-hidden="true">null</span>');
         }
     }
 

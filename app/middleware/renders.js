@@ -6,7 +6,16 @@ const fs = require('../utils/fs.js');
 const db = require('../utils/db.js');
 const Log = require('../utils/log.js');
 const Config = require('../config.js');
-const Nunjucks = require('../utils/nunjucks.js');
+const md = require('../utils/markdownit.js');
+
+// init nunjucks instance
+let viewsPath = path.join(Config.theme, 'views');
+
+let njopts = {
+
+};
+
+const nunjucks = require('../utils/nunjucks.js')([viewsPath], njopts);
 
 // TODO: register shortcode plugins and call the necessary shortcode with these parameters
 const shortcodeHandlers = {};
@@ -79,6 +88,31 @@ function getRenderPath(filepath) {
     return path.join(Config.destination, target, 'index.html');
 }
 
+
+
+function getTemplate(data) {
+
+    // prioritize content template override
+    if (data.template) {
+        return data.template;
+    }
+
+    // use posttype template if it exists
+    if (data.postType) {
+
+        let postTypeTemplate = path.join(Config.theme, `views/${data.postType}.${Config.view_ext}`);
+
+        if (fs.exists(postTypeTemplate)) {
+            return data.postType;
+        }
+    }
+
+    // reutrn default template
+    return 'default';
+
+}
+
+
 /**
  * Defines the data model for a given post
  * @param  {[type]} filepath [description]
@@ -114,6 +148,8 @@ function getContent(filepath) {
     // assign render path
     data.renderPath = getRenderPath(filepath);
 
+    data.template = getTemplate(data);
+
     // TODO: expunge empty data fields
 
     return data;
@@ -128,13 +164,14 @@ function getContent(filepath) {
 function processShortcodes(match, shortCodeConfig) {
     let parts = shortCodeConfig
         .trim()
-        // .replace(/\s+/g, ' ')
         .split('||');
 
+    // get shortcode label
     let shortcode = parts[0].trim();
 
     let opts = {};
 
+    // parse all the attributes defined in the shortcode
     parts.slice(1).map((prop) => {
         prop = prop.split('=');
 
@@ -142,22 +179,27 @@ function processShortcodes(match, shortCodeConfig) {
         let val = prop[1].trim();
         let value;
 
+        // assign value, we'll override it based on the following conditions...
         value = val;
 
+        // if boolean true
         val.toLowerCase() === 'true' ? (value = true) : null;
 
+        // if boolean false
         val.toLowerCase() === 'false' ? (value = false) : null;
 
+        // if number
         val.match(/^[\d.,]+$/) ? (value = parseFloat(val, 10)) : null;
 
         opts[key] = value;
     });
 
-    // if shortcude goes unprocessed, replace with html comment
+    // check if we have a handler for this shortcode
     if (!shortcodeHandlers[shortcode]) {
         return `<!-- couldn't process shortcode '${shortcode}' -->`;
     }
 
+    // pass the shortcode parameters to the handler and return the updated contents
     return shortcodeHandlers[shortcode](opts);
 }
 
@@ -170,32 +212,33 @@ function processShortcodes(match, shortCodeConfig) {
 function renderPage(filepath, norender) {
     norender = norender || false;
 
-    let content = getContent(filepath);
+    let pageData = getContent(filepath);
 
     if (norender) {
-        return content;
+        return pageData;
     }
 
     let model = Object.assign(Config, {
-        post: content,
+        post: pageData,
     });
 
     // process short codes
-    let markup = content.content.replace(
+    let content = pageData.content.replace(
         /\[\[([\s\S]+?)\]\]/gi,
         processShortcodes
     );
 
+    content = md.render(content);
     // console.log(markup);
 
     // process markdown?
-    markup = nunjucks.renderString(model);
+    markup = nunjucks.render(pageData.template, model);
 
     // process nunjucks?
 
     console.log(markup);
 
-    return content;
+    return pageData;
 }
 
 module.exports = renderPage;
