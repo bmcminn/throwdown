@@ -6,25 +6,20 @@ const fs = require('../utils/fs.js');
 const db = require('../utils/db.js');
 const Log = require('../utils/log.js');
 const Config = require('../config.js');
-const nunjucks = require('../utils/nunjucks.js');
-
+const Nunjucks = require('../utils/nunjucks.js');
 
 // TODO: register shortcode plugins and call the necessary shortcode with these parameters
 const shortcodeHandlers = {};
 
 fs
     .expand(fs.filter.isFile, [
-        path.join(process.cwd(), 'app/plugins/**/shortcode.*.js')
+        path.join(process.cwd(), 'app/plugins/**/shortcode.*.js'),
     ])
     .map((filepath) => {
         let plugin = require(filepath);
 
         shortcodeHandlers[plugin.label] = plugin.processor;
-    })
-    ;
-
-
-
+    });
 
 /**
  * get post type based on the directory we're storing the file in
@@ -125,6 +120,48 @@ function getContent(filepath) {
 }
 
 /**
+ * [processShortcodes description]
+ * @param  {[type]} match           [description]
+ * @param  {[type]} shortCodeConfig [description]
+ * @return {[type]}                 [description]
+ */
+function processShortcodes(match, shortCodeConfig) {
+    let parts = shortCodeConfig
+        .trim()
+        // .replace(/\s+/g, ' ')
+        .split('||');
+
+    let shortcode = parts[0].trim();
+
+    let opts = {};
+
+    parts.slice(1).map((prop) => {
+        prop = prop.split('=');
+
+        let key = prop[0].trim().toLowerCase();
+        let val = prop[1].trim();
+        let value;
+
+        value = val;
+
+        val.toLowerCase() === 'true' ? (value = true) : null;
+
+        val.toLowerCase() === 'false' ? (value = false) : null;
+
+        val.match(/^[\d.,]+$/) ? (value = parseFloat(val, 10)) : null;
+
+        opts[key] = value;
+    });
+
+    // if shortcude goes unprocessed, replace with html comment
+    if (!shortcodeHandlers[shortcode]) {
+        return `<!-- couldn't process shortcode '${shortcode}' -->`;
+    }
+
+    return shortcodeHandlers[shortcode](opts);
+}
+
+/**
  * [renderPage description]
  * @param  {[type]} filepath [description]
  * @param  {[type]} norender [description]
@@ -139,73 +176,26 @@ function renderPage(filepath, norender) {
         return content;
     }
 
-    // process short codes
-    let markup = content.content.replace(/\[\[([\s\S]+?)\]\]/gi, processShortcodes);
+    let model = Object.assign(Config, {
+        post: content,
+    });
 
-    console.log(markup);
+    // process short codes
+    let markup = content.content.replace(
+        /\[\[([\s\S]+?)\]\]/gi,
+        processShortcodes
+    );
+
     // console.log(markup);
 
     // process markdown?
+    markup = nunjucks.renderString(model);
 
     // process nunjucks?
 
+    console.log(markup);
+
     return content;
-};
-
-
-/**
- * [processShortcodes description]
- * @param  {[type]} match           [description]
- * @param  {[type]} shortCodeConfig [description]
- * @return {[type]}                 [description]
- */
-function processShortcodes(match, shortCodeConfig) {
-
-    let parts = shortCodeConfig
-        .trim()
-        // .replace(/\s+/g, ' ')
-        .split('||')
-        ;
-
-    let shortcode = parts[0].trim();
-
-    let opts = {};
-
-    parts
-        .slice(1)
-        .map((prop) => {
-            prop = prop.split('=');
-
-            let key = prop[0].trim().toLowerCase();
-            let val = prop[1].trim();
-            let value;
-
-            value = val;
-
-            val.toLowerCase() === 'true'
-                ? value = true
-                : null
-                ;
-
-            val.toLowerCase() === 'false'
-                ? value = false
-                : null
-                ;
-
-            val.match(/^[\d.,]+$/)
-                ? value = parseFloat(val, 10)
-                : null
-                ;
-
-            opts[key] = value;
-        });
-
-    // if shortcude goes unprocessed, replace with html comment
-    if (!shortcodeHandlers[shortcode]) {
-        return `<!-- couldn't process shortcode '${shortcode}' -->`;
-    }
-
-    return shortcodeHandlers[shortcode](opts);
 }
 
 module.exports = renderPage;
