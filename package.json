@@ -15,7 +15,9 @@
             "url": "https://raw.github.com/bmcminn/throwdown/master/LICENSE"
         }
     ],
-    "dependencies": {},
+    "dependencies": {
+        "markdown-it-prism": "^1.1.1"
+    },
     "devDependencies": {
         "bluebird": "^3.5.1",
         "chalk": "^2.3.0",

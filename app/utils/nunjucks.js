@@ -1,86 +1,111 @@
 const path = require('path');
-const fs = require('../utils/fs.js');
 const nunjucks = require('nunjucks');
 const chokidar = require('chokidar');
+
+const fs = require('../utils/fs.js');
+const Log = require('../utils/log.js');
 
 const regex = {
     ext: /\.[\w\d]{2,}$/i,
 };
 
-let reloader = nunjucks.Loader.extend({
-    /**
-     * Constructor for the nunjucks loader instance
-     * @param  {array}  viewspath list of views paths
-     * @param  {obj}    opts      configuration for this loader instance
-     * @return {nunjucks}
-     */
-    init: function(viewspath, opts) {
-        this.opts = opts || {};
-        this.templates = {};
-        // TODO: need better way of passing custom options to nunjucks instance
-        this.opts.extension = this.opts.extension || '.twig';
-        this.viewsDir = viewspath[0];
 
-        this.getFiles();
 
-        console.log(this.templates);
+// Reloader.prototype.getSource = function(name) {
+//     // load the template
+//     // return an object with:
+//     //   - src:     String. The template source.
+//     //   - path:    String. Path to template.
+//     //   - noCache: Bool. Don't cache the template (optional).
+// }
 
-        let self = this;
+function Reloader(viewspath, opts) {
+    this.init(viewspath, opts);
+    // this.opts = opts || {};
+    // this.opts.extension = this.opts.extension || '.twig';
+    // this.templates = {};
+    // // TODO: need better way of passing custom options to nunjucks instance
+    // this.viewsDir = viewspath;
 
-        chokidar.watch(self.viewsDir).on('change', (filepath) => {
-            console.log('updated view:', filepath);
-            this.getFile(filepath);
-            this.emit('update', this.getFileName(filepath));
-        });
-    },
+    // this.getFiles();
 
-    getFile: function(filepath) {
-        let self = this;
+    // console.log(this.templates);
+}
 
-        let name = this.getFileName(filepath);
-        this.templates[name] = fs.read(filepath);
-    },
 
-    getFiles: function() {
-        let self = this;
+/**
+ * Constructor for the nunjucks loader instance
+ * @param  {array}  viewspath list of views paths
+ * @param  {obj}    opts      configuration for this loader instance
+ * @return {nunjucks}
+ */
+Reloader.prototype.init = function(viewspath, opts) {
 
-        let viewFiles = fs.expand(
-            { filter: 'isFile' },
-            path.join(self.viewsDir, '**/*' + self.opts.extension)
-        );
+    this.opts = opts || {};
+    this.opts.extension = this.opts.extension || '.twig';
+    this.templates = {};
+    // TODO: need better way of passing custom options to nunjucks instance
+    this.viewsDir = path.resolve(viewspath[0]);
 
-        console.log(viewFiles);
+    this.getFiles();
 
-        viewFiles.map(this.getFile, this);
-    },
+    // let self = this;
 
-    getFileName: function(filepath) {
-        let self = this;
+    // chokidar.watch(self.viewsDir).on('change', (filepath) => {
+    //     console.log('updated view:', filepath);
+    //     this.getFile(filepath);
+    //     this.emit('update', this.getFileName(filepath));
+    // });
+};
 
-        let filename = filepath
-            .substr(self.viewsDir.length + 1) // remove the base directory path
-            .replace(regex.ext, '');
+Reloader.prototype.getFile = function(filepath) {
+    let self = this;
 
-        return filename;
-    },
+    let name = this.getFileName(filepath);
+    this.templates[name] = fs.read(filepath);
+};
 
-    // TODO: add watcher process to update files when changed
-    getSource: function(name) {
-        let self = this;
+Reloader.prototype.getFiles = function() {
+    let self = this;
 
-        name = name.replace(regex.ext, '');
+    let viewFiles = fs.expand(
+        { filter: 'isFile' },
+        path.join(self.viewsDir, '**/*' + self.opts.extension)
+    );
 
-        if (!self.templates[name]) {
-            throw Error(`No template '${name}' exists.`);
-        }
+    viewFiles.map(this.getFile, this);
+};
 
-        return {
-            src: self.templates[name],
-            path: name,
-            noCache: this.noCache || false,
-        };
-    },
-});
+Reloader.prototype.getFileName = function(filepath) {
+    let self = this;
+
+    Log.debug(filepath);
+
+    let filename = filepath
+        .substr(self.viewsDir.length + 1) // remove the base directory path
+        .replace(regex.ext, '');
+
+    Log.debug(filename);
+
+    return filename;
+};
+
+// TODO: add watcher process to update files when changed
+Reloader.prototype.getSource = function(name) {
+    let self = this;
+
+    name = name.replace(regex.ext, '');
+
+    if (!self.templates[name]) {
+        throw Error(`No template '${name}' exists.`);
+    }
+
+    return {
+        src: self.templates[name],
+        path: name,
+        noCache: this.noCache || false,
+    };
+};
 
 let filters = {
     date: function(datetime, format) {
@@ -155,7 +180,9 @@ module.exports = function(viewspath, opts) {
 
     nunjucks.configure(viewspath, opts);
 
-    const env = new nunjucks.Environment(reloader);
+    // let Reloader = new nunjucks.Loader.extend(Reloader);
+
+    const env = new nunjucks.Environment(new Reloader(viewspath, opts));
 
     for (filter in filters) {
         if (filters.hasOwnProperty(filter)) {

@@ -119,11 +119,11 @@ function getTemplate(data) {
  * @return {[type]}          [description]
  */
 function getContent(filepath) {
-    let content = fs.read(filepath);
+    let fileContent = fs.read(filepath);
 
-    data = frontmatter(content);
+    data = frontmatter(fileContent);
 
-    data = Object.assign(data, content.data);
+    data = Object.assign(data, data.data);
 
     delete data.data;
 
@@ -149,6 +149,8 @@ function getContent(filepath) {
     data.renderPath = getRenderPath(filepath);
 
     data.template = getTemplate(data);
+
+    Log.debug('getTemplate', data);
 
     // TODO: expunge empty data fields
 

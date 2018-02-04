@@ -8,7 +8,7 @@ console.log(test1);
 console.log('--------------------------');
 
 
-let test2 = nunjucks.render('default', { content: 'help' });
+let test2 = nunjucks.render('default', { content: '# waffles\nPANTS' });
 
 console.log(test2);
 

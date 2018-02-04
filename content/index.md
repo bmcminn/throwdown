@@ -2,6 +2,7 @@
 title: Homepage
 # published: false
 pants: true
+template: homepage
 ---
 
 This is the homepage! sdfsdf
