@@ -12,12 +12,12 @@ const md = require('../utils/markdownit.js');
 let viewsPath = path.join(Config.theme, 'views');
 
 let njopts = {
-    autoescape: false
+    autoescape: false,
 };
 
 const nunjucks = require('../utils/nunjucks.js')([viewsPath], njopts);
 
-// TODO: register shortcode plugins and call the necessary shortcode with these parameters
+// register shortcode plugins
 const shortcodeHandlers = {};
 
 fs
@@ -35,10 +35,15 @@ fs
  * @param  {string} filepath target filepath
  * @return {string}          name of post type
  */
-function getPostType(filepath) {
+function getPostType(data) {
+    // bail if we already provided the post type in the front matter config
+    if (data.postType) {
+        return data.postType;
+    }
+
     let postType = 'page';
 
-    let stringParts = filepath.substr(Config.source.length + 1).split('/');
+    let stringParts = data.filepath.substr(Config.source.length + 1).split('/');
 
     if (stringParts.length > 1) {
         postType = stringParts[0];
@@ -90,10 +95,12 @@ function getRenderPath(filepath) {
     return target;
 }
 
-
-
+/**
+ * [getTemplate description]
+ * @param  {[type]} data [description]
+ * @return {[type]}      [description]
+ */
 function getTemplate(data) {
-
     // prioritize content template override
     if (data.template) {
         return data.template;
@@ -101,8 +108,10 @@ function getTemplate(data) {
 
     // use posttype template if it exists
     if (data.postType) {
-
-        let postTypeTemplate = path.join(Config.theme, `views/${data.postType}.${Config.view_ext}`);
+        let postTypeTemplate = path.join(
+            Config.theme,
+            `views/${data.postType}.${Config.view_ext}`
+        );
 
         if (fs.exists(postTypeTemplate)) {
             return data.postType;
@@ -111,9 +120,7 @@ function getTemplate(data) {
 
     // reutrn default template
     return 'default';
-
 }
-
 
 /**
  * Defines the data model for a given post
@@ -129,32 +136,49 @@ function getContent(filepath) {
 
     delete data.data;
 
+    // assign the filepath (unique identifier)
+    data.filepath = filepath;
+
     // make published date a standard date string
     // TODO: fix published string
     data.published = getPublishedDate(data);
 
-    // Log.debug(data.published);
-
     // // map author as array if string
-    // if (data.author)
+    data.author = getAuthor(data);
 
     // define postType
-    data.postType = data.postType || getPostType(filepath);
+    data.postType = getPostType(data);
 
     // trim leading/trailing whitespace from page content
     data.content = data.content.trim();
 
-    // assign the filepath (unique identifier)
-    data.filepath = filepath;
-
     // assign render path
     data.renderPath = getRenderPath(filepath);
 
+    // get template
     data.template = getTemplate(data);
 
-    Log.debug('getTemplate', data);
+    // expunge empty data fields
+    data = expungeNulls(data);
 
-    // TODO: expunge empty data fields
+    return data;
+}
+
+/**
+ * [expungeNulls description]
+ * @param  {[type]} oldData [description]
+ * @return {[type]}         [description]
+ */
+function expungeNulls(oldData) {
+    let data = {};
+
+    for (prop in oldData) {
+        if (oldData.hasOwnProperty(prop)) {
+            if (oldData[prop]) {
+                data[prop] = oldData[prop];
+            }
+        }
+    }
 
     return data;
 }
@@ -166,9 +190,7 @@ function getContent(filepath) {
  * @return {[type]}                 [description]
  */
 function processShortcodes(match, shortCodeConfig) {
-    let parts = shortCodeConfig
-        .trim()
-        .split('||');
+    let parts = shortCodeConfig.trim().split('||');
 
     // get shortcode label
     let shortcode = parts[0].trim();
@@ -208,6 +230,39 @@ function processShortcodes(match, shortCodeConfig) {
 }
 
 /**
+ * [getAuthor description]
+ * @param  {[type]} data [description]
+ * @return {[type]}      [description]
+ */
+function getAuthor(data) {
+    let authorList = [];
+
+    // bail if we haven't authored
+    if (!data.author) {
+        return null;
+    }
+
+    // validate if data.author is an array like it should be
+    if (!Array.isArray(data.author)) {
+        Log.error(data.filepath, ':: data.author should be an array.');
+        return [];
+    }
+
+    if (data.author) {
+        data.author.map((author) => {
+            if (Config.author[author]) {
+                authorList.push(Config.author[author]);
+            } else {
+                Log.warn(`Author ${author} does not exist in config.yaml`);
+            }
+        });
+    }
+
+    //
+    return authorList.length > 0 ? authorList : null;
+}
+
+/**
  * [renderPage description]
  * @param  {[type]} filepath [description]
  * @param  {[type]} norender [description]
@@ -232,12 +287,10 @@ function renderPage(filepath, norender) {
         processShortcodes
     );
 
-    Log.debug(content);
-
     // model.content = md.render(content);
     model.content = content;
 
-    delete(model.page.content);
+    delete model.page.content;
 
     // process markdown?
 
