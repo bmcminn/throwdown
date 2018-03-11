@@ -6,7 +6,7 @@
     "author": "Brandtley McMinn <labs@giggleboxstudios.net>",
     "homepage": "https://bmcminn.github.io/throwdown",
     "bugs": "https://github.com/bmcminn/throwdown/issues",
-    "main": "serve.js",
+    "main": "app/main.js",
     "repository": "https://github.com/bmcminn/throwdown",
     "license": "MIT",
     "licenses": [
@@ -45,5 +45,8 @@
         "serve": "nodemon app/main.js",
         "prettier": "node_module./app/prettier ./app/**/*.js --write",
         "index-content": "node ./app/tasks/index-file-system.js"
+    },
+    "throwdown": {
+
     }
 }
